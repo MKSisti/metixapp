@@ -1,26 +1,25 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="h-screen text-black-light-15">
+    <div class="grid grid-cols-side h-full">
+      <sidebar />
+      <div class="bg-black-base px-10 py-4">
+        <!-- content -->
+        <add-group/>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Sidebar from "../src/components/TheSidebar.vue";
+import AddGroup from "../src/views/AddGroup.vue";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  components: { Sidebar, AddGroup },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.full-height {
+  height: 100vh;
 }
 </style>
