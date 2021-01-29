@@ -2,6 +2,14 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    minHeight: {
+      "1": "1rem",
+      "2": "2rem",
+      "3": "3rem",
+      "4": "4rem",
+      "5": "5rem",
+
+    },
     extend: {
       gridTemplateColumns: {
         side: "15rem 1fr",

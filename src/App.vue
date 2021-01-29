@@ -2,7 +2,7 @@
   <div class="h-screen text-black-light-15">
     <div class="grid grid-cols-side h-full">
       <sidebar />
-      <div class="bg-black-base px-10 py-4">
+      <div class="bg-black-base pl-10 pt-4">
         <!-- content -->
         <add-group/>
       </div>
