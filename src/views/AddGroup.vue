@@ -1,17 +1,17 @@
 <template>
-  <div class="capitalize relative h-full  xl:bg-red-400 space-y-8">
+  <div class="capitalize relative h-full  space-y-8">
     <div class="mb-6">
-      <h1 class=" xl:bg-red-400 text-4xl font-bold">ADD A NEW GROUP</h1>
+      <h1 class=" text-4xl font-bold">ADD A NEW GROUP</h1>
     </div>
     <div class="space-y-3">
-      <h1 class="font-semibold mb-2  xl:bg-red-400 text-2xl">name your group</h1>
+      <h1 class="font-semibold mb-2  text-2xl">name your group</h1>
       <div class="ml-8">
         <label for="group-name" class="block text-xl font-light uppercase">Group name</label>
         <input
           type="text"
           name="group-name"
           id="group-name"
-          class="border-black-light-10 border-2 bg-black-base p-1 text-xl placeholder-black-light-10 mt-2  xl:bg-red-400 px-6  xl:bg-red-400 py-4"
+          class="border-black-light-10 border-2 bg-black-base p-1 text-xl placeholder-black-light-10 mt-2  px-6  py-4"
           placeholder="Group1"
         />
       </div>
