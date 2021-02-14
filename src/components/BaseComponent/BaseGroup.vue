@@ -2,14 +2,14 @@
   <div class="flex justify-start items-center flex-col w-full">
     <!-- group name and mod expand btn-->
 
-    <div
+    <div @click="goToGrp()"
       :class="GrpActiveClass"
       class="cursor-pointer flex justify-between items-center flex-row w-full h-20 p-4"
     >
-      <h1 @click="goToGrp()" class="text-2xl uppercase">{{ name }}</h1>
+      <h1 class="text-2xl uppercase">{{ name }}</h1>
       <span
         class="cursor-pointer text-sm flex justify-center items-center"
-        @click="toggleExpanded"
+        @click.stop="toggleExpanded"
       >
         {{ modules.length + " mod" }}
         <box-icon
@@ -99,15 +99,16 @@
           v-for="module in modules"
         >
           <!--module name, hide if user clicks edit-->
-          <div
-            class="w-full flex justify-start items-center flex-row h-full"
+          <div @click="goToMod(module.id)"
+            class="w-full flex justify-start items-center flex-row h-full cursor-pointer"
             v-if="'[[EDIT__NOT__CLICKED]]'"
           >
-            <h1 @click="goToMod(module.id)" class="text-xl capitalize">
+            <h1 class="text-xl capitalize">
               {{ module.name }}
             </h1>
             <span
-              class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base"
+              @click.stop=""
+              class="text-sm flex justify-center items-center ml-2 text-blue-base"
             >
               <box-icon
                 name="pencil"
