@@ -1,0 +1,184 @@
+<template>
+  <div class="flex justify-start items-center flex-col w-full">
+    <!-- group name and mod expand btn-->
+    <div
+      :class="{ 'bg-black-base': active }"
+      class="cursor-pointer flex justify-between items-center flex-row w-full h-20 p-4"
+    >
+      <router-link :to="{ name: 'group', params: { GroupId: gid } }">
+        <h1 class="text-2xl uppercase">{{ name }}</h1>
+      </router-link>
+      <span
+        class="cursor-pointer text-sm flex justify-center items-center"
+        @click="toggleExpanded"
+      >
+        {{ modules.length + " mod" }}
+        <box-icon
+          type="solid"
+          name="chevron-down"
+          size="cssSize"
+          class="w-4 h-4 fill-current"
+          v-pre
+        ></box-icon>
+      </span>
+    </div>
+
+    <!-- if u visit the group page, show the modules avoids one more click if user wants to select a mod from that group-->
+    <div class="w-full justify-start items-start" v-if="active || expanded">
+      <!-- new module -->
+      <div v-if="expanded" class="relative w-full">
+        <!-- new module container, had to to position relative to parent but have more width -->
+        <div
+          style="
+            transform: translateX(calc(100% - 12rem));
+            width: calc(100% + 12rem);
+          "
+          :class="showHide"
+          class="h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2"
+        >
+          <!-- new module header  -->
+          <div class="w-full flex justify-between items-center">
+            <h1 class="text-2xl capitalize ml-4">New Module</h1>
+            <!-- new module close button -->
+            <span
+              @click="AddModuleVisible = false"
+              class="cursor-pointer hover:bg-red-light-1 text-2xl font-bold bg-red-base text-black-light-5 w-9 h-9 flex justify-center items-center"
+            >
+              <box-icon
+                name="plus"
+                size="cssSize"
+                class="w-full h-full fill-current transform rotate-45 scale-105"
+                v-pre
+              ></box-icon>
+            </span>
+          </div>
+
+          <!-- new module input -->
+          <base-input
+            class="w-full px-10"
+            name="module name"
+            type="text"
+            tmp="Module name"
+            maxLen="32"
+          ></base-input>
+
+          <!-- module done button -->
+          <div class="w-full">
+            <button
+              class="capitalize rounded-none bg-blue-base px-8 py-2 text-xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200 float-right"
+            >
+              done
+            </button>
+          </div>
+        </div>
+
+        <!-- new module prompt button -->
+        <div
+          class="bg-black-light-10 flex justify-between items-center flex-row w-full h-14 p-4"
+        >
+          <h1 class="text-xl capitalize">new module</h1>
+          <span
+            @click="showAddModule"
+            class="cursor-pointer hover:text-blue-light-1 text-2xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-center items-center p-px"
+          >
+            <box-icon
+              name="plus"
+              size="cssSize"
+              class="w-full h-full fill-current"
+              v-pre
+            ></box-icon>
+          </span>
+        </div>
+      </div>
+
+      <!-- modules of a group -->
+      <div v-if="expanded">
+        <div
+          class="bg-black-light-1 w-full h-14 px-7 border-b border-black-light-15 border-opacity-20"
+          :key="name + module.name"
+          v-for="module in modules"
+        >
+          <!--module name, hide if user clicks edit-->
+          <div
+            class="w-full flex justify-start items-center flex-row h-full"
+            v-if="'[[EDIT__NOT__CLICKED]]'"
+          >
+            <router-link
+              :to="{
+                name: 'module',
+                params: { GroupId: gid, ModuleId: module.id },
+              }"
+            >
+              <h1 class="text-xl capitalize">{{ module.name }}</h1>
+            </router-link>
+            <span
+              class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base"
+            >
+              <box-icon
+                name="pencil"
+                type="solid"
+                size="cssSize"
+                class="w-4 h-4 fill-current"
+                v-pre
+              ></box-icon>
+            </span>
+          </div>
+
+          <!--module input, show if user clicks edit -->
+          <div
+            class="w-full flex justify-between items-center flex-row h-full"
+            v-else
+          >
+            <input
+              type="text"
+              :value="module.name"
+              class="py-2 h-10 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-xl transition duration-200 -ml-3 pl-3"
+            />
+            <span
+              class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base"
+            >
+              <box-icon
+                name="check"
+                size="cssSize"
+                class="w-8 h-8 fill-current"
+                v-pre
+              ></box-icon>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import BaseInput from "./BaseInput";
+
+export default {
+  name: "BaseGroup",
+  props: ["name", "modules", "gid"],
+  components: {
+    BaseInput,
+  },
+  data() {
+    return {
+      active: false,
+      expanded: false,
+      AddModuleVisible: false,
+    };
+  },
+  computed: {
+    showHide() {
+      return this.AddModuleVisible ? "" : "invisible";
+    },
+  },
+  methods: {
+    toggleExpanded() {
+      this.expanded = !this.expanded;
+    },
+    showAddModule() {
+      this.AddModuleVisible = !this.AddModuleVisible;
+    },
+  },
+};
+</script>
