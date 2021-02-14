@@ -70,7 +70,7 @@
             <div
               :key="Object.entries(note)[0][0]"
               v-for="note in test.notes"
-              class="w-1/5 h-80 relative m-2 flex-auto flex justify-between items-start flex-col bg-black-light-5"
+              class="w-1/5 h-80 relative m-2 flex-auto flex justify-between items-start flex-col bg-black-light-5 max-w-md"
             >
               <!-- single student data show and edit -->
 
@@ -98,7 +98,7 @@
 
               <!-- student note input and show -->
               <base-input
-                class="px-8 -mt-5 w-full"
+                class="px-8 -mt-8 w-full"
                 :id="'[[XY00000__ID__NOTE]]'"
                 name="Note"
                 :value="'[[STUDENT__NOTE]]'"
