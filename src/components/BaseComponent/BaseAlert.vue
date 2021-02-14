@@ -1,0 +1,35 @@
+<template>
+  <transition name="rotate-up" appear>
+    <!-- yes this is the only thing with a transition and yes it is scoped -->
+    <div v-if="show" class="bg-red-base max-w-xl fixed flex justify-between items-center flex-col p-2 top-2 right-2 transition duration-200">
+      <!-- alert header  -->
+      <div class="w-full flex justify-between items-center">
+        <h1 class="text-2xl font-bold capitalize ml-4 text-black-base">Alert</h1>
+        <!-- alert close button -->
+        <span class="cursor-pointer hover:bg-black-light-5 text-2xl font-bold bg-black-light-1 text-red-base w-9 h-9 flex justify-center items-center">
+          <box-icon name="plus" size="cssSize" class="w-full h-full fill-current transform rotate-45 scale-105" v-pre></box-icon>
+        </span>
+      </div>
+
+      <!-- alert text -->
+      <div class="text-2xl font-medium py-4 text-black-base px-10">
+        {{ text }}
+      </div>
+    </div>
+  </transition>
+</template>
+
+<script>
+  export default {
+    name: 'BaseAlert',
+    props: ['show', 'text'],
+  };
+</script>
+
+<style scoped>
+  .rotate-up-enter-from,
+  .rotate-up-leave-to {
+    transform: rotate3d(1, 0, 0, 45deg) scale(0.95);
+    opacity: 0;
+  }
+</style>
