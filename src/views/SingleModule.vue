@@ -1,12 +1,10 @@
 <template>
   <base-body class="capitalize overflow-hidden pb-2">
     <template v-slot:title>
-
       <!-- module name already editable from sidebar -->
       <div class="w-full flex justify-start items-center flex-row h-full pl-10">
         <h1 class="text-4xl font-bold">MODULE__NAME</h1>
       </div>
-
     </template>
 
     <template v-slot:subtitles>
@@ -15,7 +13,6 @@
 
     <template v-slot:content>
       <div class="w-full mt-28 flex flex-col justify-start items-start space-y-2 px-3 overflow-auto">
-
         <!-- new test -->
         <div class="bg-black-light-1 flex justify-between items-center flex-row w-64 h-16 p-4">
           <h1 class="text-2xl capitalize font-bold">new Test</h1>
@@ -26,9 +23,8 @@
 
         <!-- test display loop -->
         <div :key="index" v-for="index in [1, 2]" class="bg-black-light-1 flex justify-between items-center flex-col w-full relative flex-none overflow-hidden">
-         
           <!-- testID internal generated ID (incrementing index or uuid) -->
-          <h1 :class="{'collapsedTestID':false &&  '[[TEST__COLLAPSED]]'}" class="text-base capitalize absolute top-2 left-2">TEST__ID</h1>
+          <h1 :class="{ collapsedTestID: false && '[[TEST__COLLAPSED]]' }" class="text-base capitalize absolute top-2 left-2">TEST__ID</h1>
 
           <!-- close btn -->
           <div class="w-full p-2">
@@ -38,10 +34,9 @@
           </div>
 
           <!-- student note container -->
-          <div :class="{'hidden':false && '[[TEST__COLLAPSED]]'}" class="w-full flex justify-around items-center flex-row flex-wrap pb-10">
-
+          <div :class="{ hidden: false && '[[TEST__COLLAPSED]]' }" class="w-full flex justify-around items-center flex-row flex-wrap pb-10">
             <!-- student note loop -->
-            <div :key="index" v-for="(index) in [1,2,3,4,5,6]" class="w-1/5 h-80 relative m-2 flex-auto flex justify-between items-start flex-col bg-black-light-5">
+            <div :key="index" v-for="index in [1, 2, 3, 4, 5, 6]" class="w-1/5 h-80 relative m-2 flex-auto flex justify-between items-start flex-col bg-black-light-5">
               <!-- single student data show and edit -->
 
               <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
@@ -66,8 +61,6 @@
                   update
                 </button>
               </div>
-
-
             </div>
           </div>
 
@@ -77,7 +70,6 @@
               <box-icon type="solid" name="chevron-down" size="cssSize" class="w-full h-full fill-current mt-1" v-pre></box-icon>
             </span>
           </div>
-
         </div>
       </div>
     </template>
@@ -95,14 +87,13 @@
 </script>
 
 <style scoped>
-
-.collapsedTestID{
-  position: absolute;
-  margin: 0;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  text-align: center;
-  @apply text-lg
-}
+  .collapsedTestID {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: center;
+    @apply text-lg;
+  }
 </style>

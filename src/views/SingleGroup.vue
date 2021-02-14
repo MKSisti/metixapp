@@ -1,7 +1,6 @@
 <template>
   <base-body class="capitalize overflow-hidden">
     <template v-slot:title>
-      
       <!-- group name -->
       <div class="w-full flex justify-start items-center flex-row h-full pl-10" v-if="'[[EDIT__NOT__CLICKED]]'">
         <h1 class="text-4xl font-bold">GROUP__NAME</h1>
@@ -9,7 +8,7 @@
           <box-icon name="pencil" type="solid" size="cssSize" class="w-8 h-8 fill-current mt-1" v-pre></box-icon>
         </span>
       </div>
-      
+
       <!-- group edit, on when edit is clicked -->
       <div class="w-full flex justify-start items-center flex-row h-full pl-10" v-else>
         <input type="text" class="py-2 h-16 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-4xl font-bold transition duration-200 -ml-3 pl-3" />
@@ -17,7 +16,6 @@
           <box-icon name="check" size="cssSize" class="w-12 h-12 fill-current" v-pre></box-icon>
         </span>
       </div>
-      
     </template>
 
     <template v-slot:subtitles>
@@ -25,9 +23,7 @@
     </template>
 
     <template v-slot:content>
-      
       <div class="w-full mt-28 flex flex-col justify-start items-start space-y-2 px-3 overflow-auto">
-
         <!-- new student, adds an empty student or template student with edit flag true -->
         <div class="bg-black-light-1 flex justify-between items-center flex-row w-64 h-16 p-4">
           <h1 class="text-2xl capitalize font-bold">new Student</h1>
@@ -37,8 +33,7 @@
         </div>
 
         <!-- student display loop -->
-        <div :key="index" v-for="(index) in [1,2,3,4]" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-52 relative pb-1 flex-none">
-          
+        <div :key="index" v-for="index in [1, 2, 3, 4]" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-52 relative pb-1 flex-none">
           <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
           <h1 class="text-base capitalize absolute top-2 left-2">XY00000__ID</h1>
 
@@ -51,7 +46,6 @@
 
           <!-- student card body -->
           <div class="w-full relative">
-            
             <!-- data display -->
             <div class="w-full flex justify-around items-center flex-row px-10" v-if="true">
               <h1 class="text-xl max-w-xs break-words">STUDENT__FNAME__LNAME</h1>
@@ -82,7 +76,6 @@
               done
             </button>
           </div>
-
         </div>
       </div>
     </template>
