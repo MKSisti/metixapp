@@ -21,4 +21,10 @@ export default {
 </script>
 
 <style>
+a.router-link-exact-active{
+  @apply bg-black-base;
+}
+/* a.router-link-active{
+  @apply bg-black-base;
+} */
 </style>

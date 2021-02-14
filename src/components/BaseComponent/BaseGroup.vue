@@ -1,13 +1,12 @@
 <template>
   <div class="flex justify-start items-center flex-col w-full">
     <!-- group name and mod expand btn-->
+
     <div
-      :class="{ 'bg-black-base': active }"
+      :class="GrpActiveClass"
       class="cursor-pointer flex justify-between items-center flex-row w-full h-20 p-4"
     >
-      <router-link :to="{ name: 'group', params: { GroupId: gid } }">
-        <h1 class="text-2xl uppercase">{{ name }}</h1>
-      </router-link>
+      <h1 @click="goToGrp()" class="text-2xl uppercase">{{ name }}</h1>
       <span
         class="cursor-pointer text-sm flex justify-center items-center"
         @click="toggleExpanded"
@@ -94,8 +93,9 @@
       <!-- modules of a group -->
       <div v-if="expanded">
         <div
-          class="bg-black-light-1 w-full h-14 px-7 border-b border-black-light-15 border-opacity-20"
-          :key="name + module.name"
+          :class="this.$route.params.ModuleId == module.id ? 'bg-black-base' : 'bg-black-light-1'"
+          class=" w-full h-14 px-7 border-b border-black-light-15 border-opacity-20"
+          :key="module.id"
           v-for="module in modules"
         >
           <!--module name, hide if user clicks edit-->
@@ -103,14 +103,9 @@
             class="w-full flex justify-start items-center flex-row h-full"
             v-if="'[[EDIT__NOT__CLICKED]]'"
           >
-            <router-link
-              :to="{
-                name: 'module',
-                params: { GroupId: gid, ModuleId: module.id },
-              }"
-            >
-              <h1 class="text-xl capitalize">{{ module.name }}</h1>
-            </router-link>
+            <h1 @click="goToMod(module.id)" class="text-xl capitalize">
+              {{ module.name }}
+            </h1>
             <span
               class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base"
             >
@@ -171,6 +166,10 @@ export default {
     showHide() {
       return this.AddModuleVisible ? "" : "invisible";
     },
+    GrpActiveClass() {
+      var current = this.$route.params.GroupId;
+      return this.gid == current ? "bg-black-base" : "";
+    },
   },
   methods: {
     toggleExpanded() {
@@ -178,6 +177,16 @@ export default {
     },
     showAddModule() {
       this.AddModuleVisible = !this.AddModuleVisible;
+    },
+    goToMod(mid) {
+      console.log("pushed");
+      this.$router.push({
+        name: "module",
+        params: { GroupId: this.gid, ModuleId: mid },
+      });
+    },
+    goToGrp() {
+      this.$router.push({ name: "group", params: { GroupId: this.gid } });
     },
   },
 };

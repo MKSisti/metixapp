@@ -3,9 +3,7 @@
     <div
       class="bg-transparent text-4xl font-bold flex justify-center items-center flex-row w-full h-20 p-4 text-blue-base"
     >
-      <router-link :to="{name:'home'}">
-        <h1>Metix</h1>
-      </router-link>
+      <h1>Metix</h1>
     </div>
 
     <!-- new group -->
