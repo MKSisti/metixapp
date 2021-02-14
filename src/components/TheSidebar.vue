@@ -1,14 +1,16 @@
 <template>
   <div class="bg-black-light-5 flex justify-start items-center flex-col h-full">
     <div
-      class="bg-transparent text-4xl font-bold flex justify-center items-center flex-row w-full h-20 p-4 text-blue-base"
+    @click="goToHome"
+      class="bg-transparent text-4xl font-bold flex justify-center items-center flex-row w-full h-20 p-4 text-blue-base cursor-pointer"
     >
       <h1>Metix</h1>
     </div>
 
     <!-- new group -->
     <div
-      class="bg-black-light-10 flex justify-between items-center flex-row w-full h-20 p-4"
+      @click="goToAdd"
+      class="bg-black-light-10 flex justify-between items-center flex-row w-full h-20 p-4 cursor-pointer"
     >
       <h1 class="text-2xl uppercase font-bold">new group</h1>
       <span
@@ -94,6 +96,14 @@ export default {
     ...mapGetters({
       groups: "getAllGroups",
     }),
+  },
+  methods: {
+    goToAdd() {
+      this.$router.push({ name: "addGroup" });
+    },
+    goToHome(){
+      this.$router.push({ name: "home" });
+    }
   },
 };
 </script>
