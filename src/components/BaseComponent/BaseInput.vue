@@ -7,7 +7,7 @@
       :type="type"
       :name="name"
       :id="id ? id : name"
-      class="transition duration-200 border-black-light-10 border-2 bg-black-base text-xl placeholder-black-light-10 px-6 py-4 w-full focus:outline-none focus:border-black-light-15"
+      class="transition duration-200 border-black-light-15 border-opacity-30 border-2 bg-transparent text-xl placeholder-black-light-10 px-6 py-4 w-full focus:outline-none focus:border-black-light-15"
       :value="value"
       :placeholder="tmp"
       autocomplete="none"

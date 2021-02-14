@@ -36,7 +36,7 @@
       </div>
 
       <div class="absolute bottom-2 right-2">
-        <button class="capitalize bg-blue-base px-10 py-2.5 text-2xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200">
+        <button class="capitalize rounded-none bg-blue-base px-10 py-2.5 text-2xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200">
           done
         </button>
       </div>
