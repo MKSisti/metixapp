@@ -23,7 +23,7 @@
     </div>
 
     <!-- if u visit the group page, show the modules avoids one more click if user wants to select a mod from that group-->
-    <div class="w-full justify-start items-start" v-if="active || expanded">
+    <div class="w-full justify-start items-start" v-if="expanded">
       <!-- new module -->
       <div v-if="expanded" class="relative w-full">
         <!-- new module container, had to to position relative to parent but have more width -->
@@ -93,8 +93,12 @@
       <!-- modules of a group -->
       <div v-if="expanded">
         <div
-          :class="this.$route.params.ModuleId == module.id ? 'bg-black-base' : 'bg-black-light-1'"
-          class=" w-full h-14 px-7 border-b border-black-light-15 border-opacity-20"
+          :class="
+            this.$route.params.ModuleId == module.id
+              ? 'bg-black-base'
+              : 'bg-black-light-1'
+          "
+          class="w-full h-14 px-7 border-b border-black-light-15 border-opacity-20"
           :key="module.id"
           v-for="module in modules"
         >
@@ -168,6 +172,7 @@ export default {
     },
     GrpActiveClass() {
       var current = this.$route.params.GroupId;
+
       return this.gid == current ? "bg-black-base" : "";
     },
   },
@@ -186,6 +191,8 @@ export default {
       });
     },
     goToGrp() {
+      this.expanded = true;
+
       this.$router.push({ name: "group", params: { GroupId: this.gid } });
     },
   },
