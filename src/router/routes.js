@@ -6,6 +6,11 @@ export default [
   {
     path: "/",
     name: "home",
+    component: AddGroup, // 👈 import and put home here
+  },
+  {
+    path: "/add",
+    name: "addGroup",
     component: AddGroup,
   },
   {

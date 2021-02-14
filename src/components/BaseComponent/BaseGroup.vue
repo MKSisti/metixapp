@@ -161,7 +161,6 @@ export default {
   },
   data() {
     return {
-      active: false,
       expanded: false,
       AddModuleVisible: false,
     };
