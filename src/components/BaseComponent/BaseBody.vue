@@ -2,10 +2,10 @@
   <div class=" relative h-full">
     <div class="flex justify-between">
       <div class="mb-6 space-y-2">
-        <h1 class="text-4xl font-bold">
+        <span class="text-4xl font-bold flex justify-start items-center flex-row relative">
           <slot name="title"></slot>
-        </h1>
-        <div class="">
+        </span>
+        <div>
           <slot name="subtitles"></slot>
         </div>
       </div>

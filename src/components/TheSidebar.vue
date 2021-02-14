@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black-light-5 flex justify-start items-center flex-col h-full w-full">
+  <div class="bg-black-light-5 flex justify-start items-center flex-col h-full">
     <div class="bg-transparent text-4xl font-bold flex justify-center items-center flex-row w-full h-20 p-4 text-blue-base">
       <h1>Metix</h1>
     </div>
@@ -14,7 +14,6 @@
 
     <!-- a single group -->
     <div class="flex justify-start items-center flex-col w-full" :key="group.name" v-for="group in SAMPLE__GROUP">
-
       <!-- group name and mod expand btn-->
       <div :class="{ 'bg-black-base': group.active }" class="flex justify-between items-center flex-row w-full h-20 p-4">
         <h1 class="text-2xl uppercase">{{ group.name }}</h1>
@@ -28,10 +27,8 @@
       <div class="w-full justify-start items-start" v-if="group.active || group.expanded">
         <!-- new module -->
         <div class="relative w-full">
-
           <!-- new module container, had to to position relative to parent but have more width -->
-          <div style="transform:translateX(calc(100% - 12rem));width:calc(100% + 12rem)" class="h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2">
-            
+          <div style="transform:translateX(calc(100% - 12rem));width:calc(100% + 12rem)" class="invisible h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2">
             <!-- new module header  -->
             <div class="w-full flex justify-between items-center">
               <h1 class="text-2xl capitalize ml-4">New Module</h1>
@@ -50,8 +47,6 @@
                 done
               </button>
             </div>
-
-
           </div>
 
           <!-- new module prompt button -->
@@ -61,12 +56,10 @@
               <box-icon name="plus" size="cssSize" class="w-full h-full fill-current" v-pre></box-icon>
             </span>
           </div>
-
         </div>
 
         <!-- modules of a group -->
         <div class="bg-black-light-1 w-full h-14 px-7 border-b border-black-light-15 border-opacity-20" :key="group.name + module.name" v-for="module in group.modules">
-          
           <!--module name, hide if user clicks edit-->
           <div class="w-full flex justify-start items-center flex-row h-full" v-if="'[[EDIT__NOT__CLICKED]]'">
             <h1 class="text-xl capitalize">{{ module.name }}</h1>
@@ -82,7 +75,6 @@
               <box-icon name="check" size="cssSize" class="w-8 h-8 fill-current" v-pre></box-icon>
             </span>
           </div>
-
         </div>
       </div>
     </div>

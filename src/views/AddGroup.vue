@@ -1,5 +1,5 @@
 <template>
-  <base-body class="capitalize">
+  <base-body class="capitalize pl-10">
     <template v-slot:title>ADD A NEW GROUP</template>
     <template v-slot:content>
       <div class="space-y-3">
