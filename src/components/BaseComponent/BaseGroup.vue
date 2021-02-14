@@ -104,7 +104,7 @@
         >
           <!--module name, hide if user clicks edit-->
           <div @click="goToMod(module.id)"
-            class="w-full flex justify-start items-center flex-row h-full cursor-pointer"
+            class="w-full flex justify-between items-center flex-row h-full cursor-pointer"
             v-if="'[[EDIT__NOT__CLICKED]]'"
           >
             <h1 class="text-xl capitalize">
