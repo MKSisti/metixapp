@@ -1,12 +1,13 @@
 import AddGroup from "../views/AddGroup";
 import SingleGroup from "../views/SingleGroup";
 import SingleModule from "../views/SingleModule";
+import LandingPage from "../views/LandingPage"
 
 export default [
   {
     path: "/",
     name: "home",
-    component: AddGroup, // 👈 import and put home here
+    component: LandingPage, // 👈 import and put home here
   },
   {
     path: "/add",

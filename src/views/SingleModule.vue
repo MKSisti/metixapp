@@ -1,5 +1,5 @@
 <template>
-  <base-body class="capitalize overflow-hidden pb-2">
+  <base-body class="capitalize overflow-hidden pb-2 pt-4">
     <template v-slot:title>
       <!-- module name already editable from sidebar -->
       <div class="w-full flex justify-start items-center flex-row h-full pl-10">
@@ -8,7 +8,7 @@
     </template>
 
     <template v-slot:subtitles>
-      <h1 class="pl-10">ASSOCIATED__GROUP</h1>
+      <h1 class="pl-10 pt-2">ASSOCIATED__GROUP</h1>
     </template>
 
     <template v-slot:content>

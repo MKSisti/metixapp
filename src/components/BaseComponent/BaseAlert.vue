@@ -25,11 +25,3 @@
     props: ['show', 'text'],
   };
 </script>
-
-<style scoped>
-  .rotate-up-enter-from,
-  .rotate-up-leave-to {
-    transform: rotate3d(1, 0, 0, 45deg) scale(0.95);
-    opacity: 0;
-  }
-</style>

@@ -1,8 +1,8 @@
 <template>
-  <base-body class="capitalize overflow-hidden">
+  <base-body class="capitalize overflow-hidden pt-4">
     <template v-slot:title>
       <!-- group name -->
-      <div
+      <div 
         class="w-full flex justify-start items-center flex-row h-full pl-10"
         v-if="'[[EDIT__NOT__CLICKED]]'"
       >
@@ -43,7 +43,7 @@
     </template>
 
     <template v-slot:subtitles>
-      <h1 class="pl-10">{{ group.desc }}</h1>
+      <h1 class="pl-10 pt-2">{{ group.desc }}</h1>
     </template>
 
     <template v-slot:content>
