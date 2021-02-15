@@ -13,13 +13,14 @@
 
     <template v-slot:content>
       <div
+        :class="{'items-center':!tests || tests?.length < 1}"
         class="w-full mt-28 flex flex-col justify-start items-start space-y-2 px-3 overflow-auto"
       >
         <!-- new test -->
         <div
-          class="bg-black-light-1 flex justify-between items-center flex-row w-64 h-16 p-4"
+          class="bg-black-light-1 flex justify-between items-center flex-row w-64 h-16 p-4 text-2xl"
         >
-          <h1 class="text-2xl capitalize font-bold">new Test</h1>
+          <h1 class="capitalize font-bold">new Test</h1>
           <span
             v-if="'[[SHOW__NEW__GROUP__BUTTON]]'"
             class="cursor-pointer hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-center items-center p-px"
