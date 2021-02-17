@@ -29,7 +29,7 @@
         v-if="true"
       >
         <h1 class="text-xl max-w-xs break-words">
-          {{ student.first_name }} {{ student.last_name }}
+          {{ student.firstName }} {{ student.lastName }}
         </h1>
         <h1 class="text-xl max-w-xs break-words">{{ student.email }}</h1>
         <h1 class="text-xl max-w-xs break-words">{{ student.phone }}</h1>

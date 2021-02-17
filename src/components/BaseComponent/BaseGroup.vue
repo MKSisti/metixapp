@@ -2,7 +2,8 @@
   <div class="flex justify-start items-center flex-col w-full">
     <!-- group name and mod expand btn-->
 
-    <div @click="goToGrp()"
+    <div
+      @click="goToGrp"
       :class="GrpActiveClass"
       class="cursor-pointer flex justify-between items-center flex-row w-full h-20 p-4"
     >
@@ -59,11 +60,13 @@
             type="text"
             tmp="Module name"
             maxLen="32"
+            v-model="modInput"
           ></base-input>
 
           <!-- module done button -->
           <div class="w-full">
             <button
+              @click="addMod"
               class="capitalize rounded-none bg-blue-base px-8 py-2 text-xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200 float-right"
             >
               done
@@ -103,7 +106,8 @@
           v-for="module in modules"
         >
           <!--module name, hide if user clicks edit-->
-          <div @click="goToMod(module.id)"
+          <div
+            @click="goToMod(module.id)"
             class="w-full flex justify-between items-center flex-row h-full cursor-pointer"
             v-if="'[[EDIT__NOT__CLICKED]]'"
           >
@@ -131,7 +135,6 @@
           >
             <input
               type="text"
-              :value="module.name"
               class="py-2 h-10 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-xl transition duration-200 -ml-3 pl-3"
             />
             <span
@@ -153,6 +156,7 @@
 
 <script>
 import BaseInput from "./BaseInput";
+import { mapActions } from "vuex";
 
 export default {
   name: "BaseGroup",
@@ -164,6 +168,7 @@ export default {
     return {
       expanded: false,
       AddModuleVisible: false,
+      modInput: "",
     };
   },
   computed: {
@@ -195,6 +200,16 @@ export default {
 
       this.$router.push({ name: "group", params: { GroupId: this.gid } });
     },
+    addMod() {
+      this.modInput.length > 0
+        ? this.addModule({
+            name: this.modInput,
+            id: this.gid,
+          })
+        : console.log(null);
+      this.AddModuleVisible = false;
+    },
+    ...mapActions(["addModule"]),
   },
 };
 </script>

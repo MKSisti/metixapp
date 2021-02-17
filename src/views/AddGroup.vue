@@ -100,12 +100,12 @@ export default {
           name: this.groupName,
           desc: this.desc,
           defaults: {
-            validation : this.vali,
-            excellent : this.exce,
-            bien : this.bien,
-            assez : this.assez,
-            eliminatoir : this.eli,
-          }
+            validation: this.vali,
+            excellent: this.exce,
+            bien: this.bien,
+            assez: this.assez,
+            eliminatoir: this.eli,
+          },
         });
       }
     },
