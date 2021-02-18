@@ -1,4 +1,5 @@
 export default {
+  // group mutations
   addGroup(state, payload) {
     state.groups.push(payload.group);
   },
@@ -33,7 +34,19 @@ export default {
         state.groups[i].tests.push(payload.test);
         for (let j = 0; j < state.groups[i].modules.length; j++) {
           if (state.groups[i].modules[j].id == payload.test.module) {
-            state.groups[i].modules[j].tests.push(payload.test.name);
+            state.groups[i].modules[j].tests.push(payload.test.id);
+          }
+        }
+      }
+    }
+  },
+  // notes mutations
+  updateStudentNote(state, payload) {
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.gid) {
+        for (let j = 0; j < state.groups[i].tests.length; j++) {
+          if (state.groups[i].tests[j].id == payload.tid) {
+            state.groups[i].tests[j].notes[payload.sid].value = payload.value;
           }
         }
       }

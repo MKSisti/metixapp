@@ -52,4 +52,38 @@ export default {
       id: payload.id,
     });
   },
+  // general Test CRUD
+  addTest({ commit, getters }, payload) {
+    var testNumber = getters.getModuleTests(payload.gid, payload.mid);
+    var students = getters.getGroupStudents(payload.gid);
+    var groupDefaults = getters.getGroupDefaults(payload.gid);
+    // var moduleInfo = getters.getModuleInfo(payload.gid, payload.mid);
+    var notes = {};
+    students.forEach((student) => {
+      notes[student.cne] = {
+        sid: student.cne,
+        value: groupDefaults.validation,
+      };
+    });
+    var newTest = {
+      id: uuidv4(),
+      name: "Test_" + (testNumber ? testNumber.length : 0),
+      module: payload.mid,
+      notes,
+    };
+    commit({
+      type: "addTestToGrp",
+      id: payload.gid,
+      test: newTest,
+    });
+  },
+  updateNote({ commit }, payload) {
+    commit({
+      type: "updateStudentNote",
+      gid: payload.gid,
+      tid: payload.tid,
+      sid: payload.sid,
+      value: payload.value,
+    });
+  },
 };

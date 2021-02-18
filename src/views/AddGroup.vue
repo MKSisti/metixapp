@@ -107,6 +107,14 @@ export default {
             eliminatoir: this.eli,
           },
         });
+        this.$router.push({
+          name: "group",
+          params: {
+            GroupId: this.$store.state.groups[
+              this.$store.state.groups.length - 1
+            ].id,
+          },
+        });
       }
     },
     test() {
@@ -122,7 +130,7 @@ export default {
       this.vali >= this.eli
         ? ""
         : errs.push(
-            "marks are not consistent, please enter a valid arking pattern,"
+            "marks are not consistent, please enter a valid marking pattern,"
           );
 
       return errs;

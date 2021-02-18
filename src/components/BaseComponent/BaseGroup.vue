@@ -189,7 +189,6 @@ export default {
       this.AddModuleVisible = !this.AddModuleVisible;
     },
     goToMod(mid) {
-      console.log("pushed");
       this.$router.push({
         name: "module",
         params: { GroupId: this.gid, ModuleId: mid },
