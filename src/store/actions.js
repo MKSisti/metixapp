@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 export default {
+  // general Group CRUD
   createGrp({ commit }, payload) {
     var newGrp = {
       id: uuidv4(),
@@ -16,6 +17,7 @@ export default {
       group: newGrp,
     });
   },
+  // general Student CRUD
   addStudent({ commit }, payload) {
     var newSt = {
       fullName: payload.fullName,
@@ -30,6 +32,14 @@ export default {
       id: payload.id,
     });
   },
+  removeStudent({ commit }, payload) {
+    commit({
+      type: "removeStudentFromGrp",
+      id: payload.id,
+      cne: payload.cne,
+    });
+  },
+  // general Module CRUD
   addModule({ commit }, payload) {
     var newMod = {
       id: uuidv4(),

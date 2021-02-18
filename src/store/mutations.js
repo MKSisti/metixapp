@@ -9,6 +9,17 @@ export default {
       }
     }
   },
+  removeStudentFromGrp(state, payload) {
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.id) {
+        for (let j = 0; j < state.groups[i].students.length; j++) {
+          if (state.groups[i].students[j].cne == payload.cne) {
+            state.groups[i].students.splice(j, 1);
+          }
+        }
+      }
+    }
+  },
   addModuleToGrp(state, payload) {
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.id) {
