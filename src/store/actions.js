@@ -18,8 +18,7 @@ export default {
   },
   addStudent({ commit }, payload) {
     var newSt = {
-      firstName: payload.fname,
-      lastName: payload.lname,
+      fullName: payload.fullName,
       email: payload.email,
       phone: payload.phone,
       cin: payload.cin,
