@@ -157,7 +157,7 @@
         <base-student
           @remove="deleteSt"
           v-for="student in group.students"
-          :key="student.cin"
+          :key="student.cne"
           :student="student"
         />
       </div>

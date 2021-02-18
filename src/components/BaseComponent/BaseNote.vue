@@ -41,12 +41,10 @@
     ></base-input>
 
     <!-- update button -->
-    <div
-      class="flex w-full justify-end items-center flex-row cursor-pointer p-2"
-    >
+    <div class="flex w-full justify-end items-center flex-row p-2">
       <button
-        v-if="showUpdate"
         @click="emitUpdate(note.sid)"
+        :class="hideClass"
         class="capitalize rounded-none bg-blue-base px-6 py-2 text-xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200"
       >
         update
@@ -67,6 +65,13 @@ export default {
       newNote: null,
       showUpdate: false,
     };
+  },
+  computed: {
+    hideClass() {
+      return this.showUpdate
+        ? "cursor-pointer "
+        : "opacity-0 pointer-events-none";
+    },
   },
   methods: {
     emitUpdate(sid) {
