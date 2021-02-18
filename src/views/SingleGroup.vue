@@ -32,7 +32,7 @@
           </span>
         </div>
 
-        <div v-if="'[[SHOW__NEW__STUDENT__PRESSED]]'" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none">
+        <div v-if="'[[SHOW__NEW__STUDENT__PRESSED || NO__STUDENTS__IN__GROUP]]'" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none">
           <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
           <h1 v-if="group.students.length < 1" class="text-xl capitalize absolute top-2 left-2 font-bold">
             Add your first student
@@ -47,18 +47,19 @@
             </span>
           </div>
 
-          <!-- student card body -->
+          <!-- student add form -->
           <div class="w-full relative">
 
-            <div class="w-full flex justify-around items-center flex-row px-10 -mt-6">
+            <div class="w-full flex justify-around items-center flex-row -mt-6">
               <base-input name="student full name" :value="'STUDENT__FNAME__LNAME'" type="text" tmp="First Last Jr." maxLen="32"></base-input>
               <base-input name="student email" :value="'STUDENT__EMAIL'" type="text" tmp="example@email.com" maxLen="32"></base-input>
               <base-input name="student phone" :value="'STUDENT__PHONE'" type="text" tmp="(+212)-12345678" maxLen="32"></base-input>
               <base-input name="student cne" :value="'STUDENT__CNE'" type="text" tmp="XY123456" maxLen="32"></base-input>
+              <base-input name="student cin" :value="'STUDENT__CIN'" type="text" tmp="i cri :c" maxLen="32"></base-input>
             </div>
           </div>
 
-
+          <!-- done button -->
           <div class="flex justify-center items-center flex-row cursor-pointer">
             <button class="capitalize rounded-none bg-blue-base px-6 py-1.5 text-xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200">
               done
