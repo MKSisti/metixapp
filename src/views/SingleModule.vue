@@ -42,7 +42,7 @@
         >
           <!-- testID internal generated ID (incrementing index or uuid) -->
           <h1
-            :class="{ collapsedTestID: false && '[[TEST__COLLAPSED]]' }"
+            :class="{ collapsedTestID: '[[TEST__COLLAPSED]]' }"
             class="text-base capitalize absolute top-2 left-2"
           >
             {{test.id}}
@@ -64,7 +64,7 @@
 
           <!-- student note container -->
           <div
-            :class="{ hidden: false && '[[TEST__COLLAPSED]]' }"
+            :class="{ hidden: '[[TEST__COLLAPSED]]' }"
             class="w-full flex justify-around items-center flex-row flex-wrap pb-10"
           >
             <!-- student note loop -->
