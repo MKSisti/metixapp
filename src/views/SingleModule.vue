@@ -3,17 +3,17 @@
     <template v-slot:title>
       <!-- module name already editable from sidebar -->
       <div class="w-full flex justify-start items-center flex-row h-full pl-10">
-        <h1 class="text-4xl font-bold">MODULE__NAME</h1>
+        <h1 class="text-4xl font-bold">{{info.moduleName}}</h1>
       </div>
     </template>
 
     <template v-slot:subtitles>
-      <h1 class="pl-10 pt-2">ASSOCIATED__GROUP</h1>
+      <h1 class="pl-10 pt-2">{{info.groupName}}</h1>
     </template>
 
     <template v-slot:content>
       <div
-        :class="{'items-center':!tests || tests?.length < 1}"
+        :class="{ 'items-center': !tests || tests?.length < 1 }"
         class="w-full mt-28 flex flex-col justify-start items-start space-y-2 px-3 overflow-auto"
       >
         <!-- new test -->
@@ -45,7 +45,7 @@
             :class="{ collapsedTestID: '[[TEST__COLLAPSED]]' }"
             class="text-base capitalize absolute top-2 left-2"
           >
-            {{test.id}}
+            {{ test.id }}
           </h1>
 
           <!-- close btn -->
@@ -77,7 +77,7 @@
 
               <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
               <h1 class="text-base capitalize absolute top-2 left-2">
-                {{Object.entries(note)[0][0]}}
+                {{ Object.entries(note)[0][0] }}
               </h1>
 
               <!-- close btn -->
@@ -145,17 +145,22 @@
 <script>
 import BaseInput from "../components/BaseComponent/BaseInput";
 import BaseBody from "../components/BaseComponent/BaseBody";
-// import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "SingleModule",
   components: { BaseBody, BaseInput },
   props: ["GroupId", "ModuleId"],
   computed: {
+    ...mapGetters({
+      getTests: "getModuleTests",
+      getInfo: "getModuleInfo",
+    }),
     tests() {
-      var ts = this.$store.getters.getModuleTests(this.GroupId, this.ModuleId);
-      // console.log(ts);
-      return ts;
+      return this.getTests(this.GroupId, this.ModuleId);
+    },
+    info() {
+      return this.getInfo(this.GroupId, this.ModuleId);
     },
   },
 };

@@ -34,12 +34,20 @@ export default {
   },
   getModuleTests: (_, getters) => (gid, mid) => {
     var g = getters.getGroup(gid);
-    // console.log(g.tests.length);
     if (g.tests) {
-      // console.log("inside");
       var tests = g.tests.filter((test) => test.module == mid);
-      // console.log(tests);
       return tests.length > 0 ? tests : null;
+    } else return undefined;
+  },
+  getModuleInfo: (_, getters) => (gid, mid) => {
+    var g = getters.getGroup(gid);
+    if (g) {
+      if (g.modules) {
+        var mod = g.modules.find((module) => module.id == mid);
+        if (mod) {
+          return { moduleName: mod.name, groupName: g.name };
+        }
+      }
     } else return undefined;
   },
 };
