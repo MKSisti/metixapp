@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div class="relative">
+    <span v-if="error && error != ''" class="absolute -bottom-6 w-full text-red-light-1 flex justify-center items-center"> 
+      <box-icon name="error-circle" size="cssSize" class="w-4 h-4 mb-1 fill-current" v-pre></box-icon>
+      <h1 class="pl-1">{{error}}</h1>
+    </span>
     <label :for="name" class="block text-xl font-light uppercase">
       {{ name }}
     </label>
@@ -12,8 +16,7 @@
       :placeholder="tmp"
       autocomplete="off"
       :maxlength="maxLen"
-      min="0"
-      
+      min="0" 
     />
   </div>
 </template>
@@ -21,7 +24,7 @@
 <script>
 export default {
   name: "BaseInput",
-  props: ["id", "name", "type", "tmp", "maxLen", "modelValue"],
+  props: ["id", "name", "type", "tmp", "maxLen", "modelValue",'error'],
   emits: ["update:modelValue"],
   computed: {
     value: {
