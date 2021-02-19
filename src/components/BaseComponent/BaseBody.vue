@@ -1,6 +1,10 @@
 <template>
   <div class=" relative h-full">
-    <base-popup/>
+    <div v-if="'[[SHOW__DELETE__POPUP]]'">
+      <transition name="fade" appear>
+        <base-popup/>
+      </transition>
+    </div>
     <div class="flex justify-between">
       <div>
         <span class="text-4xl font-bold flex justify-start items-center flex-row relative">
