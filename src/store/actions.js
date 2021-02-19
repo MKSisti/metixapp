@@ -86,4 +86,12 @@ export default {
       value: payload.value,
     });
   },
+  removeTest({ commit }, payload) {
+    commit({
+      type: "removeTestFromGrp",
+      gid: payload.gid,
+      tid: payload.tid,
+      mid: payload.mid,
+    });
+  },
 };

@@ -49,7 +49,12 @@
         </div>
 
         <!-- test display loop -->
-        <base-test v-for="test in tests" :key="test.id" :test="test" :gid='GroupId' />
+        <base-test
+          v-for="test in tests"
+          :key="test.id"
+          :test="test"
+          :gid="GroupId"
+        />
       </div>
     </template>
   </base-body>
@@ -58,23 +63,32 @@
 <script>
 // import BaseInput from "../components/BaseComponent/BaseInput";
 import BaseBody from "../components/BaseComponent/BaseBody";
-import BaseTest from '../components/BaseComponent/BaseTest'
+import BaseTest from "../components/BaseComponent/BaseTest";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "SingleModule",
-  components: { BaseBody , BaseTest},
+  components: { BaseBody, BaseTest },
   props: ["GroupId", "ModuleId"],
+  provide() {
+    return {
+      studentsData: this.students,
+    };
+  },
   computed: {
     ...mapGetters({
       getTests: "getModuleTests",
       getInfo: "getModuleInfo",
+      getStudents: "getGroupStudents",
     }),
     tests() {
       return this.getTests(this.GroupId, this.ModuleId);
     },
     info() {
       return this.getInfo(this.GroupId, this.ModuleId);
+    },
+    students() {
+      return this.getStudents(this.GroupId);
     },
   },
   methods: {

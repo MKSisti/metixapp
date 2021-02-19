@@ -13,6 +13,7 @@
     <!-- close btn -->
     <div class="w-full p-2">
       <span
+        @click="removeT"
         class="cursor-pointer hover:bg-red-light-1 text-2xl font-bold bg-red-base text-black-light-5 w-9 h-9 flex justify-center items-center float-right"
       >
         <box-icon
@@ -35,6 +36,7 @@
         v-for="note in test.notes"
         :key="note.sid"
         :note="note"
+        :student="studentsData.find((student) => student.cne == note.sid) || null"
       />
     </div>
 
@@ -66,18 +68,16 @@ export default {
   name: "BaseTest",
   props: ["test", "gid"],
   components: { BaseNote },
+  inject: ["studentsData"],
   data() {
     return {
       collapsed: false,
     };
   },
   methods: {
-    ...mapActions(["updateNote"]),
+    ...mapActions(["updateNote", "removeTest"]),
     toggleCollapsed() {
       this.collapsed = !this.collapsed;
-    },
-    testFunc() {
-      console.log("test");
     },
     updateStudentNote(sid, newNote) {
       this.updateNote({
@@ -85,6 +85,13 @@ export default {
         tid: this.test.id,
         sid: sid,
         value: newNote,
+      });
+    },
+    removeT() {
+      this.removeTest({
+        gid: this.gid,
+        tid: this.test.id,
+        mid: this.test.module,
       });
     },
   },

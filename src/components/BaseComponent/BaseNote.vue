@@ -8,7 +8,7 @@
 
     <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
     <h1 class="text-base capitalize absolute top-2 left-2">
-      {{ note.sid }} {{ note.value }}
+      {{ note.sid }}
     </h1>
 
     <!-- close btn -->
@@ -27,7 +27,7 @@
 
     <!-- student name -->
     <h1 class="text-xl capitalize px-8 -mt-6">
-      {{ note.sid }} name here I know
+      {{ student?.fullName || "deleted Student" }}
     </h1>
 
     <!-- student note input and show -->
@@ -57,7 +57,7 @@
 import BaseInput from "./BaseInput";
 export default {
   name: "BaseNote",
-  props: ["note"],
+  props: ["note", "student"],
   components: { BaseInput },
   emits: ["updateN"],
   data() {

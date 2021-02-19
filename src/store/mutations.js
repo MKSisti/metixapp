@@ -3,6 +3,7 @@ export default {
   addGroup(state, payload) {
     state.groups.push(payload.group);
   },
+  // student mutations
   addStudentToGrp(state, payload) {
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.id) {
@@ -21,6 +22,7 @@ export default {
       }
     }
   },
+  // module mutations
   addModuleToGrp(state, payload) {
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.id) {
@@ -28,6 +30,7 @@ export default {
       }
     }
   },
+  // test mutations
   addTestToGrp(state, payload) {
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.id) {
@@ -35,6 +38,22 @@ export default {
         for (let j = 0; j < state.groups[i].modules.length; j++) {
           if (state.groups[i].modules[j].id == payload.test.module) {
             state.groups[i].modules[j].tests.push(payload.test.id);
+          }
+        }
+      }
+    }
+  },
+  removeTestFromGrp(state, payload) {
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.gid) {
+        for (let j = 0; j < state.groups[i].tests.length; j++) {
+          if (state.groups[i].tests[j].id == payload.tid) {
+            state.groups[i].tests.splice(j, 1);
+          }
+        }
+        for (let j = 0; j < state.groups[i].modules.length; j++) {
+          if (state.groups[i].modules[j].id == payload.mid) {
+            state.groups[i].modules[j].tests = state.groups[i].modules[j].tests.filter((test) => test.id != payload.tid);
           }
         }
       }
