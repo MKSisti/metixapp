@@ -26,7 +26,7 @@
       <!-- data display -->
       <div
         class="w-full flex justify-around items-center flex-row px-10"
-        v-if="true"
+        v-if="!isInEditMode"
       >
         <h1 class="text-xl max-w-xs break-words">{{ student.fullName }}</h1>
         <h1 class="text-xl max-w-xs break-words">{{ student.email }}</h1>
@@ -42,37 +42,35 @@
       >
         <base-input
           name="student full name"
-          :value="'STUDENT__FNAME__LNAME'"
+          :modelValue="student.fullName"
           type="text"
-          tmp="First Last Jr."
           maxLen="32"
         ></base-input>
         <base-input
           name="student email"
-          :value="'STUDENT__EMAIL'"
+          :modelValue="student.email"
           type="text"
-          tmp="example@email.com"
           maxLen="32"
         ></base-input>
         <base-input
           name="student phone"
-          :value="'STUDENT__PHONE'"
+          :modelValue="student.phone"
           type="text"
-          tmp="(+212)-12345678"
           maxLen="32"
         ></base-input>
+        <!-- leaving cne as read only for now cause it's the key used in notes and it would be extra work to go update all the student notes ... -->
+        
         <base-input
           name="student cne"
-          :value="'STUDENT__CNE'"
+          :modelValue="student.cne"
           type="text"
-          tmp="XY123456"
           maxLen="32"
+          readonly
         ></base-input>
         <base-input
           name="student cin"
-          :value="'STUDENT__CIN'"
+          :modelValue="student.cin"
           type="text"
-          tmp="i cri :c u did dis"
           maxLen="32"
         ></base-input>
       </div>
@@ -81,9 +79,10 @@
     <!-- edit/done button -->
     <div
       class="flex justify-center items-center flex-row cursor-pointer h-9 w-20 group"
-      v-if="'[[NOT__EDITING__STUDENT]]'"
+      v-if="!isInEditMode"
     >
       <span
+        @click="isInEditMode = true"
         class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base group-hover:text-blue-light-1"
       >
         <box-icon
@@ -98,6 +97,7 @@
 
     <div
       class="flex justify-center items-center flex-row cursor-pointer"
+      @click="isInEditMode = false"
       v-else
     >
       <button
@@ -114,6 +114,15 @@ export default {
   name: "BaseStudent",
   props: ["student"],
   emits: ["remove"],
+  data() {
+    return {
+      isInEditMode: false,
+      newFullName: null,
+      newEmail: null,
+      newPhone: null,
+      newCin: null,
+    };
+  },
   methods: {
     removeSt() {
       this.$emit("remove", this.student.cne);
