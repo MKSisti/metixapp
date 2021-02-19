@@ -1,8 +1,8 @@
 <template>   
      <!-- popup container -->
     <div
-      @click.self="'[[HIDE__POPUP]]'"
-      class="fixed w-screen h-screen flex top-0 bottom-0 right-0 left-0 justify-center items-center z-50 pointer-events-none bg-black-base bg-opacity-80 transition duration-200"
+      @click.self="$emit('closeMe')"
+      class="fixed w-screen h-screen flex top-0 bottom-0 right-0 left-0 justify-center items-center z-50 bg-black-base bg-opacity-80 transition duration-200"
     >
       <transition name="rotate-up" appear>
 
@@ -13,13 +13,6 @@
           <div class="w-full flex justify-between items-center">
             <h1 class="text-4xl font-bold capitalize ml-4 text-black-base">Alert</h1>
             
-            <!-- popup close button -->
-            <!-- <span
-              @click="'[[HIDE__POPUP]]'"
-              class="cursor-pointer hover:bg-black-light-5 text-2xl font-bold bg-black-light-1 text-blue-base w-9 h-9 flex justify-center items-center"
-            >
-              <box-icon name="chevron-down" size="cssSize" class="w-full h-full fill-current transform" v-pre></box-icon>
-            </span> -->
           </div>
 
           <!-- popup text -->
@@ -32,13 +25,13 @@
 
              <!-- big bad delete button -->
             <button
-              @click="'[[COMMIT__REMOVAL]]'"
+              @click="execute"
               class="capitalize rounded-none bg-red-base px-10 py-2.5 text-2xl font-semibold text-black-base hover:bg-red-light-1 transition duration-200"
             >
               I'm sure
             </button>
             <button
-              @click="'[[HIDE__POPUP]]'"
+              @click="$emit('closeMe')"
               class="capitalize rounded-none bg-black-light-5 px-10 py-2.5 text-2xl font-semibold text-black-light-15 hover:bg-black-light-10 transition duration-200"
             >
               Go back
@@ -51,8 +44,19 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
   export default {
     name: 'BasePopup',
+    props:['payload'],
+    emits: ['closeMe'],
+    methods:{
+      ...mapActions(['generalDelete']),
+      execute(){
+        this.generalDelete(this.payload);
+        this.$emit('closeMe');
+      }
+    }
   };
 </script>
 

@@ -68,7 +68,7 @@ export default {
   name: "BaseTest",
   props: ["test", "gid"],
   components: { BaseNote },
-  inject: ["studentsData"],
+  inject: ["studentsData","pushPopup"],
   data() {
     return {
       collapsed: false,
@@ -88,7 +88,13 @@ export default {
       });
     },
     removeT() {
-      this.removeTest({
+      // this.removeTest({
+      //   gid: this.gid,
+      //   tid: this.test.id,
+      //   mid: this.test.module,
+      // });
+      this.pushPopup({
+        forWhat:'test',
         gid: this.gid,
         tid: this.test.id,
         mid: this.test.module,

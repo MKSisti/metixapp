@@ -180,6 +180,7 @@ export default {
   name: "SingleGroup",
   components: { BaseBody, BaseStudent, BaseInput },
   props: ["GroupId"],
+  inject: ["pushPopup"],
   data() {
     return {
       ShowAddStudent: false,
@@ -240,7 +241,12 @@ export default {
       }
     },
     deleteSt(cne) {
-      this.removeStudent({
+      // this.removeStudent({
+      //   cne: cne,
+      //   id: this.GroupId,
+      // });
+      this.pushPopup({
+        forWhat:'student',
         cne: cne,
         id: this.GroupId,
       });

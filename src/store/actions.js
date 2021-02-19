@@ -1,6 +1,32 @@
 import { v4 as uuidv4 } from "uuid";
 
 export default {
+  // general actions
+  generalDelete({ dispatch }, payload) {
+    switch (payload.forWhat) {
+      case "student":
+        console.log("should delete a student");
+        dispatch({
+          type: "removeStudent",
+          id: payload.id,
+          cne: payload.cne,
+        });
+        break;
+      case "test":
+        console.log("should delete a test");
+        dispatch({
+          type: "removeTest",
+          gid: payload.gid,
+          tid: payload.tid,
+          mid: payload.mid,
+        });
+        break;
+
+      default:
+        console.error("unsupported delete");
+        break;
+    }
+  },
   // general Group CRUD
   createGrp({ commit }, payload) {
     var newGrp = {

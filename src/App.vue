@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen text-black-light-15">
-    <div v-if="'[[SHOW__DELETE__POPUP]]'">
+    <div v-if="showPop">
       <transition name="fade" appear>
-        <base-popup/>
+        <base-popup @closeMe='showPop = false' :payload="payload" />
       </transition>
     </div>
     <base-alert class="z-50" :show="!'[[SHOW__ALERT]]'" :text="'[[ALERT__TEXT]]'" />
@@ -25,6 +25,23 @@ import BasePopup from './components/BaseComponent/BasePopup'
 
 export default {
   components: { Sidebar , BaseAlert, BasePopup},
+  provide(){
+    return{
+      pushPopup: this.pushPrompt
+    }
+  },
+  data(){
+    return{
+      showPop: false,
+      payload: null,
+    }
+  },
+  methods:{
+    pushPrompt(p){
+      this.payload = p;
+      this.showPop = true;
+    }
+  }
 };
 </script>
 <style>
