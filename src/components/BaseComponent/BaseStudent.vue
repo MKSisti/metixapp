@@ -110,6 +110,8 @@
 </template>
 
 <script>
+import BaseInput from "./BaseInput";
+
 export default {
   name: "BaseStudent",
   props: ["student"],
@@ -128,5 +130,6 @@ export default {
       this.$emit("remove", this.student.cne);
     },
   },
+  components:{BaseInput}
 };
 </script>
