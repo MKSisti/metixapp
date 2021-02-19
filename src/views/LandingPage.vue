@@ -1,11 +1,11 @@
 <template>
   <base-body class="basebody capitalize relative w-full h-screen transition duration-1000">
     <template v-slot:content>
-      <div class="absolute font-bold text-3xl top-24 left-2 z-50 flex justify-start items-center" v-if="'[[NO GROUPS]]'">
+      <div class="absolute font-bold text-3xl top-24 left-2 z-40 flex justify-start items-center" v-if="'[[NO GROUPS]]'">
         <box-icon name="arrow-back" size="cssSize" class="w-8 h-8 fill-current mt-1 mr-2" v-pre></box-icon>
         <h1>start by adding a group</h1> 
       </div>
-      <div class="w-full h-screen flex flex-col justify-center items-center z-50">
+      <div class="w-full h-screen flex flex-col justify-center items-center z-40">
         <transition name="rotate-up" appear>
           <svg class="flex-none transition duration-1000" width="350" height="350" viewBox="0 0 350 350" fill="none" xmlns="http://www.w3.org/2000/svg">
             <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="350" height="350">

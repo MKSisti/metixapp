@@ -1,5 +1,6 @@
 <template>
   <div class=" relative h-full">
+    <base-popup/>
     <div class="flex justify-between">
       <div>
         <span class="text-4xl font-bold flex justify-start items-center flex-row relative">
@@ -23,3 +24,14 @@
     </div>
   </div>
 </template>
+
+
+
+<script>
+import BasePopup from './BasePopup'
+
+export default {
+  name:'BaseBody',
+  components:{BasePopup}
+}
+</script>

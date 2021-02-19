@@ -1,8 +1,8 @@
 <template>
-  <base-body class="capitalize overflow-hidden pb-2 pt-4">
+  <base-body class="capitalize overflow-hidden pb-2">
     <template v-slot:title>
       <!-- module name already editable from sidebar -->
-      <div class="w-full flex justify-start items-center flex-row h-full pl-10">
+      <div class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4">
         <h1 class="text-4xl font-bold">{{ info.moduleName }}</h1>
       </div>
     </template>

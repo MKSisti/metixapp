@@ -43,3 +43,8 @@
   transform: rotate3d(1, 0, 0, 45deg) scale(0.95);
   opacity: 0;
 }
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

@@ -2,8 +2,8 @@
   <div class="h-screen text-black-light-15">
     <base-alert class="z-50" :show="!'[[SHOW__ALERT]]'" :text="'[[ALERT__TEXT]]'" />
     <div class="grid grid-cols-6 h-full relative">
-      <sidebar class="col-span-1 z-20"/>
-      <div class="bg-black-base col-span-5 z-10 ">
+      <sidebar class="col-span-1 z-10"/>
+      <div class="bg-black-base col-span-5 z-20 ">
         <!-- content -->
         <!-- <single-module/> -->
         <router-view></router-view>

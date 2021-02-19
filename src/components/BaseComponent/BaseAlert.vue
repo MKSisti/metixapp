@@ -1,6 +1,6 @@
 <template>
   <transition name="rotate-up" appear>
-    <!-- yes this is the only thing with a transition and yes it is scoped -->
+    
     <div v-if="show" class="bg-red-base max-w-xl fixed flex justify-between items-center flex-col p-2 top-2 right-2 transition duration-200">
       <!-- alert header  -->
       <div class="w-full flex justify-between items-center">

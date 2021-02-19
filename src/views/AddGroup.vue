@@ -1,10 +1,10 @@
 <template>
-  <base-body class="capitalize pl-10 pt-4">
+  <base-body class="capitalize">
     <template v-slot:title>
-      <div class="mb-6">ADD A NEW GROUP</div>
+      <div class="mb-6 pl-10 pt-4">ADD A NEW GROUP</div>
     </template>
     <template v-slot:content>
-      <div class="space-y-8">
+      <div class="space-y-8 pl-10">
         <div class="space-y-3">
           <h1 class="font-semibold mb-2 text-2xl">name your group</h1>
           <div class="ml-8 w-80">

@@ -1,9 +1,9 @@
 <template>
-  <base-body class="capitalize overflow-hidden pt-4">
+  <base-body class="capitalize overflow-hidden">
     <template v-slot:title>
       <!-- group name -->
       <div
-        class="w-full flex justify-start items-center flex-row h-full pl-10"
+        class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4"
         v-if="'[[EDIT__NOT__CLICKED]]'"
       >
         <h1 class="text-4xl font-bold">{{ group.name }}</h1>
