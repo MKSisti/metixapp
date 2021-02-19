@@ -22,6 +22,20 @@ export default {
       }
     }
   },
+  updateStudentData(state, payload) {
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.gid) {
+        for (let j = 0; j < state.groups[i].students.length; j++) {
+          if (state.groups[i].students[j].cne == payload.cne) {
+            state.groups[i].students[j].fullName = payload.fullName;
+            state.groups[i].students[j].email = payload.email;
+            state.groups[i].students[j].phone = payload.phone;
+            state.groups[i].students[j].cin = payload.cin;
+          }
+        }
+      }
+    }
+  },
   // module mutations
   addModuleToGrp(state, payload) {
     for (let i = 0; i < state.groups.length; i++) {
@@ -53,7 +67,9 @@ export default {
         }
         for (let j = 0; j < state.groups[i].modules.length; j++) {
           if (state.groups[i].modules[j].id == payload.mid) {
-            state.groups[i].modules[j].tests = state.groups[i].modules[j].tests.filter((test) => test.id != payload.tid);
+            state.groups[i].modules[j].tests = state.groups[i].modules[
+              j
+            ].tests.filter((test) => test.id != payload.tid);
           }
         }
       }

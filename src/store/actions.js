@@ -39,6 +39,17 @@ export default {
       cne: payload.cne,
     });
   },
+  updateStudent({ commit }, payload) {
+    commit({
+      type: "updateStudentData",
+      gid: payload.gid,
+      cne: payload.cne,
+      fullName: payload.fullName,
+      phone: payload.phone,
+      email: payload.email,
+      cin: payload.cin,
+    });
+  },
   // general Module CRUD
   addModule({ commit }, payload) {
     var newMod = {

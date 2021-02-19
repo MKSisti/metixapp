@@ -159,6 +159,7 @@
           v-for="student in group.students"
           :key="student.cne"
           :student="student"
+          :gid="GroupId"
         />
       </div>
     </template>

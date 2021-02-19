@@ -41,25 +41,28 @@
         v-else
       >
         <base-input
+          @change="this.newFullName = $event.target.value"
           name="student full name"
           :modelValue="student.fullName"
           type="text"
           maxLen="32"
         ></base-input>
         <base-input
+          @change="this.newEmail = $event.target.value"
           name="student email"
           :modelValue="student.email"
           type="text"
           maxLen="32"
         ></base-input>
         <base-input
+          @change="this.newPhone = $event.target.value"
           name="student phone"
           :modelValue="student.phone"
           type="text"
           maxLen="32"
         ></base-input>
         <!-- leaving cne as read only for now cause it's the key used in notes and it would be extra work to go update all the student notes ... -->
-        
+
         <base-input
           name="student cne"
           :modelValue="student.cne"
@@ -68,6 +71,7 @@
           readonly
         ></base-input>
         <base-input
+          @change="this.newCin = $event.target.value"
           name="student cin"
           :modelValue="student.cin"
           type="text"
@@ -97,7 +101,7 @@
 
     <div
       class="flex justify-center items-center flex-row cursor-pointer"
-      @click="isInEditMode = false"
+      @click="updateSt"
       v-else
     >
       <button
@@ -111,25 +115,49 @@
 
 <script>
 import BaseInput from "./BaseInput";
+import { mapActions } from "vuex";
 
 export default {
   name: "BaseStudent",
-  props: ["student"],
+  props: ["student", "gid"],
   emits: ["remove"],
   data() {
     return {
       isInEditMode: false,
-      newFullName: null,
-      newEmail: null,
-      newPhone: null,
-      newCin: null,
+      newFullName: this.student.fullName,
+      newEmail: this.student.email,
+      newPhone: this.student.phone,
+      newCin: this.student.cin,
     };
   },
   methods: {
+    ...mapActions(["updateStudent"]),
     removeSt() {
       this.$emit("remove", this.student.cne);
     },
+    checkDifferent() {
+      return this.newFullName != this.student.fullName ||
+        this.newEmail != this.student.email ||
+        this.newPhone != this.student.phone ||
+        this.newCin != this.student.cin
+        ? true
+        : false;
+    },
+    updateSt() {
+      if (this.checkDifferent()) {
+        console.log("will call updateStudent");
+        this.updateStudent({
+          gid: this.gid,
+          cne: this.student.cne,
+          fullName: this.newFullName,
+          phone: this.newPhone,
+          email: this.newEmail,
+          cin: this.newCin,
+        });
+      }
+      this.isInEditMode = false;
+    },
   },
-  components:{BaseInput}
+  components: { BaseInput },
 };
 </script>
