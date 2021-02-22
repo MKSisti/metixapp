@@ -3,6 +3,14 @@ export default {
   addGroup(state, payload) {
     state.groups.push(payload.group);
   },
+  updateGroupName(state, payload){
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.id) {
+        state.groups[i].name = payload.name;
+      }
+      
+    }
+  },
   // student mutations
   addStudentToGrp(state, payload) {
     for (let i = 0; i < state.groups.length; i++) {
@@ -41,6 +49,18 @@ export default {
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.id) {
         state.groups[i].modules.push(payload.module);
+      }
+    }
+  },
+  updateModuleName(state, payload){
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.gid) {
+        for (let j = 0; j < state.groups[i].modules.length; j++) {
+          if (state.groups[i].modules[j].id == payload.mid) {
+            state.groups[i].modules[j].name = payload.name;
+          }
+          
+        }
       }
     }
   },

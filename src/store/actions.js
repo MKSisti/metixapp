@@ -23,7 +23,7 @@ export default {
         break;
 
       default:
-        console.error("unsupported delete");
+        console.warn("unsupported delete");
         break;
     }
   },
@@ -42,6 +42,13 @@ export default {
       type: "addGroup",
       group: newGrp,
     });
+  },
+  changeGrpName({commit},payload){
+    commit({
+      type:'updateGroupName',
+      id:payload.id,
+      name:payload.name,
+    })
   },
   // general Student CRUD
   addStudent({ commit }, payload) {
@@ -88,6 +95,14 @@ export default {
       module: newMod,
       id: payload.id,
     });
+  },
+  updateModName({commit},payload){
+    commit({
+      type:'updateModuleName',
+      gid: payload.gid,
+      mid: payload.mid,
+      name: payload.name,
+    })
   },
   // general Test CRUD
   addTest({ commit, getters }, payload) {

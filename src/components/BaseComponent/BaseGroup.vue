@@ -109,13 +109,13 @@
           <div
             @click="goToMod(module.id)"
             class="w-full flex justify-between items-center flex-row h-full cursor-pointer"
-            v-if="'[[EDIT__NOT__CLICKED]]'"
+            v-if="!editMode"
           >
             <h1 class="text-xl capitalize">
               {{ module.name }}
             </h1>
             <span
-              @click.stop=""
+              @click.stop="editMode=true"
               class="text-sm flex justify-center items-center ml-2 text-blue-base"
             >
               <box-icon
@@ -134,10 +134,13 @@
             v-else
           >
             <input
+              @change="newModName= $event.target.value"
+              :value="module.name"
               type="text"
               class="py-2 h-10 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-xl transition duration-200 -ml-3 pl-3"
             />
             <span
+            @click="updateModN(module.id)"
               class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base"
             >
               <box-icon
@@ -166,9 +169,11 @@ export default {
   },
   data() {
     return {
+      editMode: false,
       expanded: false,
       AddModuleVisible: false,
       modInput: "",
+      newModName:'',
     };
   },
   computed: {
@@ -208,7 +213,17 @@ export default {
         : console.log(null);
       this.AddModuleVisible = false;
     },
-    ...mapActions(["addModule"]),
+    updateModN(id){
+      if (this.newModName?.length > 0) {
+        this.updateModName({
+          gid: this.gid,
+          mid: id,
+          name: this.newModName,
+        })
+      }
+      this.editMode = false;
+    },
+    ...mapActions(["addModule",'updateModName']),
   },
 };
 </script>

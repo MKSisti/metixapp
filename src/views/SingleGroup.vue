@@ -4,10 +4,11 @@
       <!-- group name -->
       <div
         class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4"
-        v-if="'[[EDIT__NOT__CLICKED]]'"
+        v-if="!editMode"
       >
         <h1 class="text-4xl font-bold">{{ group.name }}</h1>
         <span
+          @click="editMode = true"
           class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base"
         >
           <box-icon
@@ -26,10 +27,13 @@
         v-else
       >
         <input
+          @change="newGrpName = $event.target.value"
+          :value="group.name"
           type="text"
           class="py-2 h-16 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-4xl font-bold transition duration-200 -ml-3 pl-3"
         />
         <span
+          @click="updateGrpName"
           class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base"
         >
           <box-icon
@@ -183,6 +187,8 @@ export default {
   inject: ["pushPopup"],
   data() {
     return {
+      newGrpName: null,
+      editMode: false,
       ShowAddStudent: false,
       newStFullName: "",
       newStFullNameErr: null,
@@ -201,9 +207,18 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["addStudent", "removeStudent"]),
+    ...mapActions(["addStudent", "removeStudent", 'changeGrpName']),
     toggleShowAddStudent() {
       this.ShowAddStudent = !this.ShowAddStudent;
+    },
+    updateGrpName(){
+      if (this.newGrpName?.length > 0) {
+        this.changeGrpName({
+          id:this.GroupId,
+          name:this.newGrpName,
+        })
+      }
+      this.editMode = false;
     },
     test() {
       var phoneTest = /^(\+212|0)(\d){9}$/;
