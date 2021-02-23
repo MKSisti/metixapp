@@ -8,7 +8,7 @@
 
     <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
     <h1 class="text-base capitalize absolute top-2 left-2">
-      {{ note.sid }}
+      {{note.cne}}
     </h1>
 
     <!-- close btn -->
@@ -27,14 +27,14 @@
 
     <!-- student name -->
     <h1 class="text-xl capitalize px-8 -mt-6">
-      {{ student?.fullName || "deleted Student" }}
+      {{ note.fullName }}
     </h1>
 
     <!-- student note input and show -->
     <base-input
       @change="changeN"
       class="px-8 -mt-8 w-full"
-      :id="note.sid + '_note'"
+      :id="note.cne + '_note'"
       name="Note"
       :modelValue="note.value"
       type="number"
@@ -43,7 +43,7 @@
     <!-- update button -->
     <div class="flex w-full justify-end items-center flex-row p-2">
       <button
-        @click="emitUpdate(note.sid)"
+        @click="emitUpdate()"
         :class="hideClass"
         class="capitalize rounded-none bg-blue-base px-6 py-2 text-xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200"
       >
@@ -57,7 +57,7 @@
 import BaseInput from "./BaseInput";
 export default {
   name: "BaseNote",
-  props: ["note", "student"],
+  props: ["note", "sid"],
   components: { BaseInput },
   emits: ["updateN"],
   data() {
@@ -74,9 +74,10 @@ export default {
     },
   },
   methods: {
-    emitUpdate(sid) {
-      this.$emit("updateN", sid, this.newNote);
+    emitUpdate() {
+      this.$emit("updateN", this.sid, this.newNote);
       this.showUpdate = false;
+      
     },
     changeN(event) {
       this.showUpdate = true;

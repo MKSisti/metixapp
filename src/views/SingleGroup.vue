@@ -255,14 +255,14 @@ export default {
         this.newStCin = "";
       }
     },
-    deleteSt(cne) {
+    deleteSt(sid) {
       // this.removeStudent({
       //   cne: cne,
       //   id: this.GroupId,
       // });
       this.pushPopup({
         forWhat:'student',
-        cne: cne,
+        sid: sid,
         id: this.GroupId,
       });
     },

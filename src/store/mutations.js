@@ -23,7 +23,7 @@ export default {
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.id) {
         for (let j = 0; j < state.groups[i].students.length; j++) {
-          if (state.groups[i].students[j].cne == payload.cne) {
+          if (state.groups[i].students[j].id == payload.sid) {
             state.groups[i].students.splice(j, 1);
           }
         }
@@ -34,11 +34,12 @@ export default {
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.gid) {
         for (let j = 0; j < state.groups[i].students.length; j++) {
-          if (state.groups[i].students[j].cne == payload.cne) {
+          if (state.groups[i].students[j].id == payload.sid) {
             state.groups[i].students[j].fullName = payload.fullName;
             state.groups[i].students[j].email = payload.email;
             state.groups[i].students[j].phone = payload.phone;
             state.groups[i].students[j].cin = payload.cin;
+            state.groups[i].students[j].cne = payload.cne;
           }
         }
       }
@@ -72,6 +73,7 @@ export default {
         for (let j = 0; j < state.groups[i].modules.length; j++) {
           if (state.groups[i].modules[j].id == payload.test.module) {
             state.groups[i].modules[j].tests.push(payload.test.id);
+            state.groups[i].modules[j].testCounter++
           }
         }
       }
@@ -90,7 +92,9 @@ export default {
             state.groups[i].modules[j].tests = state.groups[i].modules[
               j
             ].tests.filter((test) => test.id != payload.tid);
+            state.groups[i].modules[j].testCounter = 0;
           }
+
         }
       }
     }
@@ -107,4 +111,19 @@ export default {
       }
     }
   },
+  updateAllStudentNotes(state, payload){
+    console.log('is calling update all notes');
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.gid) {
+        for (let j = 0; j < state.groups[i].tests.length; j++) {
+          if (state.groups[i].tests[j].notes?.[payload.sid]) {
+            console.log('found One');
+            state.groups[i].tests[j].notes[payload.sid].fullName = payload.fullName;
+            state.groups[i].tests[j].notes[payload.sid].cne = payload.cne;
+
+          }
+        }
+      }
+    }
+  }
 };

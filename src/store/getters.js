@@ -45,7 +45,7 @@ export default {
       if (g.modules) {
         var mod = g.modules.find((module) => module.id == mid);
         if (mod) {
-          return { moduleName: mod.name, groupName: g.name };
+          return { moduleName: mod.name, groupName: g.name, testCounter: mod.testCounter };
         }
       }
     } else return undefined;

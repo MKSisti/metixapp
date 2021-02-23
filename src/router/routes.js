@@ -15,13 +15,13 @@ export default [
     component: AddGroup,
   },
   {
-    path: "/group/:GroupId",
+    path: "/groups/:GroupId",
     name: "group",
     component: SingleGroup,
     props: true,
   },
   {
-    path: "/group/:GroupId/module/:ModuleId",
+    path: "/groups/:GroupId/modules/:ModuleId",
     name: "module",
     component: SingleModule,
     props: true,

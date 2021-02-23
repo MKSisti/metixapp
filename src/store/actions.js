@@ -9,7 +9,7 @@ export default {
         dispatch({
           type: "removeStudent",
           id: payload.id,
-          cne: payload.cne,
+          sid: payload.sid,
         });
         break;
       case "test":
@@ -53,6 +53,7 @@ export default {
   // general Student CRUD
   addStudent({ commit }, payload) {
     var newSt = {
+      id: uuidv4(),
       fullName: payload.fullName,
       email: payload.email,
       phone: payload.phone,
@@ -69,12 +70,13 @@ export default {
     commit({
       type: "removeStudentFromGrp",
       id: payload.id,
-      cne: payload.cne,
+      sid: payload.sid,
     });
   },
   updateStudent({ commit }, payload) {
     commit({
       type: "updateStudentData",
+      sid: payload.sid,
       gid: payload.gid,
       cne: payload.cne,
       fullName: payload.fullName,
@@ -83,12 +85,22 @@ export default {
       cin: payload.cin,
     });
   },
+  updateAllStNotes({ commit }, payload){
+    commit({
+      type: "updateAllStudentNotes",
+      gid: payload.gid,
+      sid: payload.sid,
+      cne: payload.cne,
+      fullName: payload.fullName,
+    })
+  },
   // general Module CRUD
   addModule({ commit }, payload) {
     var newMod = {
       id: uuidv4(),
       name: payload.name,
       tests: [],
+      testCounter: 0
     };
     commit({
       type: "addModuleToGrp",
@@ -106,20 +118,21 @@ export default {
   },
   // general Test CRUD
   addTest({ commit, getters }, payload) {
-    var testNumber = getters.getModuleTests(payload.gid, payload.mid);
+    var testNumber = getters.getModuleInfo(payload.gid, payload.mid).testCounter;
     var students = getters.getGroupStudents(payload.gid);
     var groupDefaults = getters.getGroupDefaults(payload.gid);
     // var moduleInfo = getters.getModuleInfo(payload.gid, payload.mid);
     var notes = {};
     students.forEach((student) => {
-      notes[student.cne] = {
-        sid: student.cne,
+      notes[student.id] = {
+        cne: student.cne,
+        fullName: student.fullName,
         value: groupDefaults.validation,
       };
     });
     var newTest = {
       id: uuidv4(),
-      name: "Test_" + (testNumber ? testNumber.length : 0),
+      name: "Test_" + testNumber,
       module: payload.mid,
       notes,
     };

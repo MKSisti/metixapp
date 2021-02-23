@@ -33,10 +33,10 @@
       <!-- student note loop -->
       <base-note
         @updateN="updateStudentNote"
-        v-for="note in test.notes"
-        :key="note.sid"
+        v-for="(note,i) in test.notes"
+        :key="note.cne"
         :note="note"
-        :student="studentsData.find((student) => student.cne == note.sid) || null"
+        :sid="i"
       />
     </div>
 
