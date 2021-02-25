@@ -106,7 +106,7 @@
             <div class="w-full flex justify-around items-center flex-row -mt-6">
               <base-input
                 v-model="newStFullName"
-                name="student full name"
+                name="student full name *"
                 type="text"
                 tmp="First Last Jr."
                 maxLen="32"
@@ -114,7 +114,7 @@
               ></base-input>
               <base-input
                 v-model="newStEmail"
-                name="student email"
+                name="student email *"
                 type="text"
                 tmp="example@email.com"
                 maxLen="32"
@@ -122,7 +122,7 @@
               ></base-input>
               <base-input
                 v-model="newStPhone"
-                name="student phone"
+                name="student phone *"
                 type="text"
                 tmp="(+212)-12345678"
                 maxLen="32"
@@ -130,7 +130,7 @@
               ></base-input>
               <base-input
                 v-model="newStCne"
-                name="student cne"
+                name="student cne *"
                 type="text"
                 tmp="XY123456"
                 maxLen="32"
@@ -140,7 +140,7 @@
                 v-model="newStCin"
                 name="student cin"
                 type="text"
-                tmp="i cri :c"
+                tmp="XY12345"
                 maxLen="32"
               ></base-input>
             </div>

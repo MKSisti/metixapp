@@ -10,10 +10,11 @@
           <div class="ml-8 w-80">
             <base-input
               v-model="groupName"
-              name="group name"
+              name="group name *"
               type="text"
               tmp="Group Name"
               maxLen="32"
+              :error="nameErr"
             ></base-input>
           </div>
         </div>
@@ -87,15 +88,22 @@ export default {
       bien: 16,
       exce: 18,
       desc: "",
+      nameErr: null,
+      notesErr: null,
     };
   },
   methods: {
     submit() {
-      var errs = this.test();
-      if (errs.length > 0) {
-        //we can add somewhere to display errors or something ...
+      var err = this.test();
+      if (err?.nameErr || err?.notesErr ) {
+        //display errors
+        this.nameErr = err.nameErr? 'this field is required':null
+        
       } else {
         //all good we create
+        this.nameErr = null;
+        this.notesErr = null;
+
         this.add({
           name: this.groupName,
           desc: this.desc,
@@ -118,22 +126,15 @@ export default {
       }
     },
     test() {
-      var errs = [];
-      this.groupName.length > 0
-        ? ""
-        : errs.push(
-            "group name is required, please specify a name for your group."
-          );
-      this.exce >= this.bien &&
-      this.bien >= this.assez &&
-      this.assez >= this.vali &&
-      this.vali >= this.eli
-        ? ""
-        : errs.push(
-            "marks are not consistent, please enter a valid marking pattern,"
-          );
+      var err = {
+        nameErr: null,
+        notesErr: null,
+      }
+      if (this.groupName.length == 0) {
+        err.nameErr = true;
+      }
 
-      return errs;
+      return err;
     },
     ...mapActions({
       add: "createGrp",
