@@ -9,14 +9,7 @@
           <slot name="subtitles"></slot>
         </div>
       </div>
-      <div class="space-y-2">
-        <div class="bg-blue-base px-8 py-2 text-xl text-black-base">
-          Analytics
-        </div>
-        <div class="bg-blue-base px-8 py-2 text-xl text-black-base">
-          Edit Group
-        </div>
-      </div>
+      <slot name="topRight"></slot>
     </div>
     <div>
       <slot name="content"></slot>

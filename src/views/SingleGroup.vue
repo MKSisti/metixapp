@@ -44,11 +44,34 @@
           ></box-icon>
         </span>
       </div>
+      
     </template>
 
     <template v-slot:subtitles>
       <h1 class="pl-10 pt-2">{{ group.desc }}</h1>
     </template>
+
+    <template v-slot:topRight>
+      <div class="space-y-2 pt-4 w-full flex justify-center items-end flex-col">
+
+        <div class="bg-blue-base px-4 py-2 text-xl text-black-base cursor-pointer flex justify-center items-center w-36 hover:w-40 transition-all duration-200">
+          <h1 class="text-black-base pr-2">Analytics</h1>
+          <box-icon
+            name="bar-chart-alt-2"
+            type="solid"
+            size="cssSize"
+            class="w-6 h-6 fill-current"
+            v-pre
+          ></box-icon>
+        </div>
+
+        <div class="bg-blue-base px-4 py-2 text-xl text-black-base cursor-pointer w-36 hover:w-40 transition-all duration-200">
+          Edit Group
+        </div>
+
+      </div>
+    </template>
+
 
     <template v-slot:content>
       <div

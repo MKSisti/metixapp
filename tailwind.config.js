@@ -36,6 +36,8 @@ module.exports = {
   variants: {
     extend: {
       scale: ['group-hover'],
+      padding: ['group-hover','hover'],
+      width:['hover']
     },
   },
   plugins: [],

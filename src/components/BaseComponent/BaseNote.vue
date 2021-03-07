@@ -11,20 +11,6 @@
       {{note.cne}}
     </h1>
 
-    <!-- close btn -->
-    <div class="w-full p-2">
-      <span
-        class="cursor-pointer hover:bg-red-light-1 text-2xl font-bold overflow-hidden bg-red-base text-black-light-5 w-9 h-9 flex justify-center items-center float-right"
-      >
-        <box-icon
-          name="plus"
-          size="cssSize"
-          class="w-full h-full fill-current transform rotate-45 scale-105"
-          v-pre
-        ></box-icon>
-      </span>
-    </div>
-
     <!-- student name -->
     <h1 class="text-xl capitalize px-8 -mt-6">
       {{ note.fullName }}
