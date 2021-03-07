@@ -42,11 +42,12 @@
 
     <!-- expand button -->
     <div
-      class="flex justify-center items-center flex-row cursor-pointer w-8 h-8 group absolute bottom-0 bg-blue-base hover:bg-blue-light-1"
+      class="flex justify-center items-center flex-row cursor-pointer w-8 h-8 group absolute top-0 bg-blue-base hover:bg-blue-light-1"
     >
       <span
+        :class="{'rotate-180 mt-1': !collapsed}"
         @click="toggleCollapsed"
-        class="cursor-pointer text-sm flex justify-center items-center w-6 h-6 text-black-base"
+        class="cursor-pointer text-sm flex justify-center items-center w-6 h-6 text-black-base transform transition-all duration-200"
       >
         <box-icon
           type="solid"
