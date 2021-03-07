@@ -2,7 +2,7 @@
   <!-- :key="note.sid"
         v-for="note in test.notes" -->
   <div
-    class="w-1/5 h-80 relative m-2 flex-auto flex justify-between items-start flex-col bg-black-light-5 max-w-md"
+    class="w-1/5 h-80 relative m-2 flex-auto flex justify-center items-start flex-col bg-black-light-5 max-w-md"
   >
     <!-- single student data show and edit -->
 
@@ -11,8 +11,9 @@
       {{note.cne}}
     </h1>
 
+    <div class="flex-grow"></div>
     <!-- student name -->
-    <h1 class="text-xl capitalize px-8 -mt-6">
+    <h1 class="text-xl capitalize px-8 mb-10">
       {{ note.fullName }}
     </h1>
 
@@ -25,6 +26,8 @@
       :modelValue="note.value"
       type="number"
     ></base-input>
+
+    <div class="flex-grow"></div>
 
     <!-- update button -->
     <div class="flex w-full justify-end items-center flex-row p-2">
