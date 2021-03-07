@@ -19,7 +19,7 @@
 
     <!-- student note input and show -->
     <base-input
-      @change="changeN"
+      @update:modelValue="changeN"
       class="px-8 -mt-8 w-full"
       :id="note.cne + '_note'"
       name="Note"
