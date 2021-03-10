@@ -12,6 +12,7 @@
     "autoprefixer": "^9.8.6",
     "boxicons": "^2.0.7",
     "core-js": "^3.6.5",
+    "localforage": "^1.9.0",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
     "uuid": "^8.3.2",

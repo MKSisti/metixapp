@@ -68,9 +68,9 @@ export default {
       this.showUpdate = false;
       
     },
-    changeN(event) {
+    changeN(value) {
       this.showUpdate = true;
-      this.newNote = event.target.value;
+      this.newNote = value;
     },
   },
 };

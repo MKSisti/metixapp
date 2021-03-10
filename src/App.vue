@@ -2,15 +2,17 @@
   <div class="h-screen text-black-light-15">
     <div v-if="showPop">
       <transition name="fade" appear>
-        <base-popup @closeMe='showPop = false' :payload="payload" />
+        <base-popup @closeMe="showPop = false" :payload="payload" />
       </transition>
     </div>
-    <base-alert class="z-50" :show="!'[[SHOW__ALERT]]'" :text="'[[ALERT__TEXT]]'" />
+    <base-alert
+      class="z-50"
+      :show="!'[[SHOW__ALERT]]'"
+      :text="'[[ALERT__TEXT]]'"
+    />
     <div class="grid grid-cols-6 h-full relative">
-      <sidebar class="col-span-1 z-20"/>
-      <div class="bg-black-base col-span-5 z-10 ">
-        <!-- content -->
-        <!-- <single-module/> -->
+      <sidebar class="col-span-1 z-20" />
+      <div class="bg-black-base col-span-5 z-10">
         <router-view></router-view>
       </div>
     </div>
@@ -19,33 +21,33 @@
 
 <script>
 import Sidebar from "../src/components/TheSidebar.vue";
-import BaseAlert from './components/BaseComponent/BaseAlert.vue';
-import BasePopup from './components/BaseComponent/BasePopup'
+import BaseAlert from "./components/BaseComponent/BaseAlert.vue";
+import BasePopup from "./components/BaseComponent/BasePopup";
 // import SingleModule from "../src/views/SingleModule.vue";
 
 export default {
-  components: { Sidebar , BaseAlert, BasePopup},
-  provide(){
-    return{
-      pushPopup: this.pushPrompt
-    }
+  components: { Sidebar, BaseAlert, BasePopup },
+  provide() {
+    return {
+      pushPopup: this.pushPrompt,
+    };
   },
-  data(){
-    return{
+  data() {
+    return {
       showPop: false,
       payload: null,
-    }
+    };
   },
-  methods:{
-    pushPrompt(p){
+  methods: {
+    pushPrompt(p) {
       this.payload = p;
       this.showPop = true;
-    }
-  }
+    },
+  },
 };
 </script>
 <style>
-a.router-link-exact-active{
+a.router-link-exact-active {
   @apply bg-black-base;
 }
 /* a.router-link-active{

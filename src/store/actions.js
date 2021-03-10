@@ -42,6 +42,7 @@ export default {
       type: "addGroup",
       group: newGrp,
     });
+
   },
   changeGrpName({commit},payload){
     commit({
