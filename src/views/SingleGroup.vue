@@ -1,12 +1,12 @@
 <template>
-  <base-body class="capitalize overflow-hidden">
+  <base-body :key="GroupId" class="capitalize overflow-hidden">
     <template v-slot:title>
       <!-- group name -->
       <div
         class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4"
         v-if="!editMode"
       >
-        <h1 class="text-4xl font-bold">{{ g?.name || "name" }}</h1>
+        <h1 class="text-4xl font-bold">{{ group?.name || "name" }}</h1>
         <span
           @click="editMode = true"
           class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base"
@@ -28,7 +28,7 @@
       >
         <input
           @change="newGrpName = $event.target.value"
-          :value="g?.name || 'some'"
+          :value="group?.name || 'some'"
           type="text"
           class="py-2 h-16 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-4xl font-bold transition duration-200 -ml-3 pl-3"
         />
@@ -47,7 +47,7 @@
     </template>
 
     <template v-slot:subtitles>
-      <h1 class="pl-10 pt-2">{{ g?.desc || 'some' }}</h1>
+      <h1 class="pl-10 pt-2">{{ group?.desc || 'some' }}</h1>
     </template>
 
     <template v-slot:topRight>
@@ -101,7 +101,7 @@
         >
           <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
           <h1
-            v-if="g?.students.length < 1"
+            v-if="group?.students.length < 1"
             class="text-xl capitalize absolute top-2 left-2 font-bold"
           >
             Add your first student
@@ -183,7 +183,7 @@
         <!-- student display loop -->
         <base-student
           @remove="deleteSt"
-          v-for="student in g?.students || []"
+          v-for="student in group?.students || []"
           :key="student.cne"
           :student="student"
           :gid="GroupId"
@@ -210,7 +210,6 @@ export default {
   inject: ["pushPopup"],
   data() {
     return {
-      g: null,
       newGrpName: null,
       editMode: false,
       ShowAddStudent: false,
@@ -290,9 +289,6 @@ export default {
         id: this.GroupId,
       });
     },
-  },
-  created() {
-    if (this.group) this.g = this.group;
-  },
+  }
 };
 </script>

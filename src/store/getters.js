@@ -1,7 +1,7 @@
 export default {
   /**
    * 
-   * @param void
+   * @param state
    * @returns an array with all the groups
    */
   getAllGroups(state) {

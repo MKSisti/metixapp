@@ -164,7 +164,7 @@ export default {
     
     let copyMod = Object.assign({},newMod);
     copyMod.tests = {};
-    
+
     //get group and push mod id
     let grp = JSON.parse(await localForage.getItem('group_' + payload.id));
     grp.modules['module_' + copyMod.id] = 1;
@@ -233,7 +233,7 @@ export default {
 
     let updatedTest = JSON.stringify(await localForage.getItem('test_' + payload.tid));
 
-    updatedTest.notes['student_' + payload.sid] = payload.value;
+    updatedTest.notes[payload.sid] = payload.value;
 
     await localForage.setItem('test_' + payload.tid, JSON.stringify(updatedTest));
   },
