@@ -3,6 +3,49 @@ import { v4 as uuidv4 } from "uuid";
 import localForage from "localforage";
 
 export default {
+  // store init
+  async initStore({commit}){
+    let loc = {
+      localForage: (await import(/* webpackChunkName: "localForage" */ 'localforage')).default
+    };
+
+    let tmpState = [];
+    let tmpGrp = {};
+    let tmpModules = [];
+    let tmpTests = [];
+    let tmpStudents = [];
+
+    let keys = await loc.localForage.keys();
+    for (const key of keys) {
+      if (key.includes('group_')) {
+        tmpGrp = JSON.parse(await loc.localForage.getItem(key));
+
+        for (const modId of Object.keys(tmpGrp.modules)) {
+          tmpModules.push(JSON.parse(await loc.localForage.getItem(modId)));
+        }
+
+        for (const testId of Object.keys(tmpGrp.tests)) {
+          tmpTests.push(JSON.parse(await loc.localForage.getItem(testId)));
+        }
+
+        for (const stId of Object.keys(tmpGrp.students)) {
+          tmpStudents.push(JSON.parse(await loc.localForage.getItem(stId)));
+        }
+
+        tmpGrp.modules = tmpModules;
+        tmpGrp.tests = tmpTests;
+        tmpGrp.students = tmpStudents;
+        tmpState.push(tmpGrp);
+        // bug fixed: 😏
+        tmpModules = [];
+        tmpTests = [];
+        tmpStudents = [];
+      }
+    }
+
+    tmpState.length > 0 ? commit("init",tmpState) : null; 
+    delete loc.localForage;
+  },
   // general actions
   generalDelete({ dispatch }, payload) {
     switch (payload.forWhat) {
