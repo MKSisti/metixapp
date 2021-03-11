@@ -140,8 +140,5 @@ export default {
       add: "createGrp",
     }),
   },
-  mounted(){
-    console.log(this.$store.state);
-  }
 };
 </script>

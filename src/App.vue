@@ -41,48 +41,7 @@
       },
     },
     async created() {
-      let loc = {
-        localForage: (await import(/* webpackChunkName: "localForage" */ 'localforage')).default
-      };
-
-      let tmpState = [];
-      let tmpGrp = {};
-      let tmpModules = [];
-      let tmpTests = [];
-      let tmpStudents = [];
-
-      let keys = await loc.localForage.keys();
-      for (const key of keys) {
-        if (key.includes('group_')) {
-          tmpGrp = JSON.parse(await loc.localForage.getItem(key));
-
-          for (const modId of Object.keys(tmpGrp.modules)) {
-            tmpModules.push(JSON.parse(await loc.localForage.getItem(modId)));
-          }
-
-          for (const testId of Object.keys(tmpGrp.tests)) {
-            tmpTests.push(JSON.parse(await loc.localForage.getItem(testId)));
-          }
-
-          for (const stId of Object.keys(tmpGrp.students)) {
-            tmpStudents.push(JSON.parse(await loc.localForage.getItem(stId)));
-          }
-
-          tmpGrp.modules = tmpModules;
-          tmpGrp.tests = tmpTests;
-          tmpGrp.students = tmpStudents;
-          tmpState.push(tmpGrp);
-          // bug fixed: you need to reset tmpModules, tmpTests,tmpStudents after each interation, tmp grp gets reset at the start so it's ok 
-          tmpModules = [];
-          tmpTests = [];
-          tmpStudents = [];
-        }
-      }
-
-      console.log(tmpState);
-      this.$store.dispatch('initStore',tmpState);
-
-      delete loc.localForage;
+      await this.$store.dispatch('initStore');
     },
   };
 </script>
