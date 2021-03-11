@@ -3,6 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 import localForage from "localforage";
 
 export default {
+  // store init
+  initStore({commit}, payload){
+    if (payload.length > 0) {
+      commit("init",payload);
+    }
+  },
   // general actions
   generalDelete({ dispatch }, payload) {
     switch (payload.forWhat) {

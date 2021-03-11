@@ -1,4 +1,8 @@
 export default {
+  // store init
+  init(state,payload){
+    state.groups = payload;
+  },
   // group mutations
   addGroup(state, payload) {
     state.groups.push(payload.group);

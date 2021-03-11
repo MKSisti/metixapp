@@ -72,11 +72,15 @@
           tmpGrp.tests = tmpTests;
           tmpGrp.students = tmpStudents;
           tmpState.push(tmpGrp);
-          
+          // bug fixed: you need to reset tmpModules, tmpTests,tmpStudents after each interation, tmp grp gets reset at the start so it's ok 
+          tmpModules = [];
+          tmpTests = [];
+          tmpStudents = [];
         }
       }
 
       console.log(tmpState);
+      this.$store.dispatch('initStore',tmpState);
 
       delete loc.localForage;
     },
