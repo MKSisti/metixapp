@@ -2,7 +2,7 @@
   <!-- :key="note.sid"
         v-for="note in test.notes" -->
   <div
-    class="w-1/5 h-80 relative m-2 flex-auto flex justify-center items-start flex-col bg-black-light-5 max-w-md"
+    class="w-1/5 relative m-2 h-80 flex-auto flex justify-center items-start flex-col bg-black-light-5 max-w-md"
   >
     <!-- single student data show and edit -->
 

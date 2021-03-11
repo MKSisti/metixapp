@@ -5,7 +5,7 @@
     <!-- testID internal generated ID (incrementing index or uuid) -->
     <h1
       :class="{ collapsedTestID: collapsed }"
-      class="text-base capitalize absolute top-2 left-2"
+      class="text-base capitalize absolute top-2 left-2 transition-all duration-200 delay-200 transform-gpu origin-left"
     >
       {{ test.name }}
     </h1>
@@ -27,8 +27,8 @@
 
     <!-- student note container -->
     <div
-      :class="{ hidden: collapsed }"
-      class="w-full flex justify-around items-center flex-row flex-wrap pb-10"
+      :class="{'max-h-0':collapsed, 'pb-10 max-h-screen': !collapsed }"
+      class="w-full flex justify-around items-center flex-row flex-wrap transition-all duration-300 transform-gpu overflow-hidden"
     >
       <!-- student note loop -->
       <base-note
@@ -107,12 +107,7 @@ export default {
 
 <style scoped>
 .collapsedTestID {
-  position: absolute;
   margin: 0;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  text-align: center;
-  @apply text-lg;
+  @apply scale-125 top-3;
 }
 </style>

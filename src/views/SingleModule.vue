@@ -12,95 +12,69 @@
     </template>
 
     <template v-slot:content>
-      <div
-        :class="{ 'flex-col': tests && tests?.length >= 1 }"
-        class="w-full mt-28 flex justify-start items-start space-y-2 px-3 overflow-hidden relative"
-      >
+      <div :class="{ 'flex-col': tests && tests?.length >= 1 }" class="w-full mt-28 flex justify-start items-start space-y-2 px-3 overflow-hidden relative">
         <!-- new test -->
-        <div
-          class="bg-black-light-1 flex justify-between items-center flex-row w-64 h-16 p-4 text-2xl"
-        >
+        <div class="bg-black-light-1 flex justify-between items-center flex-row w-64 h-16 p-4 text-2xl">
           <h1 class="capitalize font-bold">new Test</h1>
-          <span
-            @click="addNewTest"
-            class="cursor-pointer hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-center items-center p-px"
-          >
-            <box-icon
-              name="plus"
-              size="cssSize"
-              class="w-full h-full fill-current"
-              v-pre
-            ></box-icon>
+          <span @click="addNewTest" class="cursor-pointer hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-center items-center p-px">
+            <box-icon name="plus" size="cssSize" class="w-full h-full fill-current" v-pre></box-icon>
           </span>
         </div>
 
         <!-- user hints -->
-        <div
-          v-if="!tests || tests?.length < 1"
-          class="font-bold text-4xl pl-4 flex justify-center items-center"
-        >
-          <box-icon
-            name="arrow-back"
-            size="cssSize"
-            class="w-8 h-8 fill-current mt-1 mr-2"
-            v-pre
-          ></box-icon>
+        <div v-if="!tests || tests?.length < 1" class="font-bold text-4xl pl-4 flex justify-center items-center">
+          <box-icon name="arrow-back" size="cssSize" class="w-8 h-8 fill-current mt-1 mr-2" v-pre></box-icon>
           <h1>Add your first test</h1>
         </div>
 
         <!-- test display loop -->
-        <base-test
-          v-for="test in tests"
-          :key="test.id"
-          :test="test"
-          :gid="GroupId"
-        />
+        <transition-group name="fade-x" mode="out-in" appear>
+          <base-test :style="{ 'transition-delay': Math.min(100 * index, 500) + 'ms' }" class="inline-block transition duration-200 transform-gpu" v-for="test in tests" :key="test.id" :test="test" :gid="GroupId" />
+        </transition-group>
       </div>
     </template>
   </base-body>
 </template>
 
 <script>
-// import BaseInput from "../components/BaseComponent/BaseInput";
-import BaseBody from "../components/BaseComponent/BaseBody";
-import BaseTest from "../components/BaseComponent/BaseTest";
-import { mapGetters, mapActions } from "vuex";
+  // import BaseInput from "../components/BaseComponent/BaseInput";
+  import BaseBody from '../components/BaseComponent/BaseBody';
+  import BaseTest from '../components/BaseComponent/BaseTest';
+  import { mapGetters, mapActions } from 'vuex';
 
-export default {
-  name: "SingleModule",
-  components: { BaseBody, BaseTest },
-  props: ["GroupId", "ModuleId"],
-  provide() {
-    return {
-      studentsData: this.students,
-    };
-  },
-  computed: {
-    ...mapGetters({
-      getTests: "getModuleTests",
-      getInfo: "getModuleInfo",
-      getStudents: "getGroupStudents",
-    }),
-    tests() {
-      return this.getTests(this.GroupId, this.ModuleId);
+  export default {
+    name: 'SingleModule',
+    components: { BaseBody, BaseTest },
+    props: ['GroupId', 'ModuleId'],
+    provide() {
+      return {
+        studentsData: this.students,
+      };
     },
-    info() {
-      return this.getInfo(this.GroupId, this.ModuleId);
+    computed: {
+      ...mapGetters({
+        getTests: 'getModuleTests',
+        getInfo: 'getModuleInfo',
+        getStudents: 'getGroupStudents',
+      }),
+      tests() {
+        return this.getTests(this.GroupId, this.ModuleId);
+      },
+      info() {
+        return this.getInfo(this.GroupId, this.ModuleId);
+      },
+      students() {
+        return this.getStudents(this.GroupId);
+      },
     },
-    students() {
-      return this.getStudents(this.GroupId);
+    methods: {
+      ...mapActions(['addTest']),
+      addNewTest() {
+        this.addTest({
+          gid: this.GroupId,
+          mid: this.ModuleId,
+        });
+      },
     },
-  },
-  methods: {
-    ...mapActions(["addTest"]),
-    addNewTest() {
-      this.addTest({
-        gid: this.GroupId,
-        mid: this.ModuleId,
-      });
-    },
-  },
-};
+  };
 </script>
-
-
