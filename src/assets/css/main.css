@@ -18,10 +18,16 @@ body {
 ::-webkit-scrollbar-button {
   width: 0px;
   height: 0px;
+  display: none;
 }
 ::-webkit-scrollbar-thumb {
-  border: 0px none #ffffff;
+  height: 10px;
+  border-left: 50px solid rgba(0, 0, 0, 0);
+  border-right: 50px solid rgba(0, 0, 0, 0);
   border-radius: 0px;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
   @apply bg-black-light-15 bg-opacity-20;
 }
 ::-webkit-scrollbar-thumb:hover {

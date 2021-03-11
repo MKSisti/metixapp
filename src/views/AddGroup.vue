@@ -4,7 +4,7 @@
       <div class="mb-6 pl-10 pt-4">ADD A NEW GROUP</div>
     </template>
     <template v-slot:content>
-      <div class="space-y-8 pl-10">
+      <div class="space-y-8 pl-10 mt-16">
         <div class="space-y-3">
           <h1 class="font-semibold mb-2 text-2xl">name your group</h1>
           <div class="ml-8 w-80">
