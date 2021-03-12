@@ -13,13 +13,16 @@
         @click.stop="toggleExpanded"
       >
         {{ modules.length + " mod" }}
-        <box-icon
+        <div :class="{'rotate-180':expanded}" class="w-4 h-4 transition duration-200 transform-gpu">
+          <box-icon
           type="solid"
           name="chevron-down"
           size="cssSize"
           class="w-4 h-4 fill-current"
           v-pre
         ></box-icon>
+        </div>
+        
       </span>
     </div>
 

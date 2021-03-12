@@ -37,7 +37,8 @@ module.exports = {
     extend: {
       scale: ['group-hover'],
       padding: ['group-hover','hover'],
-      width:['hover']
+      width:['hover'],
+      translate: ['group-hover']
     },
   },
   plugins: [],

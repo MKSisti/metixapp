@@ -28,9 +28,11 @@
         </div>
 
         <!-- test display loop -->
-        <transition-group name="fade-x" mode="out-in" appear>
-          <base-test :style="{ 'transition-delay': Math.min(100 * index, 500) + 'ms' }" class="inline-block transition duration-200 transform-gpu" v-for="(test,index) in tests" :key="test.id" :test="test" :gid="GroupId" />
-        </transition-group>
+        <div v-else class="w-full relative space-y-2">
+          <transition-group @before-leave="beforeLeave" name="fade-x" mode="out-in" appear>
+            <base-test class="transition-all duration-200 transform-gpu" v-for="(test) in tests" :key="test.id" :test="test" :gid="GroupId" />
+          </transition-group>
+        </div>
       </div>
     </template>
   </base-body>
@@ -74,6 +76,13 @@
           gid: this.GroupId,
           mid: this.ModuleId,
         });
+      },
+      beforeLeave(el) {
+        const { marginLeft, marginTop, width, height } = window.getComputedStyle(el);
+        el.style.left = `${el.offsetLeft - parseFloat(marginLeft, 10)}px`;
+        el.style.top = `${el.offsetTop - parseFloat(marginTop, 10)}px`;
+        el.style.width = width;
+        el.style.height = height;
       },
     },
   };
