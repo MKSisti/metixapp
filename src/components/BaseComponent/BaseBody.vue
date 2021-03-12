@@ -1,5 +1,5 @@
 <template>
-  <div class=" relative h-screen">
+  <div class="relative h-screen">
     <div class="flex justify-between h-1/5">
       <div>
         <transition name="fade-x" mode="out-in" appear>
@@ -18,7 +18,7 @@
     <div class="w-full">
       <div class="w-full h-px bg-black-light-15 opacity-10"></div>
     </div>
-    <div class="h-4/5 overflow-auto z-10">
+    <div class="h-4/5 overflow-auto">
         <slot name="content"></slot>
     </div>
   </div>

@@ -65,7 +65,7 @@ export default {
    */
   getModuleTests: (_, getters) => (gid, mid) => {
     var g = getters.getGroup(gid);
-    if (g.tests) {
+    if (g?.tests) {
       var tests = g.tests.filter((test) => test.module == mid);
       return tests.length > 0 ? tests : null;
     } else return undefined;

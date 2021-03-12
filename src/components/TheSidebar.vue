@@ -13,7 +13,7 @@
     </div>
 
     <!-- a single group -->
-    <div style="height:calc(100vh - 10rem)" class="w-full overflow-x-hidden overflow-y-auto">
+    <div style="height:calc(100vh - 10rem)" class="w-full">
       <base-group v-for="group in groups" :key="group.id" :gid="group.id" :name="group.name" :modules="group.modules" />
     </div>
   </div>

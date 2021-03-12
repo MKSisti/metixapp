@@ -20,6 +20,8 @@ export default {
 
           for (const modId of Object.keys(tmpGrp.modules)) {
             tmpModules.push(JSON.parse(await localForage.getItem(modId)));
+            tmpModules[0].tests = [...Object.keys(tmpModules[0].tests)];
+            tmpModules[0].tests = tmpModules[0].tests.map((testId) => testId.split('_')[1]);
           }
 
           for (const testId of Object.keys(tmpGrp.tests)) {
@@ -40,8 +42,12 @@ export default {
           tmpStudents = [];
         }
       }
+      
+      console.log(tmpState);
 
       tmpState.length > 0 ? commit("init", tmpState) : null;
+
+      console.log(state);
     }
   },
   // general actions

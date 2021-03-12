@@ -3,12 +3,12 @@
     <template v-slot:title>
       <!-- module name already editable from sidebar -->
       <div class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4">
-        <h1 class="text-4xl font-bold">{{ info.moduleName }}</h1>
+        <h1 class="text-4xl font-bold">{{ info?.moduleName || 'module name' }}</h1>
       </div>
     </template>
 
     <template v-slot:subtitles>
-      <h1 class="pl-10 pt-2">{{ info.groupName }}</h1>
+      <h1 class="pl-10 pt-2">{{ info?.groupName || 'group name' }}</h1>
     </template>
 
     <template v-slot:content>
@@ -58,7 +58,7 @@
         getStudents: 'getGroupStudents',
       }),
       tests() {
-        return this.getTests(this.GroupId, this.ModuleId);
+        return this.getTests(this.GroupId, this.ModuleId) || [];
       },
       info() {
         return this.getInfo(this.GroupId, this.ModuleId);
