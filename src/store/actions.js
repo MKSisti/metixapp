@@ -5,7 +5,7 @@ import localForage from "localforage";
 export default {
   // store init
   async initStore({ state, commit }) {
-    if (state.groups.length < 1) {
+    if (state.groups.length == 0) {
 
       let tmpState = [];
       let tmpGrp = {};
@@ -43,11 +43,11 @@ export default {
         }
       }
       
-      console.log(tmpState);
+      // console.log(tmpState);
 
       tmpState.length > 0 ? commit("init", tmpState) : null;
 
-      console.log(state);
+      // console.log(state);
     }
   },
   // general actions

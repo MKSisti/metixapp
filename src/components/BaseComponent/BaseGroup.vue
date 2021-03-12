@@ -13,16 +13,18 @@
         @click.stop="toggleExpanded"
       >
         {{ modules.length + " mod" }}
-        <div :class="{'rotate-180':expanded}" class="w-4 h-4 transition duration-200 transform-gpu">
+        <div
+          :class="{ 'rotate-180': expanded }"
+          class="w-4 h-4 transition duration-200 transform-gpu"
+        >
           <box-icon
-          type="solid"
-          name="chevron-down"
-          size="cssSize"
-          class="w-4 h-4 fill-current"
-          v-pre
-        ></box-icon>
+            type="solid"
+            name="chevron-down"
+            size="cssSize"
+            class="w-4 h-4 fill-current"
+            v-pre
+          ></box-icon>
         </div>
-        
       </span>
     </div>
 
@@ -98,63 +100,15 @@
 
       <!-- modules of a group -->
       <div v-if="expanded">
-        <div
-          :class="
-            this.$route.params.ModuleId == module.id
-              ? 'bg-black-base'
-              : 'bg-black-light-1'
-          "
-          class="w-full h-14 px-7 border-b border-black-light-15 border-opacity-20"
+        <base-module
           :key="module.id"
           v-for="module in modules"
+          :module="module"
+          :gid="gid"
+          @update="updateModN"
         >
           <!--module name, hide if user clicks edit-->
-          <div
-            @click="goToMod(module.id)"
-            class="w-full flex justify-between items-center flex-row h-full cursor-pointer"
-            v-if="!editMode"
-          >
-            <h1 class="text-xl capitalize">
-              {{ module.name }}
-            </h1>
-            <span
-              @click.stop="editMode=true"
-              class="text-sm flex justify-center items-center ml-2 text-blue-base"
-            >
-              <box-icon
-                name="pencil"
-                type="solid"
-                size="cssSize"
-                class="w-4 h-4 fill-current"
-                v-pre
-              ></box-icon>
-            </span>
-          </div>
-
-          <!--module input, show if user clicks edit -->
-          <div
-            class="w-full flex justify-between items-center flex-row h-full"
-            v-else
-          >
-            <input
-              @change="newModName= $event.target.value"
-              :value="module.name"
-              type="text"
-              class="py-2 h-10 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-xl transition duration-200 -ml-3 pl-3"
-            />
-            <span
-            @click="updateModN(module.id)"
-              class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base"
-            >
-              <box-icon
-                name="check"
-                size="cssSize"
-                class="w-8 h-8 fill-current"
-                v-pre
-              ></box-icon>
-            </span>
-          </div>
-        </div>
+        </base-module>
       </div>
     </div>
   </div>
@@ -162,6 +116,7 @@
 
 <script>
 import BaseInput from "./BaseInput";
+import BaseModule from "./BaseModule";
 import { mapActions } from "vuex";
 
 export default {
@@ -169,14 +124,15 @@ export default {
   props: ["name", "modules", "gid"],
   components: {
     BaseInput,
+    BaseModule,
   },
   data() {
     return {
-      editMode: false,
+      // editMode: false,
       expanded: false,
       AddModuleVisible: false,
       modInput: "",
-      newModName:'',
+      // newModName: "",
     };
   },
   computed: {
@@ -196,12 +152,12 @@ export default {
     showAddModule() {
       this.AddModuleVisible = !this.AddModuleVisible;
     },
-    goToMod(mid) {
-      this.$router.push({
-        name: "module",
-        params: { GroupId: this.gid, ModuleId: mid },
-      });
-    },
+    // goToMod(mid) {
+    //   this.$router.push({
+    //     name: "module",
+    //     params: { GroupId: this.gid, ModuleId: mid },
+    //   });
+    // },
     goToGrp() {
       this.expanded = true;
 
@@ -213,20 +169,20 @@ export default {
             name: this.modInput,
             id: this.gid,
           })
-        : console.log(null);
+        : null;
       this.AddModuleVisible = false;
+      this.modInput = "";
     },
-    updateModN(id){
-      if (this.newModName?.length > 0) {
+    updateModN(id, newName) {
+      if (newName?.length > 0) {
         this.updateModName({
           gid: this.gid,
           mid: id,
-          name: this.newModName,
-        })
+          name: newName,
+        });
       }
-      this.editMode = false;
     },
-    ...mapActions(["addModule",'updateModName']),
+    ...mapActions(["addModule", "updateModName"]),
   },
 };
 </script>
