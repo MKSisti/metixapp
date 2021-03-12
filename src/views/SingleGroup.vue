@@ -44,45 +44,43 @@
             <box-icon name="plus" size="cssSize" class="w-full h-full fill-current" v-pre></box-icon>
           </span>
         </div>
-        <transition @before-leave="beforeLeave" name="fade-x" appear>
-          <div v-if="ShowAddStudent" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none transition duration-200 transform-gpu">
-            <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
-            <h1 v-if="group?.students.length < 1" class="text-xl capitalize absolute top-2 left-2 font-bold">
-              Add your first student
-            </h1>
-            <h1 class="text-xl capitalize absolute top-2 left-2 font-bold" v-else>
-              Add a new student
-            </h1>
-            <!-- close btn -->
-            <div class="w-full p-2">
-              <span @click="ShowAddStudent = false" class="cursor-pointer hover:bg-red-light-1 text-2xl font-bold bg-red-base text-black-light-5 w-9 h-9 flex justify-center items-center float-right">
-                <box-icon name="plus" size="cssSize" class="w-full h-full fill-current transform rotate-45 scale-105" v-pre></box-icon>
-              </span>
-            </div>
+        <!-- student display loop -->
+        <div class="w-full relative space-y-2 overflow-hidden">
+          <transition-group @before-leave="beforeLeave" name="fade-x" mode="out-in" appear>
+            <div v-if="ShowAddStudent" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none transition duration-200 transform-gpu">
+              <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
+              <h1 v-if="group?.students.length < 1" class="text-xl capitalize absolute top-2 left-2 font-bold">
+                Add your first student
+              </h1>
+              <h1 class="text-xl capitalize absolute top-2 left-2 font-bold" v-else>
+                Add a new student
+              </h1>
+              <!-- close btn -->
+              <div class="w-full p-2">
+                <span @click="ShowAddStudent = false" class="cursor-pointer hover:bg-red-light-1 text-2xl font-bold bg-red-base text-black-light-5 w-9 h-9 flex justify-center items-center float-right">
+                  <box-icon name="plus" size="cssSize" class="w-full h-full fill-current transform rotate-45 scale-105" v-pre></box-icon>
+                </span>
+              </div>
 
-            <!-- student add form -->
-            <div class="w-full relative">
-              <div class="w-full flex justify-around items-center flex-row -mt-6">
-                <base-input v-model="newStFullName" name="student full name *" type="text" tmp="First Last Jr." maxLen="32" :error="newStFullNameErr"></base-input>
-                <base-input v-model="newStEmail" name="student email *" type="text" tmp="example@email.com" maxLen="32" :error="newStEmailErr"></base-input>
-                <base-input v-model="newStPhone" name="student phone *" type="text" tmp="(+212)-12345678" maxLen="32" :error="newStPhoneErr"></base-input>
-                <base-input v-model="newStCne" name="student cne *" type="text" tmp="XY123456" maxLen="32" :error="newStCneErr"></base-input>
-                <base-input v-model="newStCin" name="student cin" type="text" tmp="XY12345" maxLen="32"></base-input>
+              <!-- student add form -->
+              <div class="w-full relative">
+                <div class="w-full flex justify-around items-center flex-row -mt-6">
+                  <base-input v-model="newStFullName" name="student full name *" type="text" tmp="First Last Jr." maxLen="32" :error="newStFullNameErr"></base-input>
+                  <base-input v-model="newStEmail" name="student email *" type="text" tmp="example@email.com" maxLen="32" :error="newStEmailErr"></base-input>
+                  <base-input v-model="newStPhone" name="student phone *" type="text" tmp="(+212)-12345678" maxLen="32" :error="newStPhoneErr"></base-input>
+                  <base-input v-model="newStCne" name="student cne *" type="text" tmp="XY123456" maxLen="32" :error="newStCneErr"></base-input>
+                  <base-input v-model="newStCin" name="student cin" type="text" tmp="XY12345" maxLen="32"></base-input>
+                </div>
+              </div>
+
+              <!-- done button -->
+              <div class="flex justify-center items-center flex-row cursor-pointer">
+                <button @click="addNewSt" class="capitalize rounded-none bg-blue-base px-6 py-1.5 text-xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200">
+                  done
+                </button>
               </div>
             </div>
-
-            <!-- done button -->
-            <div class="flex justify-center items-center flex-row cursor-pointer">
-              <button @click="addNewSt" class="capitalize rounded-none bg-blue-base px-6 py-1.5 text-xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200">
-                done
-              </button>
-            </div>
-          </div>
-        </transition>
-        <!-- student display loop -->
-        <div class="w-full relative space-y-2">
-          <transition-group @before-leave="beforeLeave" name="fade-x" mode="out-in" appear>
-            <base-student class="transition-all duration-200 transform-gpu" @remove="deleteSt" v-for="(student) in group?.students || []" :key="student.cne" :student="student" :gid="GroupId" />
+            <base-student class="transition-all duration-200 transform-gpu" @remove="deleteSt" v-for="student in group?.students || []" :key="student.cne" :student="student" :gid="GroupId" />
           </transition-group>
         </div>
       </div>
