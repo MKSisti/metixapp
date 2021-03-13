@@ -14,7 +14,9 @@
 
     <!-- a single group -->
     <div style="height:calc(100vh - 10rem)" class="w-full">
-      <base-group v-for="group in groups" :key="group.id" :gid="group.id" :name="group.name" :modules="group.modules" />
+      <transition-group @before-leave="beforeLeave" name="fade-x" mode="out-in" appear>
+        <base-group class="transition-all duration-200 transform-gpu" v-for="group in groups" :key="group.id" :gid="group.id" :name="group.name" :modules="group.modules" />
+      </transition-group>
     </div>
   </div>
 </template>
@@ -85,6 +87,13 @@
       },
       goToHome() {
         this.$router.push({ name: 'home' });
+      },
+      beforeLeave(el) {
+        const { marginLeft, marginTop, width, height } = window.getComputedStyle(el);
+        el.style.left = `${el.offsetLeft - parseFloat(marginLeft, 10)}px`;
+        el.style.top = `${el.offsetTop - parseFloat(marginTop, 10)}px`;
+        el.style.width = width;
+        el.style.height = height;
       },
     },
   };
