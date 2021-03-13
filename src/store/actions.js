@@ -259,6 +259,7 @@ export default {
       id: uuidv4(),
       name: "Test_" + testNumber,
       module: payload.mid,
+      timestamp: Date.now(),
       notes
     };
     commit({
