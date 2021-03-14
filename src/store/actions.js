@@ -297,7 +297,8 @@ export default {
       id: uuidv4(),
       name: 'Test_' + testNumber,
       module: payload.mid,
-      notes,
+      timestamp: Date.now(),
+      notes
     };
     commit({
       type: 'addTestToGrp',

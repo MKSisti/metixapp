@@ -27,13 +27,13 @@
 
     <!-- student note container -->
     <div
-      :class="{'max-h-0':collapsed, 'pb-10 max-h-screen': !collapsed }"
+      :class="{ 'max-h-0': collapsed, 'pb-10 max-h-screen': !collapsed }"
       class="w-full flex justify-around items-center flex-row flex-wrap transition-all duration-300 transform-gpu overflow-hidden"
     >
       <!-- student note loop -->
       <base-note
         @updateN="updateStudentNote"
-        v-for="(note,i) in test.notes"
+        v-for="(note, i) in test.notes"
         :key="note.cne"
         :note="note"
         :sid="i"
@@ -45,7 +45,7 @@
       class="flex justify-center items-center flex-row cursor-pointer w-8 h-8 group absolute top-0 bg-blue-base hover:bg-blue-light-1"
     >
       <span
-        :class="{'rotate-180 mt-1': !collapsed}"
+        :class="{ 'rotate-180 mt-1': !collapsed }"
         @click="toggleCollapsed"
         class="cursor-pointer text-sm flex justify-center items-center w-6 h-6 text-black-base transform transition-all duration-200"
       >
@@ -69,10 +69,10 @@ export default {
   name: "BaseTest",
   props: ["test", "gid"],
   components: { BaseNote },
-  inject: ["studentsData","pushPopup"],
+  inject: ["studentsData", "pushPopup"],
   data() {
     return {
-      collapsed: false,
+      collapsed: true,
     };
   },
   methods: {
@@ -89,18 +89,18 @@ export default {
       });
     },
     removeT() {
-      // this.removeTest({
-      //   gid: this.gid,
-      //   tid: this.test.id,
-      //   mid: this.test.module,
-      // });
       this.pushPopup({
-        forWhat:'test',
+        forWhat: "test",
         gid: this.gid,
         tid: this.test.id,
         mid: this.test.module,
       });
     },
+  },
+  mounted() {
+    // console.log(Date.now() - this.test.timestamp);
+    this.collapsed = ((Date.now() - this.test.timestamp)  < 10000) ? false : true;
+    
   },
 };
 </script>
