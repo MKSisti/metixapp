@@ -56,7 +56,7 @@ export default {
           type: 'deleteGrp',
           id: payload.gid,
         });
-        return 1;
+        return Date.now();
       case 'student':
         console.log('should delete a student');
         dispatch({
@@ -64,7 +64,7 @@ export default {
           id: payload.id,
           sid: payload.sid,
         });
-        return 1;
+        return Date.now();
       case 'test':
         console.log('should delete a test');
         dispatch({
@@ -73,11 +73,11 @@ export default {
           tid: payload.tid,
           mid: payload.mid,
         });
-        return 1;
+        return Date.now();
 
       default:
         console.warn('unsupported delete');
-        return 0;
+        return null;
     }
   },
   // general Group CRUD
