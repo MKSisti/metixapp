@@ -1,7 +1,11 @@
 <template>
   <base-body class="capitalize">
     <template v-slot:title>
-      <div class="mb-6 pl-10 pt-4">EDIT GROUP</div>
+      <div class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4">
+        <h1 class="text-4xl font-bold">
+          ADD A NEW GROUP
+        </h1>
+      </div>
     </template>
     <template v-slot:content>
       <div class="space-y-8 pl-10 mt-16">
@@ -66,7 +70,7 @@
       submit() {
         //do update logic
       },
-      remove(){
+      remove() {
         //do delete logic
       },
       test() {
@@ -81,8 +85,8 @@
         return err;
       },
     },
-    mounted(){
+    mounted() {
       //get groupName, vali,  ...
-    }
+    },
   };
 </script>
