@@ -2,7 +2,7 @@
   <div class="h-screen text-black-light-15">
     <div v-if="showPop">
       <transition name="fade" appear>
-        <base-popup @closeMe="showPop = false" :payload="payload" />
+        <base-popup @closeMe="closePrompt" :payload="payload" />
       </transition>
     </div>
     <base-alert class="z-50" :show="!'[[SHOW__ALERT]]'" :text="'[[ALERT__TEXT]]'" />
@@ -26,12 +26,15 @@
     provide() {
       return {
         pushPopup: this.pushPrompt,
+        getCode: this.getCode,
+        getPopState: this.getPopState,
       };
     },
     data() {
       return {
         showPop: false,
         payload: null,
+        code: -1,
       };
     },
     methods: {
@@ -39,6 +42,17 @@
         this.payload = p;
         this.showPop = true;
       },
+      closePrompt(code){
+        this.showPop = false;
+        this.code = code;
+        // console.log(this.code);
+      },
+      getCode(){
+        return this.code;
+      },
+      getPopState(){
+        return this.showPop;
+      }
     },
     async created() {
       await this.$store.dispatch('initStore');
