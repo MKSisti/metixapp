@@ -3,6 +3,8 @@ import SingleGroup from "../views/SingleGroup";
 import SingleModule from "../views/SingleModule";
 import LandingPage from "../views/LandingPage"
 import NotFound from "../views/404NotFound"
+import EditGroup from "../views/EditGroup"
+import Analytics from "../views/AnalyticsPage"
 
 export default [
   {
@@ -19,6 +21,18 @@ export default [
     path: "/groups/:GroupId",
     name: "group",
     component: SingleGroup,
+    props: true,
+  },
+  {
+    path: "/groups/:GroupId/edit",
+    name: "groupEdit",
+    component: EditGroup,
+    props: true,
+  },
+  {
+    path: "/groups/:GroupId/Analytics",
+    name: "groupAnalytics",
+    component: Analytics,
     props: true,
   },
   {

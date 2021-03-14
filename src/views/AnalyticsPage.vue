@@ -15,11 +15,14 @@ import BaseBody from "../components/BaseComponent/BaseBody";
   export default {
     name: 'AnalyticsPage',
     components: {BaseBody},
-    props: [],
+    props: ["GroupId"],
     data() {
       return {};
     },
     computed: {},
     methods: {},
+    mounted(){
+      console.log(this.$store.getters.getGroupMeta(this.GroupId));
+    }
   };
 </script>

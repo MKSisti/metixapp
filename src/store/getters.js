@@ -21,6 +21,21 @@ export default {
   /**
    * 
    * @param gid
+   * @returns some group metadata
+   */
+  getGroupMeta: (_,getters) => (gid) => {
+    var g = getters.getGroup(gid);
+    if (g) {
+      return {
+        name: g.name,
+        def: g.defaults,
+        desc: g.desc,
+      }
+    }else return null;
+  },
+  /**
+   * 
+   * @param gid
    * @returns the default values for notes for the group with id == `gid`
    */
   getGroupDefaults: (_, getters) => (gid) => {

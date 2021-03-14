@@ -3,7 +3,7 @@
     <template v-slot:title>
       <!-- group name -->
       <div class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4" v-if="!editMode">
-        <h1 class="text-4xl font-bold">{{ group?.name || 'name' }}</h1>
+        <h1 class="text-4xl font-bold">{{ group?.name }}</h1>
         <span @click="editMode = true" class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base">
           <box-icon name="pencil" type="solid" size="cssSize" class="w-8 h-8 fill-current mt-1" v-pre></box-icon>
         </span>
@@ -11,7 +11,7 @@
 
       <!-- group edit, on when edit is clicked -->
       <div class="w-full flex justify-start items-center flex-row h-full pl-10" v-else>
-        <input @change="newGrpName = $event.target.value" :value="group?.name || 'some'" type="text" class="py-2 h-16 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-4xl font-bold transition duration-200 -ml-3 pl-3" />
+        <input @change="newGrpName = $event.target.value" :value="group?.name " type="text" class="py-2 h-16 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-4xl font-bold transition duration-200 -ml-3 pl-3" />
         <span @click="updateGrpName" class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base">
           <box-icon name="check" size="cssSize" class="w-12 h-12 fill-current" v-pre></box-icon>
         </span>
@@ -19,17 +19,17 @@
     </template>
 
     <template v-slot:subtitles>
-      <h1 class="pl-10 pt-2">{{ group?.desc || 'some' }}</h1>
+      <h1 class="pl-10 pt-2">{{ group?.desc}}</h1>
     </template>
 
     <template v-slot:topRight>
       <div class="space-y-2 pt-4 w-full flex justify-center items-end flex-col">
-        <div class="bg-blue-base px-4 py-2 text-xl text-black-base cursor-pointer flex justify-center items-center w-36 hover:w-40 transition-all duration-200">
+        <div @click="goToAnalytics" class="bg-blue-base px-4 py-2 text-xl text-black-base cursor-pointer flex justify-center items-center w-36 hover:w-40 transition-all duration-200">
           <h1 class="text-black-base pr-2">Analytics</h1>
           <box-icon name="bar-chart-alt-2" type="solid" size="cssSize" class="w-6 h-6 fill-current" v-pre></box-icon>
         </div>
 
-        <div class="bg-blue-base px-4 py-2 text-xl text-black-base cursor-pointer w-36 hover:w-40 transition-all duration-200">
+        <div @click="goToEdit" class="bg-blue-base px-4 py-2 text-xl text-black-base cursor-pointer w-36 hover:w-40 transition-all duration-200">
           Edit Group
         </div>
       </div>
@@ -183,6 +183,12 @@
           sid: sid,
           id: this.GroupId,
         });
+      },
+      goToEdit(){
+        this.$router.push({ name: 'groupEdit', params: { GroupId: this.GroupId } });
+      },
+      goToAnalytics(){
+        this.$router.push({ name: 'groupAnalytics', params: { GroupId: this.GroupId } });
       }
     },
   };
