@@ -47,7 +47,7 @@
         <!-- student display loop -->
         <div class="w-full relative space-y-2 overflow-hidden">
           <transition-group @before-leave="beforeLeave" name="fade-x" appear>
-            <div v-if="ShowAddStudent" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none transition duration-200 transform-gpu">
+            <div v-if="ShowAddStudent" key="student input" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none transition duration-200 transform-gpu">
               <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
               <h1 v-if="group?.students.length < 1" class="text-xl capitalize absolute top-2 left-2 font-bold">
                 Add your first student
@@ -64,7 +64,7 @@
 
               <!-- student add form -->
               <div class="w-full relative">
-                <div class="w-full flex justify-around items-center flex-row -mt-6">
+                <div class="w-full flex justify-around items-center flex-row -mt-6 space-x-4 px-8">
                   <base-input v-model="newStFullName" name="student full name *" type="text" tmp="First Last Jr." maxLen="32" :error="newStFullNameErr"></base-input>
                   <base-input v-model="newStEmail" name="student email *" type="text" tmp="example@email.com" maxLen="32" :error="newStEmailErr"></base-input>
                   <base-input v-model="newStPhone" name="student phone *" type="text" tmp="(+212)-12345678" maxLen="32" :error="newStPhoneErr"></base-input>
