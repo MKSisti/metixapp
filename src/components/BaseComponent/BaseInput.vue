@@ -4,7 +4,7 @@
       <box-icon name="error-circle" size="cssSize" class="w-4 h-4 mb-1 fill-current" v-pre></box-icon>
       <h1 class="pl-1">{{error}}</h1>
     </span>
-    <label :for="name" class="block text-xl font-light uppercase">
+    <label :for="name" class="block text-lg w-11/12 font-light uppercase truncate">
       {{ name }}
     </label>
     <input
@@ -12,7 +12,7 @@
       :type="type"
       :name="name"
       :id="id ? id : name"
-      class="transition duration-200 border-black-light-15 border-opacity-30 border-2 bg-transparent text-xl placeholder-black-light-15 placeholder-opacity-30 px-6 py-4 w-full focus:outline-none focus:border-black-light-15"
+      class="transition duration-200 border-black-light-15 border-opacity-30 border-2 bg-transparent text-xl placeholder-black-light-15 placeholder-opacity-30 px-3 py-2.5 w-full focus:outline-none focus:border-black-light-15"
       :placeholder="tmp"
       autocomplete="off"
       :maxlength="maxLen"
