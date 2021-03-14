@@ -16,34 +16,30 @@
       <!-- new module -->
       <div class="relative w-full">
         <!-- new module container, had to to position relative to parent but have more width -->
-        <div
-          v-if="expanded"
-          style="
-            transform: translateX(calc(100% - 12rem));
-            width: calc(100% + 12rem);
-          "
-          :class="showHide"
-          class="h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2"
-        >
-          <!-- new module header  -->
-          <div class="w-full flex justify-between items-center">
-            <h1 class="text-2xl capitalize ml-4">New Module</h1>
-            <!-- new module close button -->
-            <span @click="AddModuleVisible = false" class="cursor-pointer hover:bg-red-light-1 text-2xl font-bold bg-red-base text-black-light-5 w-9 h-9 flex justify-center items-center">
-              <box-icon name="plus" size="cssSize" class="w-full h-full fill-current transform rotate-45 scale-105" v-pre></box-icon>
-            </span>
-          </div>
+        <transition @before-leave="beforeLeave" name="fade" appear>
+          <div v-if="expanded && AddModuleVisible" class="transition-all duration-200 transform-gpu">
+            <div style="transform: translateX(calc(100% - 12rem));width: calc(100% + 12rem);" class="h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2">
+              <!-- new module header  -->
+              <div class="w-full flex justify-between items-center">
+                <h1 class="text-2xl capitalize ml-4">New Module</h1>
+                <!-- new module close button -->
+                <span @click="AddModuleVisible = false" class="cursor-pointer hover:bg-red-light-1 text-2xl font-bold bg-red-base text-black-light-5 w-9 h-9 flex justify-center items-center">
+                  <box-icon name="plus" size="cssSize" class="w-full h-full fill-current transform rotate-45 scale-105" v-pre></box-icon>
+                </span>
+              </div>
 
-          <!-- new module input -->
-          <base-input class="w-full px-10" name="module name" type="text" tmp="Module name" maxLen="32" v-model="modInput"></base-input>
+              <!-- new module input -->
+              <base-input class="w-full px-10" name="module name" type="text" tmp="Module name" maxLen="32" v-model="modInput"></base-input>
 
-          <!-- module done button -->
-          <div class="w-full">
-            <button @click="addMod" class="capitalize rounded-none bg-blue-base px-8 py-2 text-xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200 float-right">
-              done
-            </button>
+              <!-- module done button -->
+              <div class="w-full">
+                <button @click="addMod" class="capitalize rounded-none bg-blue-base px-8 py-2 text-xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200 float-right">
+                  done
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        </transition>
 
         <!-- new module prompt button -->
         <div class="bg-black-light-10 flex justify-between items-center flex-row w-full h-14 p-4">
@@ -86,9 +82,6 @@
       };
     },
     computed: {
-      showHide() {
-        return this.AddModuleVisible ? '' : 'invisible';
-      },
       GrpActiveClass() {
         var current = this.$route.params.GroupId;
 

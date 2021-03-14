@@ -2,14 +2,7 @@
   <div class="w-full h-14 relative group">
     <transition @before-leave="beforeLeave" name="fade" appear>
       <div v-if="editMode" class="w-full transition duration-200 transform-gpu">
-        <div
-          style="
-            transform: translateX(calc(100% - 12rem));
-            width: calc(100% + 12rem);
-            box-shadow: 2px -4px 5px rgb(0,0,0,0.1);
-          "
-          class="h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2"
-        >
+        <div style="transform: translateX(calc(100% - 12rem));width: calc(100% + 12rem);box-shadow: 2px -4px 5px rgb(0,0,0,0.1);" class="h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2">
           <!-- new module header  -->
           <div class="w-full flex justify-between items-center">
             <h1 class="text-2xl capitalize ml-4">Edit Module</h1>
@@ -77,7 +70,7 @@
           name: 'module',
           params: { GroupId: this.gid, ModuleId: this.module.id },
         });
-      }
+      },
     },
   };
 </script>
