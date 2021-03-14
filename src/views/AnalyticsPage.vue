@@ -1,5 +1,5 @@
 <template>
-  <base-body :key="GroupId" class="capitalize overflow-hidden transition duration-200 transform-gpu">
+  <base-body class="capitalize overflow-hidden transition duration-200 transform-gpu">
     <template v-slot:title> </template>
 
     <template v-slot:subtitles> </template>
@@ -11,10 +11,11 @@
 </template>
 
 <script>
+import BaseBody from "../components/BaseComponent/BaseBody";
   export default {
     name: 'AnalyticsPage',
-    components: {},
-    props: ['GroupId'],
+    components: {BaseBody},
+    props: [],
     data() {
       return {};
     },

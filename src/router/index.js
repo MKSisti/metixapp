@@ -23,14 +23,14 @@ router.beforeEach(async (to, from, next) => {
 
         //if moduleId param in store
         if(keys.includes('module_' + to.params.ModuleId)) next();
-        else next('/');
+        else next('/404');
       }
       else{
         next();
       }
     }
     else{
-      next('/');
+      next('/404');
     }
   }
   else next();
