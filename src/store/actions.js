@@ -265,9 +265,13 @@ export default {
     await localForage.setItem('group_' + grp.id, JSON.stringify(grp));
     await localForage.setItem('module_' + copyMod.id, JSON.stringify(copyMod));
   },
-  async deleteMod(/*{ commit },*/ payload) {
+  async deleteMod({ commit }, payload) {
     //your delete logic here
-
+    commit({
+      type: "removeModuleFromGrp",
+      id: payload.id,
+      mid: payload.mid
+    })
     //read module
     let module = JSON.parse(await localForage.getItem('module_' + payload.mid));
 
