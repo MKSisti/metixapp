@@ -82,6 +82,18 @@ export default {
       }
     }
   },
+  removeModuleFromGrp(state, payload){
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.id) {
+        for (let j = 0; j < state.groups[i].modules.length; j++) {
+          if (state.groups[i].modules[j].id == payload.mid) {
+            state.groups[i].modules.splice(j,1);
+          }
+          
+        }
+      }
+    }
+  },
   // test mutations
   addTestToGrp(state, payload) {
     for (let i = 0; i < state.groups.length; i++) {

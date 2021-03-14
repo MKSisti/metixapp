@@ -49,15 +49,10 @@ export default {
     closePrompt(code) {
       this.showPop = false;
       this.code = code;
-      this.resetCode();
+      // this.resetCode();
       // console.log(this.code);
     },
-    async resetCode() {
-      // this.code = null;
-      setTimeout(()=>{
-        this.code = -1;
-      },100)
-    },
+    
     getCode() {
       return this.code;
     },

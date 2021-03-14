@@ -83,7 +83,7 @@
       // },
       deleteSt(newdst) {
         // console.log(newdst);
-        if (newdst == 1) {
+        if (newdst != null) {
           console.log('pushed to home');
           this.$router.push({ name: 'home' });
         }
