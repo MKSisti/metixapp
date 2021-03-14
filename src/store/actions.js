@@ -50,6 +50,13 @@ export default {
   // general actions
   generalDelete({ dispatch }, payload) {
     switch (payload.forWhat) {
+      case 'group':
+        console.log('should delete a group');
+        dispatch({
+          type: 'deleteGrp',
+          id: payload.gid,
+        });
+        return 1;
       case 'student':
         console.log('should delete a student');
         dispatch({
@@ -57,7 +64,7 @@ export default {
           id: payload.id,
           sid: payload.sid,
         });
-        break;
+        return 1;
       case 'test':
         console.log('should delete a test');
         dispatch({
@@ -66,11 +73,11 @@ export default {
           tid: payload.tid,
           mid: payload.mid,
         });
-        break;
+        return 1;
 
       default:
         console.warn('unsupported delete');
-        break;
+        return 0;
     }
   },
   // general Group CRUD
@@ -101,9 +108,23 @@ export default {
     groupIds.push('group_' + copyGrp.id);
     await localForage.setItem('groupIds', groupIds);
   },
-  async deleteGrp(/*{ commit },*/ payload) {
-    //your delete logic here
+  async updateGrp({commit},payload){
+    commit({
+      type: "updateGroupData",
+      id: payload.id,
+      name: payload.name,
+      desc: payload.desc,
+      defaults: payload.defaults,
+    })
 
+    //todo: LF logic here
+  },
+  async deleteGrp({ commit }, payload) {
+    //your delete logic here
+    commit({
+      type: "removeGroup",
+      id: payload.id,
+    })
     //get group from LF
     let grp = JSON.parse(await localForage.getItem('group_' + payload.id));
 

@@ -4,7 +4,7 @@
       <div
         class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4"
       >
-        <h1 class="text-4xl font-bold">ADD A NEW GROUP</h1>
+        <h1 class="text-4xl font-bold">EDIT GROUP</h1>
       </div>
     </template>
     <template v-slot:content>
@@ -89,12 +89,13 @@
 <script>
 import BaseInput from "../components/BaseComponent/BaseInput";
 import BaseBody from "../components/BaseComponent/BaseBody";
-// import { mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: "AddGroup",
   components: { BaseBody, BaseInput },
   props: ["GroupId"],
+  inject: ["pushPopup", "getCode" /*, "getPopState"*/],
   data() {
     return {
       groupName: "",
@@ -108,12 +109,65 @@ export default {
       notesErr: null,
     };
   },
+  computed: {
+    popSt() {
+      return this.getPopState();
+    },
+    deleteSt() {
+      return this.getCode();
+    },
+  },
+  watch: {
+    // popSt(newst) {
+    //   // console.log("changed");
+    //   console.log(newst);
+    // },
+    deleteSt(newdst) {
+      // console.log(newdst);
+      if (newdst == 1) {
+        console.log("pushed to home");
+        this.$router.push({ name: "home" });
+      }
+    },
+  },
   methods: {
     submit() {
       //do update logic
+      var err = this.test();
+      if (err?.nameErr || err?.notesErr) {
+        //display errors
+        this.nameErr = err.nameErr ? "this field is required" : null;
+      } else {
+        //all good we create
+        this.nameErr = null;
+        this.notesErr = null;
+
+        this.update({
+          id: this.GroupId,
+          name: this.groupName,
+          desc: this.desc,
+          defaults: {
+            validation: this.vali,
+            excellent: this.exce,
+            bien: this.bien,
+            assez: this.assez,
+            eliminatoir: this.eli,
+          },
+        });
+        this.$router.push({
+          name: "group",
+          params: {
+            GroupId: this.GroupId,
+          },
+        });
+      }
     },
     remove() {
       //do delete logic
+      this.pushPopup({
+        forWhat: "group",
+        gid: this.GroupId,
+      });
     },
     test() {
       var err = {
@@ -126,9 +180,12 @@ export default {
 
       return err;
     },
+    ...mapActions({
+      update: "updateGrp",
+    }),
   },
   mounted() {
-    //get groupName, vali,  
+    //get groupName, vali,
     var gM = this.$store.getters.getGroupMeta(this.GroupId);
     this.groupName = gM.name;
     this.desc = gM.desc;

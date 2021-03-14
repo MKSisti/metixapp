@@ -28,51 +28,6 @@
 
   export default {
     name: 'Sidebar',
-    // data() {
-    //   return {
-    //     SAMPLE__GROUP: [
-    //       {
-    //         name: 'group1',
-    //         active: true,
-    //         expanded: false,
-    //         modules: [
-    //           {
-    //             name: 'mod1',
-    //           },
-    //           {
-    //             name: 'mod2',
-    //           },
-    //           {
-    //             name: 'mod3',
-    //           },
-    //           {
-    //             name: 'mod4',
-    //           },
-    //         ],
-    //       },
-    //       {
-    //         name: 'group2',
-    //         active: false,
-    //         expanded: false,
-    //         modules: [
-    //           {
-    //             name: '...',
-    //           },
-    //           {
-    //             name: '...',
-    //           },
-    //           {
-    //             name: '...',
-    //           },
-    //           {
-    //             name: '...',
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //   };
-    // },
-    // props: {},
     components: {
       BaseGroup,
     },
@@ -80,6 +35,16 @@
       ...mapGetters({
         groups: 'getAllGroups',
       }),
+    },
+    watch: {
+      groups: {
+        handler(){
+          console.log("changed");
+          
+        },
+        deep:true
+      }
+      
     },
     methods: {
       goToAdd() {

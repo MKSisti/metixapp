@@ -7,10 +7,23 @@ export default {
   addGroup(state, payload) {
     state.groups.push(payload.group);
   },
+  removeGroup(state, payload){
+    state.groups.splice(state.groups.findIndex(gr => gr.id == payload.id), 1);
+  },
   updateGroupName(state, payload){
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.id) {
         state.groups[i].name = payload.name;
+      }
+      
+    }
+  },
+  updateGroupData(state, payload){
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.id) {
+        state.groups[i].name = payload.name;
+        state.groups[i].desc = payload.desc;
+        state.groups[i].defaults = payload.defaults;
       }
       
     }
@@ -96,7 +109,7 @@ export default {
             state.groups[i].modules[j].tests = state.groups[i].modules[
               j
             ].tests.filter((test) => test.id != payload.tid);
-            state.groups[i].modules[j].testCounter = 0;
+            state.groups[i].modules[j].tests.length == 0 ? state.groups[i].modules[j].testCounter =  0 : null;
           }
 
         }
