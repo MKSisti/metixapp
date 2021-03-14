@@ -115,7 +115,14 @@ export default {
       name: payload.name,
       desc: payload.desc,
       defaults: payload.defaults,
-    })
+    });
+
+    let grp = JSON.parse(await localForage.getItem('group_' + payload.id));
+    grp.defaults = payload.defaults;
+    grp.desc = payload.desc;
+    grp.name = payload.name;
+
+    await localForage.setItem('group_' + payload.id, grp);
 
     //todo: LF logic here
   },
