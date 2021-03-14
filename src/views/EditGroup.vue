@@ -89,7 +89,7 @@
 <script>
 import BaseInput from "../components/BaseComponent/BaseInput";
 import BaseBody from "../components/BaseComponent/BaseBody";
-// import { mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: "AddGroup",
@@ -110,14 +110,14 @@ export default {
     };
   },
   computed: {
-    popSt(){
-      return this.getPopState(); 
+    popSt() {
+      return this.getPopState();
     },
-    deleteSt(){
+    deleteSt() {
       return this.getCode();
-    }
+    },
   },
-  watch:{
+  watch: {
     // popSt(newst) {
     //   // console.log("changed");
     //   console.log(newst);
@@ -126,13 +126,41 @@ export default {
       // console.log(newdst);
       if (newdst == 1) {
         console.log("pushed to home");
-        this.$router.push({ name: 'home'});
+        this.$router.push({ name: "home" });
       }
-    }
+    },
   },
   methods: {
     submit() {
       //do update logic
+      var err = this.test();
+      if (err?.nameErr || err?.notesErr) {
+        //display errors
+        this.nameErr = err.nameErr ? "this field is required" : null;
+      } else {
+        //all good we create
+        this.nameErr = null;
+        this.notesErr = null;
+
+        this.update({
+          id: this.GroupId,
+          name: this.groupName,
+          desc: this.desc,
+          defaults: {
+            validation: this.vali,
+            excellent: this.exce,
+            bien: this.bien,
+            assez: this.assez,
+            eliminatoir: this.eli,
+          },
+        });
+        this.$router.push({
+          name: "group",
+          params: {
+            GroupId: this.GroupId,
+          },
+        });
+      }
     },
     remove() {
       //do delete logic
@@ -140,7 +168,6 @@ export default {
         forWhat: "group",
         gid: this.GroupId,
       });
-      
     },
     test() {
       var err = {
@@ -153,6 +180,9 @@ export default {
 
       return err;
     },
+    ...mapActions({
+      update: "updateGrp",
+    }),
   },
   mounted() {
     //get groupName, vali,
@@ -164,7 +194,6 @@ export default {
     this.assez = gM.def.assez;
     this.bien = gM.def.bien;
     this.exce = gM.def.excellent;
-
   },
 };
 </script>

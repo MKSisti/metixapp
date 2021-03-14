@@ -18,6 +18,16 @@ export default {
       
     }
   },
+  updateGroupData(state, payload){
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.id) {
+        state.groups[i].name = payload.name;
+        state.groups[i].desc = payload.desc;
+        state.groups[i].defaults = payload.defaults;
+      }
+      
+    }
+  },
   // student mutations
   addStudentToGrp(state, payload) {
     for (let i = 0; i < state.groups.length; i++) {

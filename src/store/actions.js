@@ -108,6 +108,17 @@ export default {
     groupIds.push('group_' + copyGrp.id);
     await localForage.setItem('groupIds', groupIds);
   },
+  async updateGrp({commit},payload){
+    commit({
+      type: "updateGroupData",
+      id: payload.id,
+      name: payload.name,
+      desc: payload.desc,
+      defaults: payload.defaults,
+    })
+
+    //todo: LF logic here
+  },
   async deleteGrp({ commit }, payload) {
     //your delete logic here
     commit({
