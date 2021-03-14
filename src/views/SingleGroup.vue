@@ -46,7 +46,7 @@
         </div>
         <!-- student display loop -->
         <div class="w-full relative space-y-2 overflow-hidden">
-          <transition-group @before-leave="beforeLeave" name="fade-x" mode="out-in" appear>
+          <transition-group @before-leave="beforeLeave" name="fade-x" appear>
             <div v-if="ShowAddStudent" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none transition duration-200 transform-gpu">
               <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
               <h1 v-if="group?.students.length < 1" class="text-xl capitalize absolute top-2 left-2 font-bold">
