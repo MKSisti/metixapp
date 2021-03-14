@@ -12,7 +12,7 @@
       </span>
     </div>
       <!-- if u visit the group page, show the modules avoids one more click if user wants to select a mod from that group-->
-      <div :style="{'max-height':height}" :class="{'overflow-hidden': !expanded}" class="w-full justify-start items-start transition-all duration-200 transform-gpu relative z-0" >
+      <div :style="{'max-height':height}" ref="groupChildren" class="w-full justify-start items-start transition-all duration-200 transform-gpu relative z-0 overflow-hidden" >
         <!-- new module -->
         <div class="relative w-full">
           <!-- new module container, had to to position relative to parent but have more width -->
@@ -96,7 +96,7 @@
       },
       height(){
         return this.expanded ? (5 * (this.modules.length + 1)) + 'rem' : 0 + 'rem';
-      }
+      },
     },
     methods: {
       toggleExpanded() {
@@ -135,14 +135,19 @@
           });
         }
       },
-      ...mapActions(['addModule', 'updateModName']),
-      beforeLeave(el) {
-        const { marginLeft, marginTop, width, height } = window.getComputedStyle(el);
-        el.style.left = `${el.offsetLeft - parseFloat(marginLeft, 10)}px`;
-        el.style.top = `${el.offsetTop - parseFloat(marginTop, 10)}px`;
-        el.style.width = width;
-        el.style.height = height;
-      },
+      ...mapActions(['addModule', 'updateModName'])
     },
+    watch:{
+      expanded:function(val){
+        if(val) {
+          setTimeout(() => {
+            this.$refs.groupChildren.style.overflow = 'visible';
+          },200);
+        }
+        else{
+          this.$refs.groupChildren.style.overflow = 'hidden';
+        }
+      }
+    }
   };
 </script>

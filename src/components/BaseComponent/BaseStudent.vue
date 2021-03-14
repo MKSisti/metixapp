@@ -28,10 +28,10 @@
         class="w-full flex justify-around items-center flex-row px-10"
         v-if="!isInEditMode"
       >
-        <h1 class="text-xl max-w-xs break-words">{{ student.fullName }}</h1>
-        <h1 class="text-xl max-w-xs break-words">{{ student.email }}</h1>
-        <h1 class="text-xl max-w-xs break-words">{{ student.phone }}</h1>
-        <h1 class="text-xl max-w-xs break-words">{{ student.cin }}</h1>
+        <h1 class="text-xl w-full max-w-xs break-words">{{ student.fullName }}</h1>
+        <h1 class="text-xl w-full max-w-xs break-words">{{ student.email }}</h1>
+        <h1 class="text-xl w-full max-w-xs break-words">{{ student.phone }}</h1>
+        <h1 class="text-xl w-full max-w-xs break-words">{{ student.cin != '' ? student.cin : '_____' }}</h1>
       </div>
 
       <!-- data edit, couldnt do the neat text turns to input cuz of the variable 

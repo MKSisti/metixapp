@@ -1,43 +1,69 @@
 <template>
   <div class="w-full h-14 relative group">
-    <div class="group absolute w-14 h-14 right-0 top-0 transition transform-gpu duration-200 z-0 bg-red-base hover:bg-red-light-1 pointer-events-none opacity-0 group-hover:translate-x-full group-hover:opacity-100 group-hover:pointer-events-auto cursor-pointer">
-      <div class="w-full h-full p-2 flex justify-center items-center">
-        <span class="cursor-pointer text-2xl font-bold text-black-light-5 w-9 h-9 flex justify-center items-center float-right transition duration-200">
-          <box-icon name="plus" size="cssSize" class="w-full h-full fill-current transform rotate-45 scale-105" v-pre></box-icon>
-        </span>
-      </div>
-    </div>
+    <transition @before-leave="beforeLeave" name="fade" appear>
+      <div v-if="editMode" class="w-full transition duration-200 transform-gpu">
+        <div
+          style="
+            transform: translateX(calc(100% - 12rem));
+            width: calc(100% + 12rem);
+            box-shadow: 2px -4px 5px rgb(0,0,0,0.1);
+          "
+          class="h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2"
+        >
+          <!-- new module header  -->
+          <div class="w-full flex justify-between items-center">
+            <h1 class="text-2xl capitalize ml-4">Edit Module</h1>
+            <!-- new module close button -->
+            <span @click="editMode = false" class="cursor-pointer hover:bg-red-light-1 text-2xl font-bold bg-red-base text-black-light-5 w-9 h-9 flex justify-center items-center">
+              <box-icon name="plus" size="cssSize" class="w-full h-full fill-current transform rotate-45 scale-105" v-pre></box-icon>
+            </span>
+          </div>
 
-    <div :class="this.$route.params.ModuleId == module.id ? 'bg-black-base' : 'bg-black-light-1'" class="w-full px-7 h-full z-20 relative border-b border-black-light-15 border-opacity-20">
-      <div @click="goToMod" class="w-full flex justify-between items-center flex-row h-full cursor-pointer " v-if="!editMode">
+          <!-- new module input -->
+          <base-input class="w-full px-10" name="module name" type="text" tmp="Module name" maxLen="32" v-model="modInput"></base-input>
+
+          <!-- module done button -->
+          <div class="w-full">
+            <button @click="updateName" class="capitalize rounded-none bg-blue-base px-8 py-2 text-xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200 float-right">
+              done
+            </button>
+            <button @click="updateName" class="capitalize rounded-none bg-red-base px-8 py-2 text-xl font-semibold text-black-base hover:bg-red-light-1 transition duration-200 float-right mr-8">
+              delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <div :class="this.$route.params.ModuleId == module.id ? 'bg-black-base' : 'bg-black-light-1'" class="w-full pl-7 pr-4 h-full z-20 relative border-b border-black-light-15 border-opacity-20">
+      <div @click="goToMod" class="w-full flex justify-between items-center flex-row h-full cursor-pointer ">
         <h1 class="text-xl capitalize">
           {{ module.name }}
         </h1>
-        <span @click.stop="editMode = true" class="text-sm flex justify-center items-center ml-2 text-blue-base">
-          <box-icon name="pencil" type="solid" size="cssSize" class="w-4 h-4 fill-current" v-pre></box-icon>
+        <span @click.stop="editMode = !editMode" class="cursor-pointer hover:text-blue-light-1 text-2xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-center items-center p-px">
+          <box-icon name="dots-vertical" size="cssSize" class="w-7 h-7 fill-current" v-pre></box-icon>
         </span>
       </div>
 
       <!--module input, show if user clicks edit -->
-      <div class="w-full flex justify-between items-center flex-row h-full" v-else>
-        <input @change="newModName = $event.target.value" :value="module.name" type="text" class="py-2 h-10 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-xl transition duration-200 -ml-3 pl-3" />
-        <span @click="updateN" class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base">
-          <box-icon name="check" size="cssSize" class="w-8 h-8 fill-current" v-pre></box-icon>
-        </span>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import BaseInput from './BaseInput';
   export default {
     name: 'BaseModule',
     props: ['module', 'gid'],
+    components: {
+      BaseInput,
+    },
     emits: ['update'],
     data() {
       return {
         newModName: '',
         editMode: false,
+        modInput: this.module.name,
       };
     },
     methods: {
@@ -51,6 +77,13 @@
           name: 'module',
           params: { GroupId: this.gid, ModuleId: this.module.id },
         });
+      },
+      beforeLeave(el) {
+        const { marginLeft, marginTop, width, height } = window.getComputedStyle(el);
+        el.style.left = `${el.offsetLeft - parseFloat(marginLeft, 10)}px`;
+        el.style.top = `${el.offsetTop - parseFloat(marginTop, 10)}px`;
+        el.style.width = width;
+        el.style.height = height;
       },
     },
   };
