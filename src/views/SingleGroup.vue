@@ -36,7 +36,7 @@
     </template>
 
     <template v-slot:content>
-      <div class="w-full h-full pt-28 flex flex-col justify-start items-start space-y-2 px-3 overflow-auto">
+      <div class="w-full h-full pt-28 flex flex-col justify-start items-start space-y-2 px-3 overflow-y-auto overflow-x-hidden">
         <!-- new student, adds an empty student or template student with edit flag true -->
         <div class="bg-black-light-1 flex justify-between items-center flex-row w-64 h-16 p-4">
           <h1 class="text-2xl capitalize font-bold">new Student</h1>
@@ -45,7 +45,7 @@
           </span>
         </div>
         <!-- student display loop -->
-        <div class="w-full h-full relative space-y-2 overflow-hidden">
+        <div class="w-full relative space-y-2">
           <transition-group @before-leave="beforeLeave" name="fade-x" appear>
             <div v-if="ShowAddStudent" key="student input" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none transition-all duration-200 transform-gpu">
               <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
