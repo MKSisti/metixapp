@@ -91,6 +91,11 @@ export default {
           }
           
         }
+        for (let j = 0; j < state.groups[i].tests.length; j++) {
+          if (state.groups[i].tests[j].module == payload.mid) {
+            state.groups[i].tests.splice(j, 1);
+          }
+        }
       }
     }
   },
