@@ -10,6 +10,7 @@
           "
           class="h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2"
           @keyup.enter="updateN"
+          @keyup.esc="editMode = false"
         >
           <!-- new module header  -->
           <div class="w-full flex justify-between items-center">

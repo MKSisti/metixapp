@@ -1,9 +1,15 @@
 <template>
-  <base-body class="capitalize">
+  <base-body @keyup.esc="goBackToGrp" class="capitalize">
     <template v-slot:title>
-      <div class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4">
+      <div @click="goBackToGrp" class="cursor-pointer w-full flex justify-start items-center flex-row h-full pl-10 pt-4">
+        <span class="text-sm flex justify-center items-center text-blue-base">
+          <box-icon name="chevron-left" type="solid" size="cssSize" class="w-8 h-8 fill-current mt-1" v-pre></box-icon>
+        </span>
         <h1 class="text-4xl font-bold">EDIT GROUP</h1>
       </div>
+    </template>
+    <template v-slot:subtitles>
+      <h1 class="pl-12 pt-2">{{ groupName }}</h1>
     </template>
     <template v-slot:content>
       <transition name="fade-x" @before-leave="beforeLeave" appear>
@@ -114,12 +120,7 @@
               eliminatoir: this.eli,
             },
           });
-          this.$router.push({
-            name: 'group',
-            params: {
-              GroupId: this.GroupId,
-            },
-          });
+          this.goBackToGrp();
         }
       },
       remove() {
@@ -127,6 +128,14 @@
         this.pushPopup({
           forWhat: 'group',
           gid: this.GroupId,
+        });
+      },
+      goBackToGrp() {
+        this.$router.push({
+          name: 'group',
+          params: {
+            GroupId: this.GroupId,
+          },
         });
       },
       test() {
@@ -155,9 +164,8 @@
         this.assez = gM.def.assez;
         this.bien = gM.def.bien;
         this.exce = gM.def.excellent;
-      }
-      catch(e){
-        this.$router.replace({name:'error',params: { error: e}});
+      } catch (e) {
+        this.$router.replace({ name: 'error', params: { error: e } });
       }
     },
   };

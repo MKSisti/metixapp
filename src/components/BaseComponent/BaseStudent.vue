@@ -37,6 +37,7 @@
       <!-- data edit, couldnt do the neat text turns to input cuz of the variable 
             length of data and data being in single line -->
       <div
+        @keyup.enter="updateSt"
         class="w-full flex justify-around items-center flex-row -mt-6 space-x-4 px-8"
         v-else
       >
