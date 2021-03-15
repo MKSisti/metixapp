@@ -116,4 +116,10 @@ export default {
     return g?.tests.length > 0 ? g.tests : null;
   },
 
+  /**
+   * * getters for Analytics Page
+   */
+  
+
+  
 };
