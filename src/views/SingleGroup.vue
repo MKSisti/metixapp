@@ -45,9 +45,9 @@
           </span>
         </div>
         <!-- student display loop -->
-        <div class="w-full relative space-y-2">
+        <div class="w-full relative">
           <transition-group @before-leave="beforeLeave" name="fade-x" appear>
-            <div v-if="ShowAddStudent" key="student input" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none transition-all duration-200 transform-gpu">
+            <div v-if="ShowAddStudent" key="student input" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none transition-all duration-200 transform-gpu mt-2">
               <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
               <h1 v-if="group?.students.length < 1" class="text-xl capitalize absolute top-2 left-2 font-bold">
                 Add your first student
@@ -80,7 +80,7 @@
                 </button>
               </div>
             </div>
-            <base-student class="transition-all duration-200 transform-gpu" @remove="deleteSt" v-for="student in group?.students || []" :key="student.cne" :student="student" :gid="GroupId" />
+            <base-student class="transition-all duration-200 transform-gpu my-2" @remove="deleteSt" v-for="student in group?.students || []" :key="student.cne" :student="student" :gid="GroupId" />
           </transition-group>
         </div>
       </div>
