@@ -5,15 +5,15 @@ import localForage from "localforage";
 Math.avg = (...arr) => {
   let sum = 0;
   arr.forEach((n) => {
-    sum += n * 1 ;
+    sum += n * 1;
   });
-  return (sum / arr.length).toFixed(2)*1;
+  return (sum / arr.length).toFixed(2) * 1;
 };
 Math.countMoreThan = (n, ...arr) => {
-  return arr.filter((i)=>i>=n).length;
+  return arr.filter((i) => i >= n).length;
 };
 Math.countLessThan = (n, ...arr) => {
-  return arr.filter((i)=>i<n).length;
+  return arr.filter((i) => i < n).length;
 };
 
 export default {
@@ -422,7 +422,6 @@ export default {
           for (const key in test.notes) {
             tmpNote.push(test.notes[key].value);
             // console.log(test.notes[key].value);
-            
           }
           console.log(tmpNote);
           ret.mods[mod.id].tests[test.id] = {
