@@ -14,7 +14,7 @@ const beforeLeaveMixin = {
       el.style.width = width;
       el.style.height = height;
     },
-  }
+  },
 };
 
 createApp(App)

@@ -12,7 +12,7 @@
     </template>
 
     <template v-slot:content>
-      <div class="w-full mt-28 space-y-2 px-3 overflow-hidden relative flex-col">
+      <div class="mt-28 space-y-2 px-3 relative flex-col overflow-hidden">
         <!-- new test -->
         <div class="w-full flex justify-start items-center relative">
           <div class="bg-black-light-1 flex justify-between items-center flex-row w-64 h-16 p-4 text-2xl">
@@ -32,7 +32,7 @@
 
         <!-- test display loop -->
         <div class="relative w-full">
-          <transition @before-leave="beforeLeave" name="fade-x" appear>
+          <transition @before-leave="beforeLeave" mode="out-in" name="fade-x" appear>
             <div v-if="tests && tests?.length >= 1" class="w-full relative space-y-2 transition-all duration-200 transform-gpu">
               <transition-group @before-leave="beforeLeave" name="fade-x" appear>
                 <base-test class="transition-all duration-200 transform-gpu" v-for="test in tests" :key="test.id" :test="test" :gid="GroupId" />

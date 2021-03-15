@@ -7,11 +7,11 @@
     </template>
     <template v-slot:content>
       <transition name="fade-x" @before-leave="beforeLeave" appear>
-        <div class="space-y-8 pl-10 pt-16 transition-all duration-200 transform-gpu h-full">
+        <div @keyup.enter="submit" class="space-y-8 pl-10 pt-16 transition-all duration-200 transform-gpu h-full relative">
           <div class="space-y-3">
             <h1 class="font-semibold mb-2 text-2xl">name your group</h1>
             <div class="ml-8 w-80">
-              <base-input v-model="groupName" name="group name *" type="text" tmp="Group Name" maxLen="32" :error="nameErr"></base-input>
+              <base-input v-model="groupName" name="group name *" type="text" tmp="Group Name" maxLen="32" :error="nameErr" focus="true"></base-input>
             </div>
           </div>
           <div>
@@ -30,12 +30,13 @@
               <base-input v-model="desc" name="description" type="text" tmp="..." maxLen="137"></base-input>
             </div>
 
-            <div class="absolute bottom-2 right-2 flex justify-end items-center space-x-8">
-              <button @click="submit" class="capitalize rounded-none bg-blue-base px-10 py-2.5 text-2xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200">
-                done
-              </button>
+            <div class="absolute bottom-2 left-2 right-2 flex justify-between items-center">
               <button @click="remove" class="capitalize rounded-none bg-red-base px-10 py-2.5 text-2xl font-semibold text-black-base hover:bg-red-light-1 transition duration-200">
                 delete
+              </button>
+
+              <button @click="submit" class="capitalize rounded-none bg-blue-base px-10 py-2.5 text-2xl font-semibold text-black-base hover:bg-blue-light-1 transition duration-200">
+                done
               </button>
             </div>
           </div>
@@ -145,14 +146,19 @@
     },
     mounted() {
       //get groupName, vali,
-      var gM = this.$store.getters.getGroupMeta(this.GroupId);
-      this.groupName = gM.name;
-      this.desc = gM.desc;
-      this.vali = gM.def.validation;
-      this.eli = gM.def.eliminatoir;
-      this.assez = gM.def.assez;
-      this.bien = gM.def.bien;
-      this.exce = gM.def.excellent;
+      try {
+        var gM = this.$store.getters.getGroupMeta(this.GroupId);
+        this.groupName = gM.name;
+        this.desc = gM.desc;
+        this.vali = gM.def.validation;
+        this.eli = gM.def.eliminatoir;
+        this.assez = gM.def.assez;
+        this.bien = gM.def.bien;
+        this.exce = gM.def.excellent;
+      }
+      catch(e){
+        this.$router.replace({name:'error',params: { error: e}});
+      }
     },
   };
 </script>

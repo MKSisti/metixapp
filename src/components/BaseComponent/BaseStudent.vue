@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-black-light-1 flex justify-between items-center flex-col w-full h-52 relative pb-1 flex-none"
+    class="bg-black-light-1 flex justify-between items-center flex-col w-full min-h-56 relative pb-1 flex-none overflow-hidden"
   >
     <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
     <h1 class="text-base capitalize absolute top-2 left-2">
@@ -37,7 +37,7 @@
       <!-- data edit, couldnt do the neat text turns to input cuz of the variable 
             length of data and data being in single line -->
       <div
-        class="w-full flex justify-around items-center flex-row -mt-6"
+        class="w-full flex justify-around items-center flex-row -mt-6 space-x-4 px-8"
         v-else
       >
         <base-input
@@ -47,6 +47,7 @@
           type="text"
           maxLen="32"
           :error="fullNameErr"
+          focus="true"
         ></base-input>
         <base-input
           @change="newEmail = $event.target.value"

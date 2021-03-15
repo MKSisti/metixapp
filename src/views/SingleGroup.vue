@@ -2,19 +2,19 @@
   <base-body :key="GroupId" class="capitalize overflow-hidden transition duration-200 transform-gpu">
     <template v-slot:title>
       <!-- group name -->
-      <div class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4" v-if="!editMode">
+      <!-- <div class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4" v-if="!editMode">
         <h1 class="text-4xl font-bold">{{ group?.name }}</h1>
         <span @click="editMode = true" class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base">
           <box-icon name="pencil" type="solid" size="cssSize" class="w-8 h-8 fill-current mt-1" v-pre></box-icon>
         </span>
-      </div>
+      </div> -->
 
       <!-- group edit, on when edit is clicked -->
-      <div class="w-full flex justify-start items-center flex-row h-full pl-10" v-else>
-        <input @change="newGrpName = $event.target.value" :value="group?.name " type="text" class="py-2 h-16 bg-transparent border-2 border-black-light-15 border-transparent focus:outline-none text-4xl font-bold transition duration-200 -ml-3 pl-3" />
-        <span @click="updateGrpName" class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base">
+      <div @keyup.enter="updateGrpName" class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4">
+        <input @change="newGrpName = $event.target.value" ref="editInput" :value="group?.name " type="text" class="py-2 h-14 bg-transparent border-2  hover:border-black-light-15 focus:border-black-light-15 border-transparent focus:outline-none text-4xl font-bold transition duration-200 -ml-3 pl-3 capitalize"/>
+        <!-- <span @click="updateGrpName" class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base">
           <box-icon name="check" size="cssSize" class="w-12 h-12 fill-current" v-pre></box-icon>
-        </span>
+        </span> -->
       </div>
     </template>
 
@@ -47,7 +47,7 @@
         <!-- student display loop -->
         <div class="w-full relative">
           <transition-group @before-leave="beforeLeave" name="fade-x" appear>
-            <div v-if="ShowAddStudent" key="student input" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none transition-all duration-200 transform-gpu mt-2">
+            <div @keyup.enter="addNewSt" v-if="ShowAddStudent" key="student input" class="bg-black-light-1 flex justify-between items-center flex-col w-full h-64 relative pb-1 flex-none transition-all duration-200 transform-gpu mt-2">
               <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->
               <h1 v-if="group?.students.length < 1" class="text-xl capitalize absolute top-2 left-2 font-bold">
                 Add your first student
@@ -65,7 +65,7 @@
               <!-- student add form -->
               <div class="w-full relative">
                 <div class="w-full flex justify-around items-center flex-row -mt-6 space-x-4 px-8">
-                  <base-input v-model="newStFullName" name="student full name *" type="text" tmp="First Last Jr." maxLen="32" :error="newStFullNameErr"></base-input>
+                  <base-input v-model="newStFullName" name="student full name *" type="text" tmp="First Last Jr." maxLen="32" :error="newStFullNameErr" focus="true"></base-input>
                   <base-input v-model="newStEmail" name="student email *" type="text" tmp="example@email.com" maxLen="32" :error="newStEmailErr"></base-input>
                   <base-input v-model="newStPhone" name="student phone *" type="text" tmp="(+212)-12345678" maxLen="32" :error="newStPhoneErr"></base-input>
                   <base-input v-model="newStCne" name="student cne *" type="text" tmp="XY123456" maxLen="32" :error="newStCneErr"></base-input>
@@ -137,6 +137,7 @@
           });
         }
         this.editMode = false;
+        document.documentElement.focus();
       },
       test() {
         var phoneTest = /^(\+212|0)(\d){9}$/;

@@ -15,20 +15,20 @@ export default {
       let keys = await localForage.keys();
       for (const key of keys) {
         if (key.includes('group_')) {
-          tmpGrp = JSON.parse(await localForage.getItem(key));
-          console.log(tmpGrp);
+          tmpGrp = await localForage.getItem(key);
           for (const modId of Object.keys(tmpGrp.modules)) {
-            tmpModules.push(JSON.parse(await localForage.getItem(modId)));
+            tmpModules.push(await localForage.getItem(modId));
+
             tmpModules[0].tests = [...Object.keys(tmpModules[0].tests)];
             tmpModules[0].tests = tmpModules[0].tests.map((testId) => testId.split('_')[1]);
           }
 
           for (const testId of Object.keys(tmpGrp.tests)) {
-            tmpTests.push(JSON.parse(await localForage.getItem(testId)));
+            tmpTests.push(await localForage.getItem(testId));
           }
 
           for (const stId of Object.keys(tmpGrp.students)) {
-            tmpStudents.push(JSON.parse(await localForage.getItem(stId)));
+            tmpStudents.push(await localForage.getItem(stId));
           }
 
           tmpGrp.modules = tmpModules;
@@ -101,7 +101,7 @@ export default {
     copyGrp.tests = {};
     copyGrp.students = {};
     //create group in localStorage
-    await localForage.setItem('group_' + newGrp.id, JSON.stringify(copyGrp));
+    await localForage.setItem('group_' + newGrp.id, copyGrp);
 
     //push group id to localStorage
     let groupIds = (await localForage.getItem('groupIds')) || [];
@@ -117,7 +117,7 @@ export default {
       defaults: payload.defaults,
     });
 
-    let grp = JSON.parse(await localForage.getItem('group_' + payload.id));
+    let grp = await localForage.getItem('group_' + payload.id);
     grp.defaults = payload.defaults;
     grp.desc = payload.desc;
     grp.name = payload.name;
@@ -133,7 +133,7 @@ export default {
       id: payload.id,
     })
     //get group from LF
-    let grp = JSON.parse(await localForage.getItem('group_' + payload.id));
+    let grp = await localForage.getItem('group_' + payload.id);
 
     //get group ids array and remove group from it
     let groupIds = (await localForage.getItem('groupIds')) || [];
@@ -165,7 +165,7 @@ export default {
     });
 
     //get group from localForage and modify name
-    let grp = JSON.parse(await localForage.getItem('group_' + payload.id));
+    let grp = await localForage.getItem('group_' + payload.id);
     grp.name = payload.name;
 
     //overwrite group with new name
@@ -188,12 +188,12 @@ export default {
     });
 
     //get group and push student
-    let grp = JSON.parse(await localForage.getItem('group_' + payload.id));
+    let grp = await localForage.getItem('group_' + payload.id);
     grp.students['student_' + newSt.id] = 1;
 
     //overwrite group with new student ID array
-    await localForage.setItem('group_' + grp.id, JSON.stringify(grp));
-    await localForage.setItem('student_' + newSt.id, JSON.stringify(newSt));
+    await localForage.setItem('group_' + grp.id, grp);
+    await localForage.setItem('student_' + newSt.id, newSt);
   },
   async removeStudent({ commit }, payload) {
     commit({
@@ -203,11 +203,11 @@ export default {
     });
 
     //get group and remove student
-    let grp = JSON.parse(await localForage.getItem('group_' + payload.id));
+    let grp = await localForage.getItem('group_' + payload.id);
     delete grp.students['student_' + payload.sid];
 
     //overwrite group with new student id array
-    await localForage.setItem('group_' + payload.id, JSON.stringify(grp));
+    await localForage.setItem('group_' + payload.id, grp);
 
     //remove student
     await localForage.removeItem('student_' + payload.sid);
@@ -231,7 +231,7 @@ export default {
     });
 
     //overwrite student with new fields
-    await localForage.setItem('student_' + payload.sid, JSON.stringify(updatedSt));
+    await localForage.setItem('student_' + payload.sid, updatedSt);
   },
   async updateAllStNotes({ commit, getters }, payload) {
     commit({
@@ -244,7 +244,7 @@ export default {
 
     let tests = getters.getGroupTests();
     for (let test in tests) {
-      await localForage.setItem('test_' + test.id, JSON.stringify(test));
+      await localForage.setItem('test_' + test.id, test);
     }
   },
   // general Module CRUD
@@ -265,12 +265,12 @@ export default {
     copyMod.tests = {};
 
     //get group and push mod id
-    let grp = JSON.parse(await localForage.getItem('group_' + payload.id));
+    let grp = await localForage.getItem('group_' + payload.id);
     grp.modules['module_' + copyMod.id] = 1;
 
     //overwrite group with new mod ID array and create module
-    await localForage.setItem('group_' + grp.id, JSON.stringify(grp));
-    await localForage.setItem('module_' + copyMod.id, JSON.stringify(copyMod));
+    await localForage.setItem('group_' + grp.id, grp);
+    await localForage.setItem('module_' + copyMod.id, copyMod);
   },
   async deleteMod({ commit }, payload) {
     //your delete logic here
@@ -280,10 +280,10 @@ export default {
       mid: payload.mid
     })
     //read module
-    let module = JSON.parse(await localForage.getItem('module_' + payload.mid));
+    let module = await localForage.getItem('module_' + payload.mid);
 
     //read group and delete module from group modules
-    let grp = JSON.parse(await localForage.getItem('group_' + payload.id));
+    let grp = await localForage.getItem('group_' + payload.id);
     delete grp.modules['module_' + payload.mid];
     
     //delete tests
@@ -293,7 +293,7 @@ export default {
     }
 
     //set updated group
-    await localForage.setItem('group_' + payload.id, JSON.stringify(grp));
+    await localForage.setItem('group_' + payload.id, grp);
 
     //remove module
     await localForage.removeItem('module_' + payload.mid);
@@ -305,11 +305,11 @@ export default {
       mid: payload.mid,
       name: payload.name,
     });
-    let updatedMod = JSON.parse(await localForage.getItem('module_' + payload.mid));
+    let updatedMod = await localForage.getItem('module_' + payload.mid);
     updatedMod.name = payload.name;
 
     //overwrite module with new name
-    await localForage.setItem('module_' + updatedMod.id, JSON.stringify(updatedMod));
+    await localForage.setItem('module_' + updatedMod.id, updatedMod);
   },
   // general Test CRUD
   async addTest({ commit, getters }, payload) {
@@ -338,16 +338,16 @@ export default {
       test: newTest,
     });
 
-    let updatedMod = JSON.parse(await localForage.getItem('module_' + payload.mid));
+    let updatedMod = await localForage.getItem('module_' + payload.mid);
     updatedMod.tests['test_' + newTest.id] = 1;
     updatedMod.testCounter++;
 
-    let updatedGrp = JSON.parse(await localForage.getItem('group_' + payload.gid));
+    let updatedGrp = await localForage.getItem('group_' + payload.gid);
     updatedGrp.tests['test_' + newTest.id] = 1;
     //create test
-    await localForage.setItem('test_' + newTest.id, JSON.stringify(newTest));
-    await localForage.setItem('module_' + updatedMod.id, JSON.stringify(updatedMod));
-    await localForage.setItem('group_' + updatedGrp.id, JSON.stringify(updatedGrp));
+    await localForage.setItem('test_' + newTest.id, newTest);
+    await localForage.setItem('module_' + updatedMod.id, updatedMod);
+    await localForage.setItem('group_' + updatedGrp.id, updatedGrp);
   },
   async updateNote({ commit }, payload) {
     commit({
@@ -358,11 +358,11 @@ export default {
       value: payload.value,
     });
 
-    let updatedTest = JSON.parse(await localForage.getItem('test_' + payload.tid));
+    let updatedTest = await localForage.getItem('test_' + payload.tid);
 
     updatedTest.notes[payload.sid].value = payload.value;
 
-    await localForage.setItem('test_' + payload.tid, JSON.stringify(updatedTest));
+    await localForage.setItem('test_' + payload.tid, updatedTest);
   },
   async removeTest({ commit }, payload) {
     commit({
@@ -372,16 +372,16 @@ export default {
       mid: payload.mid,
     });
 
-    let updatedMod = JSON.parse(await localForage.getItem('module_' + payload.mid));
+    let updatedMod = await localForage.getItem('module_' + payload.mid);
     delete updatedMod.tests['test_' + payload.tid];
     if(Object.keys(updatedMod.tests).length < 1) updatedMod.testCounter =0;
 
-    let updatedGrp = JSON.parse(await localForage.getItem('group_' + payload.gid));
+    let updatedGrp = await localForage.getItem('group_' + payload.gid);
     delete updatedGrp.tests['test_' + payload.tid];
 
     //create test
     await localForage.removeItem('test_' + payload.tid);
-    await localForage.setItem('module_' + updatedMod.id, JSON.stringify(updatedMod));
-    await localForage.setItem('group_' + updatedGrp.id, JSON.stringify(updatedGrp));
+    await localForage.setItem('module_' + updatedMod.id, updatedMod);
+    await localForage.setItem('group_' + updatedGrp.id, updatedGrp);
   },
 };

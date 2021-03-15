@@ -9,6 +9,7 @@
             box-shadow: 2px -4px 5px rgb(0, 0, 0, 0.1);
           "
           class="h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2"
+          @keyup.enter="updateN"
         >
           <!-- new module header  -->
           <div class="w-full flex justify-between items-center">
@@ -36,6 +37,7 @@
             maxLen="32"
             :modelValue="module.name"
             @update:modelValue="changeNameData"
+            focus="true"
           ></base-input>
 
           <!-- module done button -->

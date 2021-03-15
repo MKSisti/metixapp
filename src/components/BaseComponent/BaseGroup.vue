@@ -47,6 +47,7 @@
                 width: calc(100% + 12rem);
               "
               class="h-60 bg-black-light-10 absolute transform flex justify-between items-center flex-col p-2"
+              @keyup.enter="addMod"
             >
               <!-- new module header  -->
               <div class="w-full flex justify-between items-center">
@@ -73,6 +74,7 @@
                 tmp="Module name"
                 maxLen="32"
                 v-model="modInput"
+                focus="true"
               ></base-input>
 
               <!-- module done button -->

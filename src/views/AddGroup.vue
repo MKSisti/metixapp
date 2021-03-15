@@ -12,11 +12,11 @@
     </template>
     <template v-slot:content>
       <transition name="fade-x" @before-leave="beforeLeave" appear>
-        <div class="space-y-8 pl-10 pt-16 transition-all h-full transform-gpu relative">
+        <div @keyup.enter="submit" class="space-y-8 pl-10 pt-16 transition-all h-full transform-gpu relative">
           <div class="space-y-3">
             <h1 class="font-semibold mb-2 text-2xl">name your group</h1>
             <div class="ml-8 w-80">
-              <base-input v-model="groupName" name="group name *" type="text" tmp="Group Name" maxLen="32" :error="nameErr"></base-input>
+              <base-input v-model="groupName" name="group name *" type="text" tmp="Group Name" maxLen="32" :error="nameErr" focus="true"></base-input>
             </div>
           </div>
           <div>

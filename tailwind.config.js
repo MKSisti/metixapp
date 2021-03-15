@@ -10,6 +10,9 @@ module.exports = {
       "5": "5rem"
     },
     extend: {
+      minHeight: (theme) => ({
+        ...theme('spacing')
+      }),
       gridTemplateColumns: {
         side: "15rem 1fr"
       },

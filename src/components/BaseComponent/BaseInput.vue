@@ -24,7 +24,7 @@
 <script>
 export default {
   name: "BaseInput",
-  props: ["id", "name", "type", "tmp", "maxLen", "modelValue",'error'],
+  props: ["id", "name", "type", "tmp", "maxLen", "modelValue",'error','focus'],
   emits: ["update:modelValue"],
   computed: {
     value: {
@@ -36,6 +36,9 @@ export default {
       },
     },
   },
+  mounted(){
+    if(this.focus) document.getElementById(this.id ?? this.name).focus();
+  }
 };
 </script>
 
