@@ -73,16 +73,22 @@
         return this.getInfo(this.GroupId, this.ModuleId);
       },
       students() {
-        return this.getStudents(this.GroupId);
+        return this.getStudents(this.GroupId) ?? [];
       },
     },
     methods: {
       ...mapActions(['addTest']),
       addNewTest() {
-        this.addTest({
-          gid: this.GroupId,
-          mid: this.ModuleId,
-        });
+        if (this.students.length > 0) 
+          this.addTest({
+            gid: this.GroupId,
+            mid: this.ModuleId,
+          });
+        
+        else {
+          console.warn("No Student");
+        }
+
       },
     },
   };

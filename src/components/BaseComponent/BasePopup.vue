@@ -11,12 +11,12 @@
           
           <!-- popup header -->
           <div class="w-full flex justify-between items-center">
-            <h1 class="text-4xl font-bold capitalize ml-4 text-black-base">Alert</h1>
+            <h1 class="text-4xl font-bold uppercase ml-4 text-black-base">Alert</h1>
             
           </div>
 
           <!-- popup text -->
-          <div class="text-4xl font-medium py-4 text-black-base px-10">
+          <div class="text-3xl font-medium py-4 text-black-base px-10 uppercase">
             this action is irreversible
           </div>
           

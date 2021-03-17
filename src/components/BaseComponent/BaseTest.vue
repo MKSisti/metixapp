@@ -27,8 +27,10 @@
 
     <!-- student note container -->
     <div
-      :class="{ 'max-h-0': collapsed, 'pb-10 max-h-screen': !collapsed }"
-      class="w-full flex justify-around items-center flex-row flex-wrap transition-all duration-300 transform-gpu overflow-hidden"
+      :class="{ 'pb-10': !collapsed }"
+      class="w-full flex justify-start items-start flex-row flex-wrap transition-all duration-300 transform-gpu"
+      ref="noteCont"
+      :style="contHeight"
     >
       <!-- student note loop -->
       <base-note
@@ -75,6 +77,15 @@ export default {
       collapsed: true,
     };
   },
+  computed: {
+    contHeight() {
+      return this.collapsed
+        ? "height: 0px;"
+        : "height:" + Object.keys(this.test.notes).length <= 4
+        ? window.getComputedStyle(this.$refs.noteCont.firstElementChild).height
+        : Math.ceil(Object.keys(this.test.notes).length / 4) * window.getComputedStyle(this.$refs.noteCont.firstElementChild).height;
+    },
+  },
   methods: {
     ...mapActions(["updateNote", "removeTest"]),
     toggleCollapsed() {
@@ -99,8 +110,7 @@ export default {
   },
   mounted() {
     // console.log(Date.now() - this.test.timestamp);
-    this.collapsed = ((Date.now() - this.test.timestamp)  < 10000) ? false : true;
-    
+    this.collapsed = Date.now() - this.test.timestamp < 10000 ? false : true;
   },
 };
 </script>

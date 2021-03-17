@@ -7,6 +7,7 @@ const store = createStore({
   state() {
     return {
       groups: [],
+      helper: {},
     };
   },
   actions,
@@ -15,3 +16,4 @@ const store = createStore({
 });
 
 export default store;
+

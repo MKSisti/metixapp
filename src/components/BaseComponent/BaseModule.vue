@@ -98,16 +98,31 @@ import BaseInput from "./BaseInput";
 export default {
   name: "BaseModule",
   props: ["module", "gid"],
+  inject: ["pushPopup"],
   components: {
     BaseInput,
   },
-  emits: ["update", "remove"],
+  emits: ["update"],
   data() {
     return {
       newModName: "",
       editMode: false,
     };
   },
+  // computed: {
+  //   deleteSt() {
+  //     return this.getCode();
+  //   },
+  // },
+  // watch: {
+  //   deleteSt(newdst) {
+  //     console.log('state ',newdst);
+  //     if (newdst != null) {
+  //       console.log("pushed to group");
+  //       this.$router.replace({ name: "group", params: { GroupId: this.gid } });
+  //     }
+  //   },
+  // },
   methods: {
     updateN() {
       this.$emit("update", this.module.id, this.newModName);
@@ -115,7 +130,12 @@ export default {
       this.editMode = false;
     },
     deleteMod() {
-      this.$emit("remove", this.module.id);
+      this.pushPopup({
+        forWhat: "module",
+        id: this.gid,
+        mid: this.module.id,
+      });
+
       this.editMode = false;
     },
     changeNameData(value) {
@@ -127,6 +147,6 @@ export default {
         params: { GroupId: this.gid, ModuleId: this.module.id },
       });
     },
-  },
+  }
 };
 </script>

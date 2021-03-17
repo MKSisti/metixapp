@@ -90,6 +90,14 @@ export default {
           mid: payload.mid,
         });
         return Date.now();
+      case "module":
+        console.log("should delete a module");
+        dispatch({
+          type: "deleteMod",
+          id: payload.id,
+          mid: payload.mid,
+        });
+        return Date.now();
 
       default:
         console.warn("unsupported delete");

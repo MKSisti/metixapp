@@ -61,7 +61,7 @@
     name: 'AddGroup',
     components: { BaseBody, BaseInput },
     props: ['GroupId'],
-    inject: ['pushPopup', 'getCode' /*, "getPopState"*/],
+    inject: ['pushPopup'/*, 'getCode' , "getPopState"*/],
     data() {
       return {
         groupName: '',
@@ -74,27 +74,6 @@
         nameErr: null,
         notesErr: null,
       };
-    },
-    computed: {
-      popSt() {
-        return this.getPopState();
-      },
-      deleteSt() {
-        return this.getCode();
-      },
-    },
-    watch: {
-      // popSt(newst) {
-      //   // console.log("changed");
-      //   console.log(newst);
-      // },
-      deleteSt(newdst) {
-        // console.log(newdst);
-        if (newdst != null) {
-          console.log('pushed to home');
-          this.$router.push({ name: 'home' });
-        }
-      },
     },
     methods: {
       submit() {

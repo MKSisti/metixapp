@@ -36,16 +36,6 @@
         groups: 'getAllGroups',
       }),
     },
-    watch: {
-      groups: {
-        handler(){
-          console.log("changed");
-          
-        },
-        deep:true
-      }
-      
-    },
     methods: {
       goToAdd() {
         this.$router.push({ name: 'addGroup' });

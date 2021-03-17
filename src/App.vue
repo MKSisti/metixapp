@@ -38,7 +38,7 @@ export default {
     return {
       showPop: false,
       payload: null,
-      code: -1,
+      code: null,
     };
   },
   methods: {
@@ -49,6 +49,14 @@ export default {
     closePrompt(code) {
       this.showPop = false;
       this.code = code;
+      if (code) {
+        if (this.payload.forWhat == 'group') {
+          this.$router.push({ name: 'home' });
+        }
+        else if (this.payload.forWhat == 'module') {
+          this.$router.replace({ name: "group", params: { GroupId: this.payload.id } });
+        }
+      }
       // this.resetCode();
       // console.log(this.code);
     },
@@ -62,6 +70,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch("initStore");
+    console.log(this.$store.state.groups);
   },
 };
 </script>

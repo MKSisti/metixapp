@@ -16,7 +16,7 @@ router.beforeEach(async (to, from, next) => {
 
     //if groupId param in store
     if(keys.includes('group_' + to.params.GroupId)){
-      console.log('group exists');
+      // console.log('group exists');
 
       // if route has moduleId param
       if(to.params.ModuleId){

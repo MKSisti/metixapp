@@ -125,7 +125,6 @@
             :module="module"
             :gid="gid"
             @update="updateModN"
-            @remove="removeMod"
           ></base-module>
         </transition-group>
       </div>
@@ -201,12 +200,12 @@ export default {
         });
       }
     },
-    removeMod(id){
-      this.deleteMod({
-        id: this.gid,
-        mid: id,
-      })
-    },
+    // removeMod(id){
+    //   this.deleteMod({
+    //     id: this.gid,
+    //     mid: id,
+    //   })
+    // },
     ...mapActions(["addModule", "updateModName", "deleteMod"]),
   },
   watch: {

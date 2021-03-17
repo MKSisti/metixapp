@@ -13,6 +13,14 @@ module.exports = {
       minHeight: (theme) => ({
         ...theme('spacing')
       }),
+      maxWidth: {
+        '1/5': '20%',
+        '1/4': '25%',
+      },
+      minWidth: {
+        '1/5': '20%',
+        '1/4': '25%',
+      },
       gridTemplateColumns: {
         side: "15rem 1fr"
       },

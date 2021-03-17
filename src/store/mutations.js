@@ -5,10 +5,12 @@ export default {
   },
   // group mutations
   addGroup(state, payload) {
+    state.helper[payload.group.id]=state.groups.length;
     state.groups.push(payload.group);
   },
   removeGroup(state, payload){
     state.groups.splice(state.groups.findIndex(gr => gr.id == payload.id), 1);
+    
   },
   updateGroupName(state, payload){
     for (let i = 0; i < state.groups.length; i++) {
@@ -21,11 +23,11 @@ export default {
   updateGroupData(state, payload){
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.id) {
-        state.groups[i].name = payload.name;
+        state.groups[i].name = payload.name; 
         state.groups[i].desc = payload.desc;
         state.groups[i].defaults = payload.defaults;
       }
-      
+     
     }
   },
   // student mutations
@@ -146,12 +148,10 @@ export default {
     }
   },
   updateAllStudentNotes(state, payload){
-    console.log('is calling update all notes');
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.gid) {
         for (let j = 0; j < state.groups[i].tests.length; j++) {
           if (state.groups[i].tests[j].notes?.[payload.sid]) {
-            console.log('found One');
             state.groups[i].tests[j].notes[payload.sid].fullName = payload.fullName;
             state.groups[i].tests[j].notes[payload.sid].cne = payload.cne;
 

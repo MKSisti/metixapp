@@ -1,7 +1,7 @@
 <template>
   <!-- :key="note.sid"
         v-for="note in test.notes" -->
-  <div @keyup.enter="emitUpdate()" class="w-1/5 relative m-2 h-80 flex-auto flex justify-center items-start flex-col bg-black-light-5 max-w-md">
+  <div @keyup.enter="emitUpdate()" class="w-1/5 relative m-2 h-80 flex-auto flex justify-center items-start flex-col bg-black-light-5">
     <!-- single student data show and edit -->
 
     <!-- cne maybe or uneditable internal id to avoid duplicates maybe using UUID lib -->

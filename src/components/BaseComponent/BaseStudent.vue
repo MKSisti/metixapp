@@ -86,11 +86,12 @@
 
     <!-- edit/done button -->
     <div
+    @click="isInEditMode = true"
       class="flex justify-center items-center flex-row cursor-pointer h-9 w-20 group"
       v-if="!isInEditMode"
     >
       <span
-        @click="isInEditMode = true"
+        
         class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base group-hover:text-blue-light-1"
       >
         <box-icon
@@ -188,7 +189,7 @@ export default {
           })
         }
         } else {
-          console.log('failed test');
+          // console.log('failed test');
         }
           this.isInEditMode = false;
       }else{
