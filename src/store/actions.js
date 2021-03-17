@@ -33,10 +33,8 @@ export default {
           for (const modId of Object.keys(tmpGrp.modules)) {
             tmpModules.push(await localForage.getItem(modId));
 
-            tmpModules[0].tests = [...Object.keys(tmpModules[0].tests)];
-            tmpModules[0].tests = tmpModules[0].tests.map(
-              (testId) => testId.split("_")[1]
-            );
+            tmpModules[tmpModules.length - 1].tests = [...Object.keys(tmpModules[tmpModules.length - 1].tests)];
+            tmpModules[tmpModules.length - 1].tests = tmpModules[tmpModules.length - 1].tests.map((testId) => testId.split("_")[1]);
           }
 
           for (const testId of Object.keys(tmpGrp.tests)) {
@@ -51,7 +49,7 @@ export default {
           tmpGrp.tests = tmpTests;
           tmpGrp.students = tmpStudents;
           tmpState.push(tmpGrp);
-          // bug fixed: 😏
+          
           tmpModules = [];
           tmpTests = [];
           tmpStudents = [];

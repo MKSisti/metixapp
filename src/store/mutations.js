@@ -2,6 +2,7 @@ export default {
   // store init
   init(state,payload){
     state.groups = payload;
+    console.log(state.groups);
   },
   // group mutations
   addGroup(state, payload) {
@@ -114,6 +115,7 @@ export default {
         }
       }
     }
+    console.log(state.groups);
   },
   removeTestFromGrp(state, payload) {
     for (let i = 0; i < state.groups.length; i++) {
@@ -125,10 +127,8 @@ export default {
         }
         for (let j = 0; j < state.groups[i].modules.length; j++) {
           if (state.groups[i].modules[j].id == payload.mid) {
-            state.groups[i].modules[j].tests = state.groups[i].modules[
-              j
-            ].tests.filter((test) => test.id != payload.tid);
-            state.groups[i].modules[j].tests.length == 0 ? state.groups[i].modules[j].testCounter =  0 : null;
+            state.groups[i].modules[j].tests = state.groups[i].modules[j].tests.filter((testId) => testId != payload.tid);
+            state.groups[i].modules[j].tests.length == 0 ? state.groups[i].modules[j].testCounter = 0 : null;
           }
 
         }

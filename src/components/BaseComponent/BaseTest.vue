@@ -28,18 +28,18 @@
     <!-- student note container -->
     <div
       :class="{ 'pb-10': !collapsed }"
-      class="w-full flex justify-start items-start flex-row flex-wrap transition-all duration-300 transform-gpu"
-      ref="noteCont"
-      :style="contHeight"
+      class="w-full transition-all duration-300 transform-gpu"
     >
+      <div class="w-full flex justify-start items-start flex-row flex-wrap" v-if="!collapsed">
+        <base-note
+          @updateN="updateStudentNote"
+          v-for="(note, i) in test.notes"
+          :key="note.cne"
+          :note="note"
+          :sid="i"
+        />
+      </div>
       <!-- student note loop -->
-      <base-note
-        @updateN="updateStudentNote"
-        v-for="(note, i) in test.notes"
-        :key="note.cne"
-        :note="note"
-        :sid="i"
-      />
     </div>
 
     <!-- expand button -->
@@ -77,15 +77,16 @@ export default {
       collapsed: true,
     };
   },
-  computed: {
-    contHeight() {
-      return this.collapsed
-        ? "height: 0px;"
-        : "height:" + Object.keys(this.test.notes).length <= 4
-        ? window.getComputedStyle(this.$refs.noteCont.firstElementChild).height
-        : Math.ceil(Object.keys(this.test.notes).length / 4) * window.getComputedStyle(this.$refs.noteCont.firstElementChild).height;
-    },
-  },
+  // computed: {
+  //   contHeight() {
+  //     return this.collapsed
+  //       ? "height: 0px;"
+  //       : "height:" + Object.keys(this.test.notes).length <= 4
+  //       ? window.getComputedStyle(this.$refs.noteCont.firstElementChild).height
+  //       : Math.ceil(Object.keys(this.test.notes).length / 4) *
+  //         window.getComputedStyle(this.$refs.noteCont.firstElementChild).height;
+  //   },
+  // },
   methods: {
     ...mapActions(["updateNote", "removeTest"]),
     toggleCollapsed() {

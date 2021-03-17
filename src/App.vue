@@ -70,7 +70,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch("initStore");
-    console.log(this.$store.state.groups);
+    // console.log(this.$store.state.groups);
   },
 };
 </script>
