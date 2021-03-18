@@ -2,7 +2,6 @@ export default {
   // store init
   init(state,payload){
     state.groups = payload;
-    console.log(state.groups);
   },
   // group mutations
   addGroup(state, payload) {
@@ -115,7 +114,7 @@ export default {
         }
       }
     }
-    console.log(state.groups);
+    // console.log(state.groups);
   },
   removeTestFromGrp(state, payload) {
     for (let i = 0; i < state.groups.length; i++) {

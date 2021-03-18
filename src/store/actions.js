@@ -429,7 +429,7 @@ export default {
             tmpNote.push(test.notes[key].value);
             // console.log(test.notes[key].value);
           }
-          console.log(tmpNote);
+          // console.log(tmpNote);
           ret.mods[mod.id].tests[test.id] = {
             name: test.name,
             max: Math.max(...tmpNote),
