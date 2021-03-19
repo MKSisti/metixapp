@@ -25,7 +25,7 @@ export default {
       let tmpModules = [];
       let tmpTests = [];
       let tmpStudents = [];
-
+      let idx = 0;
       let keys = await localForage.keys();
       for (const key of keys) {
         if (key.includes("group_")) {
@@ -49,6 +49,7 @@ export default {
           tmpGrp.tests = tmpTests;
           tmpGrp.students = tmpStudents;
           tmpState.push(tmpGrp);
+          state.groupsMap[tmpGrp.id] = idx++;
           
           tmpModules = [];
           tmpTests = [];

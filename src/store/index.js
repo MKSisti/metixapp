@@ -7,7 +7,7 @@ const store = createStore({
   state() {
     return {
       groups: [],
-      helper: {},
+      groupsMap: {},
     };
   },
   actions,

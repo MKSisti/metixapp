@@ -1,173 +1,136 @@
 export default {
   // store init
-  init(state,payload){
+  init(state, payload) {
     state.groups = payload;
   },
   // group mutations
   addGroup(state, payload) {
-    state.helper[payload.group.id]=state.groups.length;
+    state.groupsMap[payload.group.id] = state.groups.length;
     state.groups.push(payload.group);
   },
-  removeGroup(state, payload){
-    state.groups.splice(state.groups.findIndex(gr => gr.id == payload.id), 1);
-    
-  },
-  updateGroupName(state, payload){
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.id) {
-        state.groups[i].name = payload.name;
-      }
-      
+  removeGroup(state, payload) {
+    let idx = state.groups.findIndex((gr) => gr.id == payload.id);
+    delete state.groupsMap[payload.id];
+    for (const key in state.groupsMap) {
+      state.groupsMap[key] > idx ? state.groupsMap[key]-- : null;
     }
+    state.groups.splice(idx, 1);
   },
-  updateGroupData(state, payload){
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.id) {
-        state.groups[i].name = payload.name; 
-        state.groups[i].desc = payload.desc;
-        state.groups[i].defaults = payload.defaults;
-      }
-     
-    }
+  updateGroupName(state, payload) {
+    state.groups[state.groupsMap[payload.id]].name = payload.name;
+  },
+  updateGroupData(state, payload) {
+    let idx = state.groupsMap[payload.id];
+    state.groups[idx].name = payload.name;
+    state.groups[idx].desc = payload.desc;
+    state.groups[idx].defaults = payload.defaults;
   },
   // student mutations
   addStudentToGrp(state, payload) {
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.id) {
-        state.groups[i].students.push(payload.student);
-      }
-    }
+    state.groups[state.groupsMap[payload.id]].students.push(payload.student);
   },
   removeStudentFromGrp(state, payload) {
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.id) {
-        for (let j = 0; j < state.groups[i].students.length; j++) {
-          if (state.groups[i].students[j].id == payload.sid) {
-            state.groups[i].students.splice(j, 1);
-          }
-        }
-      }
+    let idx = state.groupsMap[payload.id];
+    for (let j = 0; j < state.groups[idx].students.length; j++) {
+      if (state.groups[idx].students[j].id == payload.sid)
+        state.groups[idx].students.splice(j, 1);
     }
   },
   updateStudentData(state, payload) {
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.gid) {
-        for (let j = 0; j < state.groups[i].students.length; j++) {
-          if (state.groups[i].students[j].id == payload.sid) {
-            state.groups[i].students[j].fullName = payload.fullName;
-            state.groups[i].students[j].email = payload.email;
-            state.groups[i].students[j].phone = payload.phone;
-            state.groups[i].students[j].cin = payload.cin;
-            state.groups[i].students[j].cne = payload.cne;
-          }
-        }
+    let idx = state.groupsMap[payload.gid];
+    for (let j = 0; j < state.groups[idx].students.length; j++) {
+      if (state.groups[idx].students[j].id == payload.sid) {
+        state.groups[idx].students[j].fullName = payload.fullName;
+        state.groups[idx].students[j].email = payload.email;
+        state.groups[idx].students[j].phone = payload.phone;
+        state.groups[idx].students[j].cin = payload.cin;
+        state.groups[idx].students[j].cne = payload.cne;
       }
     }
   },
   // module mutations
   addModuleToGrp(state, payload) {
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.id) {
-        state.groups[i].modules.push(payload.module);
+    state.groups[state.groupsMap[payload.id]].modules.push(payload.module);
+  },
+  updateModuleName(state, payload) {
+    let idx = state.groupsMap[payload.gid];
+    for (let j = 0; j < state.groups[idx].modules.length; j++) {
+      if (state.groups[idx].modules[j].id == payload.mid) {
+        state.groups[idx].modules[j].name = payload.name;
       }
     }
   },
-  updateModuleName(state, payload){
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.gid) {
-        for (let j = 0; j < state.groups[i].modules.length; j++) {
-          if (state.groups[i].modules[j].id == payload.mid) {
-            state.groups[i].modules[j].name = payload.name;
-          }
-          
-        }
+  removeModuleFromGrp(state, payload) {
+    let idx = state.groupsMap[payload.id];
+    for (let j = 0; j < state.groups[idx].modules.length; j++) {
+      if (state.groups[idx].modules[j].id == payload.mid) {
+        state.groups[idx].modules.splice(j, 1);
       }
     }
-  },
-  removeModuleFromGrp(state, payload){
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.id) {
-        for (let j = 0; j < state.groups[i].modules.length; j++) {
-          if (state.groups[i].modules[j].id == payload.mid) {
-            state.groups[i].modules.splice(j,1);
-          }
-          
-        }
-        for (let j = 0; j < state.groups[i].tests.length; j++) {
-          if (state.groups[i].tests[j].module == payload.mid) {
-            state.groups[i].tests.splice(j, 1);
-          }
-        }
+    for (let j = 0; j < state.groups[idx].tests.length; j++) {
+      if (state.groups[idx].tests[j].module == payload.mid) {
+        state.groups[idx].tests.splice(j, 1);
       }
     }
   },
   // test mutations
   addTestToGrp(state, payload) {
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.id) {
-        state.groups[i].tests.push(payload.test);
-        for (let j = 0; j < state.groups[i].modules.length; j++) {
-          if (state.groups[i].modules[j].id == payload.test.module) {
-            state.groups[i].modules[j].tests.push(payload.test.id);
-            state.groups[i].modules[j].testCounter++
-          }
-        }
+    let idx = state.groupsMap[payload.id];
+    state.groups[idx].tests.push(payload.test);
+    for (let j = 0; j < state.groups[idx].modules.length; j++) {
+      if (state.groups[idx].modules[j].id == payload.test.module) {
+        state.groups[idx].modules[j].tests.push(payload.test.id);
+        state.groups[idx].modules[j].testCounter++;
       }
     }
     // console.log(state.groups);
   },
   removeTestFromGrp(state, payload) {
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.gid) {
-        for (let j = 0; j < state.groups[i].tests.length; j++) {
-          if (state.groups[i].tests[j].id == payload.tid) {
-            state.groups[i].tests.splice(j, 1);
-          }
-        }
-        for (let j = 0; j < state.groups[i].modules.length; j++) {
-          if (state.groups[i].modules[j].id == payload.mid) {
-            state.groups[i].modules[j].tests = state.groups[i].modules[j].tests.filter((testId) => testId != payload.tid);
-            state.groups[i].modules[j].tests.length == 0 ? state.groups[i].modules[j].testCounter = 0 : null;
-          }
-
-        }
+    let idx = state.groupsMap[payload.gid];
+    for (let j = 0; j < state.groups[idx].tests.length; j++) {
+      if (state.groups[idx].tests[j].id == payload.tid) {
+        state.groups[idx].tests.splice(j, 1);
+      }
+    }
+    for (let j = 0; j < state.groups[idx].modules.length; j++) {
+      if (state.groups[idx].modules[j].id == payload.mid) {
+        state.groups[idx].modules[j].tests.splice(
+          state.groups[idx].modules[j].tests.find(
+            (testId) => testId == payload.tid
+          ),
+          1
+        );
+        state.groups[idx].modules[j].tests.length == 0
+          ? (state.groups[idx].modules[j].testCounter = 0)
+          : null;
       }
     }
   },
   // notes mutations
   updateStudentNote(state, payload) {
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.gid) {
-        for (let j = 0; j < state.groups[i].tests.length; j++) {
-          if (state.groups[i].tests[j].id == payload.tid) {
-            state.groups[i].tests[j].notes[payload.sid].value = payload.value;
-          }
-        }
+    let idx = state.groupsMap[payload.gid];
+    for (let j = 0; j < state.groups[idx].tests.length; j++) {
+      if (state.groups[idx].tests[j].id == payload.tid) {
+        state.groups[idx].tests[j].notes[payload.sid].value = payload.value;
       }
     }
   },
   updateTestHeight(state, payload) {
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.gid) {
-        for (let j = 0; j < state.groups[i].tests.length; j++) {
-          if (state.groups[i].tests[j].id == payload.tid) {
-            state.groups[i].tests[j].height = payload.height;
-          }
-        }
+    let idx = state.groupsMap[payload.gid];
+    for (let j = 0; j < state.groups[idx].tests.length; j++) {
+      if (state.groups[idx].tests[j].id == payload.tid) {
+        state.groups[idx].tests[j].height = payload.height;
       }
     }
   },
-  updateAllStudentNotes(state, payload){
-    for (let i = 0; i < state.groups.length; i++) {
-      if (state.groups[i].id == payload.gid) {
-        for (let j = 0; j < state.groups[i].tests.length; j++) {
-          if (state.groups[i].tests[j].notes?.[payload.sid]) {
-            state.groups[i].tests[j].notes[payload.sid].fullName = payload.fullName;
-            state.groups[i].tests[j].notes[payload.sid].cne = payload.cne;
-
-          }
-        }
+  updateAllStudentNotes(state, payload) {
+    let idx = state.groupsMap[payload.gid];
+    for (let j = 0; j < state.groups[idx].tests.length; j++) {
+      if (state.groups[idx].tests[j].notes?.[payload.sid]) {
+        state.groups[idx].tests[j].notes[payload.sid].fullName =
+          payload.fullName;
+        state.groups[idx].tests[j].notes[payload.sid].cne = payload.cne;
       }
     }
-  }
+  },
 };
