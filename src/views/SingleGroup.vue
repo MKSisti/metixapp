@@ -11,7 +11,7 @@
 
       <!-- group edit, on when edit is clicked -->
       <div @keyup.enter="updateGrpName" class="w-full flex justify-start items-center flex-row h-full pl-10 pt-4">
-        <input @change="newGrpName = $event.target.value" ref="editInput" :value="group?.name " type="text" class="py-2 h-14 bg-transparent border-2  hover:border-black-light-15 focus:border-black-light-15 border-transparent focus:outline-none text-4xl font-bold transition duration-200 -ml-3 pl-3 capitalize"/>
+        <input @change="newGrpName = $event.target.value" ref="editInput" :value="group?.name" type="text" class="py-2 h-14 bg-transparent border-2  hover:border-black-light-15 focus:border-black-light-15 border-transparent focus:outline-none text-4xl font-bold transition duration-200 -ml-3 pl-3 capitalize" />
         <!-- <span @click="updateGrpName" class="cursor-pointer text-sm flex justify-center items-center ml-2 text-blue-base">
           <box-icon name="check" size="cssSize" class="w-12 h-12 fill-current" v-pre></box-icon>
         </span> -->
@@ -19,7 +19,7 @@
     </template>
 
     <template v-slot:subtitles>
-      <h1 class="pl-10 pt-2">{{ group?.desc}}</h1>
+      <h1 class="pl-10 pt-2">{{ group?.desc }}</h1>
     </template>
 
     <template v-slot:topRight>
@@ -36,14 +36,35 @@
     </template>
 
     <template v-slot:content>
+      <div @click.self.stop="console.log('hook me up to remove popup')" v-if="!'[SHOW__UPLOAD__MENU]'" style="height:calc( 100vh - 20% )" class="fixed w-full z-50 bg-black-base bg-opacity-60 transition duration-200">
+        <div class="h-full w-full flex justify-center items-center">
+          <div class="pointer-events-auto">
+            <span @click.self.stop="console.log('hook me up to upload file')" class="cursor-pointer group hover:w-28 transition-all duration-200 hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-start space-x-1.5 items-center py-px pl-0.5 overflow-hidden">
+              <box-icon name="arrow-to-top" size="cssSize" class="w-8 h-8 fill-current flex-none" v-pre></box-icon>
+              <h1 class="opacity-0 transform-gpu -translate-x-4 group-hover:delay-100 group-hover:translate-x-0 group-hover:opacity-100 text-lg flex-none transition duration-200">upload</h1>
+            </span>
+          </div>
+        </div>
+      </div>
       <div class="w-full h-full pt-28 flex flex-col justify-start items-start space-y-2 px-3 overflow-y-auto overflow-x-hidden">
         <!-- new student, adds an empty student or template student with edit flag true -->
-        <div class="bg-black-light-1 flex justify-between items-center flex-row w-64 h-16 p-4">
-          <h1 class="text-2xl capitalize font-bold">new Student</h1>
-          <span @click="toggleShowAddStudent" class="cursor-pointer hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-center items-center p-px">
-            <box-icon name="plus" size="cssSize" class="w-full h-full fill-current" v-pre></box-icon>
-          </span>
+        <div class="w-full flex justify-start items-center space-x-2">
+          <div class="bg-black-light-1 flex justify-between items-center flex-row w-64 h-16 p-4">
+            <h1 class="text-2xl capitalize font-bold">new Student</h1>
+            <span @click="toggleShowAddStudent" class="cursor-pointer hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-center items-center p-px">
+              <box-icon name="plus" size="cssSize" class="w-full h-full fill-current" v-pre></box-icon>
+            </span>
+          </div>
+
+          <div>
+            <span @click="console.log('hook me up to popup')" class="group hover:w-28 transition-all duration-200 cursor-pointer hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-start space-x-1.5 items-center py-px pl-0.5 overflow-hidden">
+              <box-icon name="arrow-to-top" size="cssSize" class="w-8 h-8 fill-current flex-none" v-pre></box-icon>
+              <h1 class="opacity-0 transform-gpu -translate-x-4 group-hover:delay-100 group-hover:translate-x-0 group-hover:opacity-100 text-lg flex-none transition duration-200">upload</h1>
+            </span>
+          </div>
+
         </div>
+
         <!-- student display loop -->
         <div class="w-full relative">
           <transition-group @before-leave="beforeLeave" name="fade-x" appear>
@@ -123,6 +144,7 @@
       group() {
         return this.$store.getters.getGroup(this.GroupId);
       },
+      console: () => console
     },
     methods: {
       ...mapActions(['addStudent', 'removeStudent', 'changeGrpName']),
@@ -185,12 +207,12 @@
           id: this.GroupId,
         });
       },
-      goToEdit(){
+      goToEdit() {
         this.$router.push({ name: 'groupEdit', params: { GroupId: this.GroupId } });
       },
-      goToAnalytics(){
+      goToAnalytics() {
         this.$router.push({ name: 'groupAnalytics', params: { GroupId: this.GroupId } });
-      }
+      },
     },
   };
 </script>
