@@ -146,6 +146,17 @@ export default {
       }
     }
   },
+  updateTestHeight(state, payload) {
+    for (let i = 0; i < state.groups.length; i++) {
+      if (state.groups[i].id == payload.gid) {
+        for (let j = 0; j < state.groups[i].tests.length; j++) {
+          if (state.groups[i].tests[j].id == payload.tid) {
+            state.groups[i].tests[j].height = payload.height;
+          }
+        }
+      }
+    }
+  },
   updateAllStudentNotes(state, payload){
     for (let i = 0; i < state.groups.length; i++) {
       if (state.groups[i].id == payload.gid) {

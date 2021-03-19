@@ -352,7 +352,7 @@ export default {
       name: "Test_" + testNumber,
       module: payload.mid,
       timestamp: Date.now(),
-      notes,
+      notes
     };
     commit({
       type: "addTestToGrp",
@@ -370,6 +370,17 @@ export default {
     await localForage.setItem("test_" + newTest.id, newTest);
     await localForage.setItem("module_" + updatedMod.id, updatedMod);
     await localForage.setItem("group_" + updatedGrp.id, updatedGrp);
+  },
+  async updateTestHeight({ commit },payload){
+    commit({
+      type: "updateTestHeight",
+      gid: payload.gid,
+      tid: payload.tid,
+      height: payload.height,
+    });
+    let updatedTest = await localForage.getItem("test_" + payload.tid);
+    updatedTest.height = payload.height;
+    await localForage.setItem("test_" + payload.tid, updatedTest);
   },
   async updateNote({ commit }, payload) {
     commit({
@@ -406,7 +417,6 @@ export default {
     await localForage.setItem("module_" + updatedMod.id, updatedMod);
     await localForage.setItem("group_" + updatedGrp.id, updatedGrp);
   },
-
   async getGroupAnalytics({ getters }, payload) {
     let groupMeta = getters.getGroupMeta(payload.id);
     let modules = getters.getGroupModules(payload.id);
@@ -415,7 +425,7 @@ export default {
       return null;
     } else {
       let ret = {
-        name: groupMeta.name,
+        ...groupMeta,
         mods: {},
       };
       for (const mod of modules) {
