@@ -60,6 +60,7 @@
             <span @click="console.log('hook me up to popup')" class="group hover:w-28 transition-all duration-200 cursor-pointer hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-start space-x-1.5 items-center py-px pl-0.5 overflow-hidden">
               <box-icon name="arrow-to-top" size="cssSize" class="w-8 h-8 fill-current flex-none" v-pre></box-icon>
               <h1 class="opacity-0 transform-gpu -translate-x-4 group-hover:delay-100 group-hover:translate-x-0 group-hover:opacity-100 text-lg flex-none transition duration-200">upload</h1>
+              <input type="file" accept=".csv" @change="filesChange($event.target.files); ">
             </span>
           </div>
 
@@ -206,6 +207,42 @@
           sid: sid,
           id: this.GroupId,
         });
+      },
+      async filesChange(files ){
+        let file = files[0];
+        // console.log(file.name);
+        // console.log(file.type);
+        // console.log(file.size);
+
+        if (file.name.split('.')[1] == 'csv') {
+          var reader = new FileReader();
+          reader.onload = (e) => {
+            // The file's text will be printed here
+            // console.log(e.target.result)
+            let f = e.target.result;
+            var lines = f.split('\n');
+            for (let i = 1; i < lines.length; i++) {
+              // console.log(lines[i]);
+              let line = lines[i].split(',');
+              if ( line[0] && line[1] && line[2] && line[4] ) {
+                this.addStudent({
+                  id: this.GroupId,
+                  fullName: line[0],
+                  email: line[1],
+                  phone: line[2],
+                  cin: line[3] ?? '',
+                  cne: line[4],
+                });
+                // if (i > 3) break;
+              }
+            }
+          };
+          reader.readAsText(file);
+        }
+        else{
+          console.warn('please provide a valid file format');
+        }
+        
       },
       goToEdit() {
         this.$router.push({ name: 'groupEdit', params: { GroupId: this.GroupId } });

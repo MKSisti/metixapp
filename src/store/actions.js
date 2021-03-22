@@ -195,6 +195,7 @@ export default {
   },
   // general Student CRUD
   async addStudent({ commit }, payload) {
+    // console.log("adding"+payload.fullName);
     var newSt = {
       id: uuidv4(),
       fullName: payload.fullName,
