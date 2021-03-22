@@ -216,7 +216,7 @@
 
         if (file.name.split('.')[1] == 'csv') {
           var reader = new FileReader();
-          reader.onload = (e) => {
+          reader.onload = async (e) => {
             // The file's text will be printed here
             // console.log(e.target.result)
             let f = e.target.result;
@@ -225,7 +225,7 @@
               // console.log(lines[i]);
               let line = lines[i].split(',');
               if ( line[0] && line[1] && line[2] && line[4] ) {
-                this.addStudent({
+                await this.addStudent({
                   id: this.GroupId,
                   fullName: line[0],
                   email: line[1],
