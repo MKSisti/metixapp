@@ -36,12 +36,13 @@
     </template>
 
     <template v-slot:content>
-      <div @click.self.stop="console.log('hook me up to remove popup')" v-if="!'[SHOW__UPLOAD__MENU]'" style="height:calc( 100vh - 20% )" class="fixed w-full z-50 bg-black-base bg-opacity-60 transition duration-200">
-        <div class="h-full w-full flex justify-center items-center">
+      <div @click.self="showPopup = false" v-if="showPopup" style="height:calc( 100vh - 20% )" class="fixed w-full z-50 bg-black-base bg-opacity-60 transition duration-200">
+        <div class="h-full w-full flex justify-center items-center pointer-events-none">
           <div class="pointer-events-auto">
-            <span @click.self.stop="console.log('hook me up to upload file')" class="cursor-pointer group hover:w-28 transition-all duration-200 hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-start space-x-1.5 items-center py-px pl-0.5 overflow-hidden">
+            <span  @click="$refs.FileUpload.click()" class="cursor-pointer group hover:w-28 transition-all duration-200 hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-start space-x-1.5 items-center py-px pl-0.5 overflow-hidden">
               <box-icon name="arrow-to-top" size="cssSize" class="w-8 h-8 fill-current flex-none" v-pre></box-icon>
               <h1 class="opacity-0 transform-gpu -translate-x-4 group-hover:delay-100 group-hover:translate-x-0 group-hover:opacity-100 text-lg flex-none transition duration-200">upload</h1>
+              <input ref="FileUpload" type="file" accept=".csv" @change="filesChange($event.target.files); " hidden>
             </span>
           </div>
         </div>
@@ -57,10 +58,10 @@
           </div>
 
           <div>
-            <span @click="console.log('hook me up to popup')" class="group hover:w-28 transition-all duration-200 cursor-pointer hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-start space-x-1.5 items-center py-px pl-0.5 overflow-hidden">
+            <span @click="showPopup = true" class="group hover:w-28 transition-all duration-200 cursor-pointer hover:text-blue-light-1 text-3xl font-bold bg-black-light-5 text-blue-base w-9 h-9 flex justify-start space-x-1.5 items-center py-px pl-0.5 overflow-hidden">
               <box-icon name="arrow-to-top" size="cssSize" class="w-8 h-8 fill-current flex-none" v-pre></box-icon>
               <h1 class="opacity-0 transform-gpu -translate-x-4 group-hover:delay-100 group-hover:translate-x-0 group-hover:opacity-100 text-lg flex-none transition duration-200">upload</h1>
-              <input type="file" accept=".csv" @change="filesChange($event.target.files); ">
+              
             </span>
           </div>
 
@@ -127,6 +128,7 @@
     inject: ['pushPopup'],
     data() {
       return {
+        showPopup: false,
         newGrpName: null,
         editMode: false,
         ShowAddStudent: false,
@@ -210,32 +212,32 @@
       },
       async filesChange(files ){
         let file = files[0];
-        // console.log(file.name);
-        // console.log(file.type);
-        // console.log(file.size);
-
         if (file.name.split('.')[1] == 'csv') {
           var reader = new FileReader();
           reader.onload = async (e) => {
-            // The file's text will be printed here
-            // console.log(e.target.result)
             let f = e.target.result;
             var lines = f.split('\n');
+            let columnNames = lines[0].split(',');
+            let fullNameIdx = columnNames.findIndex(i =>  /^full[ ]*name$/i.test(i));
+            let emailIdx = columnNames.findIndex(i => /email/i.test(i)) ;
+            let phoneIdx = columnNames.findIndex(i => /phone/i.test(i)) ;
+            let cinIdx = columnNames.findIndex(i => /cin/i.test(i)) ;
+            let cneIdx = columnNames.findIndex(i => /cne/i.test(i)) ; 
             for (let i = 1; i < lines.length; i++) {
-              // console.log(lines[i]);
               let line = lines[i].split(',');
               if ( line[0] && line[1] && line[2] && line[4] ) {
                 await this.addStudent({
                   id: this.GroupId,
-                  fullName: line[0],
-                  email: line[1],
-                  phone: line[2],
-                  cin: line[3] ?? '',
-                  cne: line[4],
+                  fullName: line[fullNameIdx],
+                  email: line[emailIdx],
+                  phone: line[phoneIdx],
+                  cin: line[cinIdx] ?? '',
+                  cne: line[cneIdx],
                 });
-                // if (i > 3) break;
+                
               }
             }
+            this.showPopup = false;
           };
           reader.readAsText(file);
         }
